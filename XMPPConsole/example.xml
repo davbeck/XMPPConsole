@@ -1,0 +1,8 @@
+<iq from="lpaqffz8@groups.liveprofile.com" to="lpgxqfxa@messenger.liveprofile.com/2437721113134395064526683" id="1836" type="result">
+    <query xmlns="liveprofile:group:members">
+        <item jid="LPGXQFXA@messenger.liveprofile.com" name="Beck iMac Simulator" photo="http://s3.amazonaws.com/liveprofile_production/profile_images/mmwy1pkgai/120.jpg" role="admin"/>
+        <item jid="LPFD0PVG@messenger.liveprofile.com" name="Beck iPad 3" photo="http://s3.amazonaws.com/liveprofile_production/profile_images/6pq6qqrrxf/120.jpg" role="member"/>
+        <item jid="LPC30CJ0@messenger.liveprofile.com" name="Beck iPhone 3G" photo="http://s3.amazonaws.com/liveprofile_production/profile_images/6ik8x6n49v/120.jpg" role="member"/>
+        <item jid="lpwhrg8t@messenger.liveprofile.com" name="Beck MacBook Simulator" photo="" role="member"/>
+    </query>
+</iq>

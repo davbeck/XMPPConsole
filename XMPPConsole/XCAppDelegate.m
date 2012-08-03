@@ -15,4 +15,9 @@
     // Insert code here to initialize your application
 }
 
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+    return YES;
+}
+
 @end

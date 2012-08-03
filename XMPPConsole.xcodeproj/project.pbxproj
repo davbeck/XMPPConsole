@@ -86,7 +86,25 @@
 		11D07A3815CB840100639604 /* XMPPXFacebookPlatformAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 11D07A2B15CB840100639604 /* XMPPXFacebookPlatformAuthentication.h */; };
 		11D07A3915CB840100639604 /* XMPPXFacebookPlatformAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D07A2C15CB840100639604 /* XMPPXFacebookPlatformAuthentication.m */; };
 		11D07A3A15CB840100639604 /* XMPPSASLAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 11D07A2D15CB840100639604 /* XMPPSASLAuthentication.h */; };
+		11D07A6F15CB899800639604 /* libXMPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0798915CB802000639604 /* libXMPP.a */; };
+		11D07A7515CC1A8700639604 /* XCConnectionDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D07A7315CC1A8700639604 /* XCConnectionDocument.m */; };
+		11D07A7615CC1A8700639604 /* XCConnectionDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */; };
+		11D07A7F15CC326900639604 /* example.xml in Resources */ = {isa = PBXBuildFile; fileRef = 11D07A7E15CC326900639604 /* example.xml */; };
+		11D07A8015CC41DD00639604 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0799B15CB809A00639604 /* Security.framework */; };
+		11D07A8115CC41DD00639604 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0799E15CB823100639604 /* libxml2.dylib */; };
+		11D07A8215CC41DD00639604 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D079F515CB832B00639604 /* libresolv.dylib */; };
+		11D07A8515CC923E00639604 /* XCJIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D07A8415CC923E00639604 /* XCJIDFormatter.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11D07A7015CB8A4F00639604 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D0793E15CB7D5000639604 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11D0798815CB802000639604;
+			remoteInfo = XMPP;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		11D0794715CB7D5000639604 /* XMPPConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPPConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +153,7 @@
 		11D079BF15CB831A00639604 /* XMPPPresence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPPresence.h; sourceTree = "<group>"; };
 		11D079C015CB831A00639604 /* XMPPPresence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPresence.m; sourceTree = "<group>"; };
 		11D079C115CB831A00639604 /* XMPPStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPStream.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		11D079C215CB831A00639604 /* XMPPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPStream.m; sourceTree = "<group>"; };
+		11D079C215CB831A00639604 /* XMPPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPStream.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11D079C415CB831A00639604 /* DDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDList.h; sourceTree = "<group>"; };
 		11D079C515CB831A00639604 /* DDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDList.m; sourceTree = "<group>"; };
 		11D079C615CB831A00639604 /* GCDMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDMulticastDelegate.h; sourceTree = "<group>"; };
@@ -177,6 +195,12 @@
 		11D07A2B15CB840100639604 /* XMPPXFacebookPlatformAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPXFacebookPlatformAuthentication.h; sourceTree = "<group>"; };
 		11D07A2C15CB840100639604 /* XMPPXFacebookPlatformAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPXFacebookPlatformAuthentication.m; sourceTree = "<group>"; };
 		11D07A2D15CB840100639604 /* XMPPSASLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSASLAuthentication.h; sourceTree = "<group>"; };
+		11D07A7215CC1A8700639604 /* XCConnectionDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCConnectionDocument.h; sourceTree = "<group>"; };
+		11D07A7315CC1A8700639604 /* XCConnectionDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCConnectionDocument.m; sourceTree = "<group>"; };
+		11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCConnectionDocument.xib; sourceTree = "<group>"; };
+		11D07A7E15CC326900639604 /* example.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = example.xml; sourceTree = "<group>"; };
+		11D07A8315CC923E00639604 /* XCJIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJIDFormatter.h; sourceTree = "<group>"; };
+		11D07A8415CC923E00639604 /* XCJIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJIDFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +208,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11D07A6F15CB899800639604 /* libXMPP.a in Frameworks */,
 				11D0794C15CB7D5000639604 /* Cocoa.framework in Frameworks */,
+				11D07A8015CC41DD00639604 /* Security.framework in Frameworks */,
+				11D07A8115CC41DD00639604 /* libxml2.dylib in Frameworks */,
+				11D07A8215CC41DD00639604 /* libresolv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +279,11 @@
 				11D0795D15CB7D5000639604 /* XCAppDelegate.h */,
 				11D0795E15CB7D5000639604 /* XCAppDelegate.m */,
 				11D0796015CB7D5000639604 /* MainMenu.xib */,
+				11D07A7215CC1A8700639604 /* XCConnectionDocument.h */,
+				11D07A7315CC1A8700639604 /* XCConnectionDocument.m */,
+				11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */,
+				11D07A8315CC923E00639604 /* XCJIDFormatter.h */,
+				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
 				11D0795215CB7D5000639604 /* Supporting Files */,
 			);
 			path = XMPPConsole;
@@ -264,6 +297,7 @@
 				11D0795715CB7D5000639604 /* main.m */,
 				11D0795915CB7D5000639604 /* XMPPConsole-Prefix.pch */,
 				11D0795A15CB7D5000639604 /* Credits.rtf */,
+				11D07A7E15CC326900639604 /* example.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -532,6 +566,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				11D07A7115CB8A4F00639604 /* PBXTargetDependency */,
 			);
 			name = XMPPConsole;
 			productName = XMPPConsole;
@@ -591,6 +626,8 @@
 				11D0795615CB7D5000639604 /* InfoPlist.strings in Resources */,
 				11D0795C15CB7D5000639604 /* Credits.rtf in Resources */,
 				11D0796215CB7D5000639604 /* MainMenu.xib in Resources */,
+				11D07A7615CC1A8700639604 /* XCConnectionDocument.xib in Resources */,
+				11D07A7F15CC326900639604 /* example.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +640,8 @@
 			files = (
 				11D0795815CB7D5000639604 /* main.m in Sources */,
 				11D0795F15CB7D5000639604 /* XCAppDelegate.m in Sources */,
+				11D07A7515CC1A8700639604 /* XCConnectionDocument.m in Sources */,
+				11D07A8515CC923E00639604 /* XCJIDFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +684,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11D07A7115CB8A4F00639604 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11D0798815CB802000639604 /* XMPP */;
+			targetProxy = 11D07A7015CB8A4F00639604 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		11D0795415CB7D5000639604 /* InfoPlist.strings */ = {
@@ -698,6 +745,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -719,6 +767,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -730,6 +779,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMPPConsole/XMPPConsole-Prefix.pch";
 				INFOPLIST_FILE = "XMPPConsole/XMPPConsole-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -742,6 +792,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMPPConsole/XMPPConsole-Prefix.pch";
 				INFOPLIST_FILE = "XMPPConsole/XMPPConsole-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
