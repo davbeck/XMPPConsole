@@ -1,0 +1,301 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11D0794C15CB7D5000639604 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0794B15CB7D5000639604 /* Cocoa.framework */; };
+		11D0795615CB7D5000639604 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11D0795415CB7D5000639604 /* InfoPlist.strings */; };
+		11D0795815CB7D5000639604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D0795715CB7D5000639604 /* main.m */; };
+		11D0795C15CB7D5000639604 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 11D0795A15CB7D5000639604 /* Credits.rtf */; };
+		11D0795F15CB7D5000639604 /* XCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D0795E15CB7D5000639604 /* XCAppDelegate.m */; };
+		11D0796215CB7D5000639604 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D0796015CB7D5000639604 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		11D0794715CB7D5000639604 /* XMPPConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPPConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11D0794B15CB7D5000639604 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		11D0794E15CB7D5000639604 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		11D0794F15CB7D5000639604 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		11D0795015CB7D5000639604 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		11D0795315CB7D5000639604 /* XMPPConsole-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XMPPConsole-Info.plist"; sourceTree = "<group>"; };
+		11D0795515CB7D5000639604 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		11D0795715CB7D5000639604 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		11D0795915CB7D5000639604 /* XMPPConsole-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMPPConsole-Prefix.pch"; sourceTree = "<group>"; };
+		11D0795B15CB7D5000639604 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		11D0795D15CB7D5000639604 /* XCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCAppDelegate.h; sourceTree = "<group>"; };
+		11D0795E15CB7D5000639604 /* XCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCAppDelegate.m; sourceTree = "<group>"; };
+		11D0796115CB7D5000639604 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11D0794415CB7D5000639604 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11D0794C15CB7D5000639604 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11D0793C15CB7D5000639604 = {
+			isa = PBXGroup;
+			children = (
+				11D0795115CB7D5000639604 /* XMPPConsole */,
+				11D0794A15CB7D5000639604 /* Frameworks */,
+				11D0794815CB7D5000639604 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		11D0794815CB7D5000639604 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11D0794715CB7D5000639604 /* XMPPConsole.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11D0794A15CB7D5000639604 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11D0794B15CB7D5000639604 /* Cocoa.framework */,
+				11D0794D15CB7D5000639604 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11D0794D15CB7D5000639604 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11D0794E15CB7D5000639604 /* AppKit.framework */,
+				11D0794F15CB7D5000639604 /* CoreData.framework */,
+				11D0795015CB7D5000639604 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		11D0795115CB7D5000639604 /* XMPPConsole */ = {
+			isa = PBXGroup;
+			children = (
+				11D0795D15CB7D5000639604 /* XCAppDelegate.h */,
+				11D0795E15CB7D5000639604 /* XCAppDelegate.m */,
+				11D0796015CB7D5000639604 /* MainMenu.xib */,
+				11D0795215CB7D5000639604 /* Supporting Files */,
+			);
+			path = XMPPConsole;
+			sourceTree = "<group>";
+		};
+		11D0795215CB7D5000639604 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11D0795315CB7D5000639604 /* XMPPConsole-Info.plist */,
+				11D0795415CB7D5000639604 /* InfoPlist.strings */,
+				11D0795715CB7D5000639604 /* main.m */,
+				11D0795915CB7D5000639604 /* XMPPConsole-Prefix.pch */,
+				11D0795A15CB7D5000639604 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11D0794615CB7D5000639604 /* XMPPConsole */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11D0796515CB7D5000639604 /* Build configuration list for PBXNativeTarget "XMPPConsole" */;
+			buildPhases = (
+				11D0794315CB7D5000639604 /* Sources */,
+				11D0794415CB7D5000639604 /* Frameworks */,
+				11D0794515CB7D5000639604 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XMPPConsole;
+			productName = XMPPConsole;
+			productReference = 11D0794715CB7D5000639604 /* XMPPConsole.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11D0793E15CB7D5000639604 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = XC;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = DavidBeck;
+			};
+			buildConfigurationList = 11D0794115CB7D5000639604 /* Build configuration list for PBXProject "XMPPConsole" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 11D0793C15CB7D5000639604;
+			productRefGroup = 11D0794815CB7D5000639604 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11D0794615CB7D5000639604 /* XMPPConsole */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		11D0794515CB7D5000639604 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11D0795615CB7D5000639604 /* InfoPlist.strings in Resources */,
+				11D0795C15CB7D5000639604 /* Credits.rtf in Resources */,
+				11D0796215CB7D5000639604 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11D0794315CB7D5000639604 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11D0795815CB7D5000639604 /* main.m in Sources */,
+				11D0795F15CB7D5000639604 /* XCAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		11D0795415CB7D5000639604 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11D0795515CB7D5000639604 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		11D0795A15CB7D5000639604 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11D0795B15CB7D5000639604 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		11D0796015CB7D5000639604 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11D0796115CB7D5000639604 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		11D0796315CB7D5000639604 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		11D0796415CB7D5000639604 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		11D0796615CB7D5000639604 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMPPConsole/XMPPConsole-Prefix.pch";
+				INFOPLIST_FILE = "XMPPConsole/XMPPConsole-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		11D0796715CB7D5000639604 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMPPConsole/XMPPConsole-Prefix.pch";
+				INFOPLIST_FILE = "XMPPConsole/XMPPConsole-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11D0794115CB7D5000639604 /* Build configuration list for PBXProject "XMPPConsole" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11D0796315CB7D5000639604 /* Debug */,
+				11D0796415CB7D5000639604 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11D0796515CB7D5000639604 /* Build configuration list for PBXNativeTarget "XMPPConsole" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11D0796615CB7D5000639604 /* Debug */,
+				11D0796715CB7D5000639604 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11D0793E15CB7D5000639604 /* Project object */;
+}

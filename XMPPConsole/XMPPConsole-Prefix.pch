@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'XMPPConsole' target in the 'XMPPConsole' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
