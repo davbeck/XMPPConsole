@@ -15,7 +15,9 @@
 
 
 
-@implementation XCConnectionDocument
+@implementation XCConnectionDocument {
+    BOOL _needsToScroll;
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -101,6 +103,8 @@
 
 - (void)_addXMLString:(NSString *)string isServer:(BOOL)isServer
 {
+    BOOL shouldLock = [self _shouldLockStanzasTextViewToBottom];
+    
     string = [string stringByAppendingString:@"\n\n"];
     
     NSMutableDictionary *attributes = [@{
@@ -112,6 +116,10 @@
     
     NSAttributedString *stanza = [[NSAttributedString alloc] initWithString:string attributes:attributes];
     [self.stanzasTextView.textStorage appendAttributedString:stanza];
+    
+    if (shouldLock || _needsToScroll) {
+        [self _setNeedsToScroll];
+    }
 }
 
 - (void)_addXMLElement:(NSXMLElement *)element isServer:(BOOL)isServer
@@ -119,6 +127,44 @@
     NSString *string = [element XMLStringWithOptions:NSXMLNodePrettyPrint];
     
     [self _addXMLString:string isServer:isServer];
+}
+
+- (BOOL)_shouldLockStanzasTextViewToBottom
+{
+    NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
+    
+    return NSMaxY(scrollView.contentView.bounds) >= NSMaxY([scrollView.documentView frame]);
+}
+
+- (void)_setNeedsToScroll
+{
+    // When you update the text in a NSTextView it doesn't update it's size until the next run loop, so we need to wait to sroll until after that
+    // By using dispatch_async on the main queue it will run after everything that is queued on the run loop thus far
+    // However, if you then update the text again before we get a chance to scroll, we will scroll and then the size will change again
+    // So until we get our chance to scroll, we keep adding on to the end of the run loop
+    
+    _needsToScroll = YES;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self _scrollToBottom];
+    });
+}
+
+- (void)_scrollToBottom;
+{
+    _needsToScroll = NO;
+    
+    NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
+    NSPoint newScrollOrigin;
+    
+    // assume that the scrollview is an existing variable
+    if ([[scrollView documentView] isFlipped]) {
+        newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, NSMaxY([scrollView.documentView frame]) - NSHeight(scrollView.contentView.bounds));
+    } else {
+        newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, 0.0);
+    }
+    
+    [[scrollView documentView] scrollPoint:newScrollOrigin];
 }
 
 
