@@ -13,6 +13,7 @@
 #import "DDTTYLogger.h"
 #import "NSXMLElement+AttributedString.h"
 #import "XCSnippet.h"
+#import "XCSnippetRowView.h"
 
 
 
@@ -57,8 +58,10 @@
     return @"XCConnectionDocument";
 }
 
-- (void)awakeFromNib
+- (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
+    [super windowControllerDidLoadNib:aController];
+    
     [[self.stanzasTextView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[self.stanzasTextView textContainer] setWidthTracksTextView:NO];
     [self.stanzasTextView setHorizontallyResizable:YES];
@@ -70,12 +73,6 @@
     [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
     
     [self connect:nil];
-}
-
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController
-{
-    [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -257,6 +254,14 @@
     XCSnippet *snippet = [[[self.snippetTableView rowViewAtRow:self.snippetTableView.selectedRow makeIfNecessary:YES] viewAtColumn:0] objectValue];
     
     [self.XMLEditor insertText:snippet.body];
+}
+
+
+#pragma mark - NSTableViewDelegate
+
+- (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
+{
+    return [[XCSnippetRowView alloc] init];
 }
 
 @end
