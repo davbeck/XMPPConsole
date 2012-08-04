@@ -128,10 +128,6 @@
     
     [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
     
-    
-    NSLog(@"   xml: %@", self);
-    NSLog(@"string: %@", string.string);
-    
     return string;
 }
 

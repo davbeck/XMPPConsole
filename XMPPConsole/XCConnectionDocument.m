@@ -12,6 +12,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "NSXMLElement+AttributedString.h"
+#import "XCSnippet.h"
 
 
 
@@ -249,6 +250,13 @@
         
         self.XMLEditor.string = @"";
     }
+}
+
+- (IBAction)insertSelectedSnippet:(id)sender;
+{
+    XCSnippet *snippet = [[[self.snippetTableView rowViewAtRow:self.snippetTableView.selectedRow makeIfNecessary:YES] viewAtColumn:0] objectValue];
+    
+    [self.XMLEditor insertText:snippet.body];
 }
 
 @end

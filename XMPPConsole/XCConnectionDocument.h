@@ -16,6 +16,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *stanzasTextView;
 @property (unsafe_unretained) IBOutlet NSTextView *XMLEditor;
+@property (weak) IBOutlet NSTableView *snippetTableView;
 @property (weak) IBOutlet NSButton *connectButton;
 
 @property (copy) NSString *password;
@@ -24,5 +25,6 @@
 - (IBAction)connect:(id)sender;
 - (IBAction)disconnect:(id)sender;
 - (IBAction)send:(id)sender;
+- (IBAction)insertSelectedSnippet:(id)sender;
 
 @end
