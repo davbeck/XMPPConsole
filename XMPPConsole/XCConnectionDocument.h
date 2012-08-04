@@ -16,9 +16,13 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *stanzasTextView;
 @property (unsafe_unretained) IBOutlet NSTextView *stanzaEditor;
+@property (weak) IBOutlet NSButton *connectButton;
 
 @property (copy) NSString *password;
 
+- (IBAction)connectOrDisconnect:(id)sender;
+- (IBAction)connect:(id)sender;
+- (IBAction)disconnect:(id)sender;
 - (IBAction)send:(id)sender;
 
 @end

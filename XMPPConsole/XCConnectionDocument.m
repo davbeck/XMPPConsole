@@ -17,6 +17,24 @@
 
 @implementation XCConnectionDocument
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqualToString:@"isConnected"] && object == self.stream) {
+        if (self.stream.isConnected) {
+            self.connectButton.title = NSLocalizedString(@"Disconnect", nil);
+        } else {
+            self.connectButton.title = NSLocalizedString(@"Connect", nil);
+        }
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
+}
+
+- (void)dealloc
+{
+    [self.stream removeObserver:self forKeyPath:@"isConnected"];
+}
+
 - (id)init
 {
     self = [super init];
@@ -44,10 +62,9 @@
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
-    NSError *error = nil;
-    if (![self.stream connect:&error]) {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
+    [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
+    
+    [self connectOrDisconnect:nil];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
@@ -129,6 +146,38 @@
 
 
 #pragma mark - Actions
+
+- (IBAction)connectOrDisconnect:(id)sender
+{
+    if (self.stream.isConnected) {
+        [self disconnect:nil];
+    } else {
+        [self connect:nil];
+    }
+}
+
+- (IBAction)connect:(id)sender
+{
+    NSError *error = nil;
+    if (![self.stream connect:&error]) {
+        NSLog(@"Error connecting: %@", error);
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert setMessageText:NSLocalizedString(@"Error parsing XML Element:", nil)];
+        [alert setInformativeText:error.localizedDescription];
+        
+        [alert beginSheetModalForWindow:[self.windowControllers[0] window]
+                          modalDelegate:nil
+                         didEndSelector:NULL
+                            contextInfo:nil];
+        NSBeep();
+    }
+}
+
+- (IBAction)disconnect:(id)sender
+{
+    [self.stream disconnect];
+}
 
 - (IBAction)send:(id)sender
 {
