@@ -62,6 +62,8 @@
     [[self.stanzasTextView textContainer] setWidthTracksTextView:NO];
     [self.stanzasTextView setHorizontallyResizable:YES];
     
+    [self.stanzaEditor setFont:[NSFont fontWithName:@"Menlo" size:14.0]];
+    
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
