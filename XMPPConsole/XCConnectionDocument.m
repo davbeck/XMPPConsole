@@ -11,7 +11,7 @@
 #import "XMPP.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
-#import <objc/runtime.h>
+#import "NSXMLElement+AttributedString.h"
 
 
 
@@ -101,11 +101,11 @@
     return NO;
 }
 
-- (void)_addXMLString:(NSString *)string isServer:(BOOL)isServer
+- (void)_addXMLString:(NSAttributedString *)string isServer:(BOOL)isServer
 {
     BOOL shouldLock = [self _shouldLockStanzasTextViewToBottom];
     
-    string = [string stringByAppendingString:@"\n\n"];
+    NSMutableAttributedString *stanza = [string mutableCopy];
     
     NSMutableDictionary *attributes = [@{
                                        NSFontAttributeName : [NSFont fontWithName:@"Menlo" size:14.0],
@@ -113,8 +113,8 @@
     if (isServer) {
         attributes[NSBackgroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
     }
+    [stanza addAttributes:attributes range:NSMakeRange(0, stanza.length)];
     
-    NSAttributedString *stanza = [[NSAttributedString alloc] initWithString:string attributes:attributes];
     [self.stanzasTextView.textStorage appendAttributedString:stanza];
     
     if (shouldLock || _needsToScroll) {
@@ -124,7 +124,7 @@
 
 - (void)_addXMLElement:(NSXMLElement *)element isServer:(BOOL)isServer
 {
-    NSString *string = [element XMLStringWithOptions:NSXMLNodePrettyPrint];
+    NSAttributedString *string = [element XMLAttributedString];
     
     [self _addXMLString:string isServer:isServer];
 }
@@ -177,7 +177,7 @@
 
 - (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
 {
-    [self _addXMLString:string isServer:NO];
+    [self _addXMLString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", string]] isServer:NO];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didSendElement:(NSXMLElement *)element

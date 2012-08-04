@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11568AAE15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */; };
 		11D0794C15CB7D5000639604 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0794B15CB7D5000639604 /* Cocoa.framework */; };
 		11D0795615CB7D5000639604 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11D0795415CB7D5000639604 /* InfoPlist.strings */; };
 		11D0795815CB7D5000639604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D0795715CB7D5000639604 /* main.m */; };
@@ -89,7 +90,6 @@
 		11D07A6F15CB899800639604 /* libXMPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0798915CB802000639604 /* libXMPP.a */; };
 		11D07A7515CC1A8700639604 /* XCConnectionDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D07A7315CC1A8700639604 /* XCConnectionDocument.m */; };
 		11D07A7615CC1A8700639604 /* XCConnectionDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */; };
-		11D07A7F15CC326900639604 /* example.xml in Resources */ = {isa = PBXBuildFile; fileRef = 11D07A7E15CC326900639604 /* example.xml */; };
 		11D07A8015CC41DD00639604 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0799B15CB809A00639604 /* Security.framework */; };
 		11D07A8115CC41DD00639604 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0799E15CB823100639604 /* libxml2.dylib */; };
 		11D07A8215CC41DD00639604 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D079F515CB832B00639604 /* libresolv.dylib */; };
@@ -107,6 +107,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11568AAC15CCC4B4009BBE6A /* NSXMLElement+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+AttributedString.h"; sourceTree = "<group>"; };
+		11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+AttributedString.m"; sourceTree = "<group>"; };
 		11D0794715CB7D5000639604 /* XMPPConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPPConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D0794B15CB7D5000639604 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11D0794E15CB7D5000639604 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -198,7 +200,6 @@
 		11D07A7215CC1A8700639604 /* XCConnectionDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCConnectionDocument.h; sourceTree = "<group>"; };
 		11D07A7315CC1A8700639604 /* XCConnectionDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCConnectionDocument.m; sourceTree = "<group>"; };
 		11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCConnectionDocument.xib; sourceTree = "<group>"; };
-		11D07A7E15CC326900639604 /* example.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = example.xml; sourceTree = "<group>"; };
 		11D07A8315CC923E00639604 /* XCJIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJIDFormatter.h; sourceTree = "<group>"; };
 		11D07A8415CC923E00639604 /* XCJIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJIDFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -231,6 +232,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11568AAA15CCC3B9009BBE6A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				11568AAC15CCC4B4009BBE6A /* NSXMLElement+AttributedString.h */,
+				11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		11D0793C15CB7D5000639604 = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +294,7 @@
 				11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */,
 				11D07A8315CC923E00639604 /* XCJIDFormatter.h */,
 				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
+				11568AAA15CCC3B9009BBE6A /* Categories */,
 				11D0795215CB7D5000639604 /* Supporting Files */,
 			);
 			path = XMPPConsole;
@@ -297,7 +308,6 @@
 				11D0795715CB7D5000639604 /* main.m */,
 				11D0795915CB7D5000639604 /* XMPPConsole-Prefix.pch */,
 				11D0795A15CB7D5000639604 /* Credits.rtf */,
-				11D07A7E15CC326900639604 /* example.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -627,7 +637,6 @@
 				11D0795C15CB7D5000639604 /* Credits.rtf in Resources */,
 				11D0796215CB7D5000639604 /* MainMenu.xib in Resources */,
 				11D07A7615CC1A8700639604 /* XCConnectionDocument.xib in Resources */,
-				11D07A7F15CC326900639604 /* example.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +651,7 @@
 				11D0795F15CB7D5000639604 /* XCAppDelegate.m in Sources */,
 				11D07A7515CC1A8700639604 /* XCConnectionDocument.m in Sources */,
 				11D07A8515CC923E00639604 /* XCJIDFormatter.m in Sources */,
+				11568AAE15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,6 +855,7 @@
 				11D0796715CB7D5000639604 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11D0799115CB802000639604 /* Build configuration list for PBXNativeTarget "XMPP" */ = {
 			isa = XCConfigurationList;
@@ -853,6 +864,7 @@
 				11D0799315CB802000639604 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
