@@ -62,13 +62,13 @@
     [[self.stanzasTextView textContainer] setWidthTracksTextView:NO];
     [self.stanzasTextView setHorizontallyResizable:YES];
     
-    [self.stanzaEditor setFont:[NSFont fontWithName:@"Menlo" size:14.0]];
+    [self.XMLEditor setFont:[NSFont fontWithName:@"Menlo" size:14.0]];
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
     
-    [self connectOrDisconnect:nil];
+    [self connect:nil];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
@@ -230,7 +230,7 @@
 - (IBAction)send:(id)sender
 {
     NSError *error;
-    NSXMLElement *stanza = [[NSXMLElement alloc] initWithXMLString:self.stanzaEditor.string error:&error];
+    NSXMLElement *stanza = [[NSXMLElement alloc] initWithXMLString:self.XMLEditor.string error:&error];
     
     if (stanza == nil) {
         NSLog(@"Error parsing XML Element: %@", error);
@@ -247,7 +247,7 @@
     } else {
         [self.stream sendElement:stanza];
         
-        self.stanzaEditor.string = @"";
+        self.XMLEditor.string = @"";
     }
 }
 

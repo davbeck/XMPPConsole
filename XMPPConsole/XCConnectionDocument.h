@@ -15,7 +15,7 @@
 @property (strong) XMPPStream *stream;
 
 @property (unsafe_unretained) IBOutlet NSTextView *stanzasTextView;
-@property (unsafe_unretained) IBOutlet NSTextView *stanzaEditor;
+@property (unsafe_unretained) IBOutlet NSTextView *XMLEditor;
 @property (weak) IBOutlet NSButton *connectButton;
 
 @property (copy) NSString *password;
