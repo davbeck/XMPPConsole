@@ -8,6 +8,9 @@
 
 #import "XCSnippet.h"
 
+#import "XCSnippet_Private.h"
+
+
 @implementation XCSnippet
 
 - (NSAttributedString *)attributedSummary
@@ -41,6 +44,55 @@
     snippet.body = body;
     
     return snippet;
+}
+
+- (id)copy
+{
+    return [[self class] snippetWithTitle:_title summary:_summary body:_body];
+}
+
+
+#pragma mark - Saving
+
+- (void)_save
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary new];
+    if (_title != nil) {
+        dictionary[XCSnippetTitleKey] = _title;
+    }
+    if (_title != nil) {
+        dictionary[XCSnippetSummaryKey] = _summary;
+    }
+    if (_title != nil) {
+        dictionary[XCSnippetBodyKey] = _body;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+        
+        [data writeToURL:self._fileURL atomically:YES];
+    });
+}
+
+- (id)_initWithURL:(NSURL *)URL
+{
+    self = [super init];
+    if (self) {
+        __fileURL = URL;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSData *data = [NSData dataWithContentsOfURL:__fileURL];
+            NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
+            
+            if ([dictionary isKindOfClass:[NSDictionary class]]) {
+                self.title = dictionary[XCSnippetTitleKey];
+                self.summary = dictionary[XCSnippetSummaryKey];
+                self.body = dictionary[XCSnippetBodyKey];
+            }
+        });
+    }
+    
+    return self;
 }
 
 

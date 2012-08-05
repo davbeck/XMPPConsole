@@ -8,6 +8,19 @@
 
 #import "XCSnippetController.h"
 
+#import "XCSnippet_Private.h"
+
+
+NSURL *XCURLForSnippets()
+{
+    NSURL *directory = [[NSFileManager defaultManager] applicationSupportDirectory];
+    directory = [directory URLByAppendingPathComponent:@"Snippets" isDirectory:YES];
+    
+    [[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    return directory;
+}
+
 
 @implementation XCSnippetController {
     NSMutableArray *_snippets;
@@ -38,19 +51,19 @@ static XCSnippetController *sharedInstance;
     [_snippets getObjects:buffer range:inRange];
 }
 
-- (void)insertObject:(XCSnippet *)object inSnippetsAtIndex:(NSUInteger)index
+- (void)insertObject:(XCSnippet *)snippet inSnippetsAtIndex:(NSUInteger)index
 {
-    [_snippets insertObject:object atIndex:index];
+    [_snippets insertObject:snippet atIndex:index];
+    
+    [self _saveSnippet:snippet];
+    [self _save];
 }
 
 - (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index
 {
     [_snippets removeObjectAtIndex:index];
-}
-
-- (void)replaceObjectInSnippetsAtIndex:(NSUInteger)index withObject:(id)object
-{
-    [_snippets replaceObjectAtIndex:index withObject:object];
+    
+    [self _save];
 }
 
 
@@ -64,17 +77,7 @@ static XCSnippetController *sharedInstance;
         
         sharedInstance->_snippets = [[NSMutableArray alloc] init];
         
-        [sharedInstance->_snippets addObjectsFromArray:@[
-         [XCSnippet snippetWithTitle:@"Presence" summary:@"The most basic presence update." body:@"<presence></presence>"],
-         [XCSnippet snippetWithTitle:@"Status update" summary:@"A presence update with a status." body:@"<presence>\n\t<status>Debugging with XMPP</status>\n</presence>"],
-         
-         [XCSnippet snippetWithTitle:@"Presence" summary:@"The most basic presence update." body:@"<presence></presence>"],
-         [XCSnippet snippetWithTitle:@"Status update" summary:@"A presence update with a status." body:@"<presence>\n\t<status>Debugging with XMPP</status>\n</presence>"],
-         [XCSnippet snippetWithTitle:@"Presence" summary:@"The most basic presence update." body:@"<presence></presence>"],
-         [XCSnippet snippetWithTitle:@"Status update" summary:@"A presence update with a status." body:@"<presence>\n\t<status>Debugging with XMPP</status>\n</presence>"],
-         [XCSnippet snippetWithTitle:@"Presence" summary:@"The most basic presence update." body:@"<presence></presence>"],
-         [XCSnippet snippetWithTitle:@"Status update" summary:@"A presence update with a status." body:@"<presence>\n\t<status>Debugging with XMPP</status>\n</presence>"],
-         ]];
+        [sharedInstance _load];
 	});
 }
 
@@ -100,6 +103,94 @@ static XCSnippetController *sharedInstance;
 - (id)init
 {
     return self;
+}
+
+
+#pragma mark - Saving
+
+- (void)_load
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        BOOL exists = [self _loadSavedSnippets];
+        
+        if (!exists) {
+            [self _loadDefaultSnippets];
+        }
+    });
+}
+
+- (BOOL)_loadSavedSnippets
+{
+    NSURL *snippetDirectory = XCURLForSnippets();
+    NSURL *indexURL = [snippetDirectory URLByAppendingPathComponent:@"Index.plist" isDirectory:NO];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[indexURL path]]) {
+        NSData *data = [NSData dataWithContentsOfURL:indexURL];
+        NSArray *index = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
+        
+        if ([index isKindOfClass:[NSArray class]]) {
+            [self willChangeValueForKey:@"snippets"];
+            
+            for (NSString *path in index) {
+                [_snippets addObject:[[XCSnippet alloc] _initWithURL:[NSURL fileURLWithPath:path]]];
+            }
+            
+            [self didChangeValueForKey:@"snippets"];
+        }
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)_loadDefaultSnippets
+{
+    NSURL *defaultSnippetsURL = [[NSBundle mainBundle] URLForResource:@"DefaultSnippets" withExtension:@"plist"];
+    NSData *data = [NSData dataWithContentsOfURL:defaultSnippetsURL];
+    NSArray *snippetsInfo = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
+    
+    [self willChangeValueForKey:@"snippets"];
+    
+    for (NSDictionary *snippetInfo in snippetsInfo) {
+        XCSnippet *snippet = [XCSnippet snippetWithTitle:snippetInfo[XCSnippetTitleKey] summary:snippetInfo[XCSnippetSummaryKey] body:snippetInfo[XCSnippetBodyKey]];
+        [_snippets addObject:snippet];
+        [self _saveSnippet:snippet];
+    }
+    
+    [self didChangeValueForKey:@"snippets"];
+    
+    [self _save];
+}
+
+- (void)_save
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSURL *snippetDirectory = XCURLForSnippets();
+        NSURL *indexURL = [snippetDirectory URLByAppendingPathComponent:@"Index.plist" isDirectory:NO];
+        
+        NSData *data = [NSPropertyListSerialization dataWithPropertyList:[[self.snippets valueForKey:@"_fileURL"] valueForKey:@"path"] format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+        [data writeToURL:indexURL atomically:YES];
+    });
+}
+
+- (void)_saveSnippet:(XCSnippet *)snippet
+{
+    if (snippet._fileURL == nil) {
+        NSURL *snippetDirectory = XCURLForSnippets();
+        BOOL directoryExists = YES;
+        if (![[NSFileManager defaultManager] fileExistsAtPath:snippetDirectory.path isDirectory:&directoryExists]) {
+            directoryExists = [[NSFileManager defaultManager] createDirectoryAtPath:snippetDirectory.path withIntermediateDirectories:YES attributes:nil error:NULL];
+        }
+        
+        if (directoryExists) {
+            NSString *fileName = [NSString stringWithFormat:@"%@.plist", [[NSUUID UUID] UUIDString]];
+            NSURL *snippetURL = [snippetDirectory URLByAppendingPathComponent:fileName isDirectory:NO];
+            snippet._fileURL = snippetURL;
+        }
+    }
+    
+    [snippet _save];
 }
 
 @end

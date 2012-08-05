@@ -44,7 +44,7 @@
 {
     self = [super init];
     if (self) {
-        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+//        [DDLog addLogger:[DDTTYLogger sharedInstance]];
         
         _stream = [[XMPPStream alloc] init];
         
