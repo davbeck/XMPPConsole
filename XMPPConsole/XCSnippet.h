@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XCSnippet : NSObject <NSPasteboardWriting, NSPasteboardReading>
+
+#define XCSnippetUTI @"co.DavidBeck.XCSnippet"
+
+
+@interface XCSnippet : NSObject <NSPasteboardWriting, NSPasteboardReading, NSCoding>
 
 @property (copy) NSString *title;
 @property (copy) NSString *summary;

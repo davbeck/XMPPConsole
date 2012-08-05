@@ -52,6 +52,28 @@
 }
 
 
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:_title forKey:XCSnippetTitleKey];
+    [aCoder encodeObject:_summary forKey:XCSnippetSummaryKey];
+    [aCoder encodeObject:_body forKey:XCSnippetBodyKey];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        _title = [aDecoder decodeObjectForKey:XCSnippetTitleKey];
+        _summary = [aDecoder decodeObjectForKey:XCSnippetSummaryKey];
+        _body = [aDecoder decodeObjectForKey:XCSnippetBodyKey];
+    }
+    
+    return self;
+}
+
+
 #pragma mark - Saving
 
 - (void)_save
@@ -100,11 +122,18 @@
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard
 {
-    return [self.body writableTypesForPasteboard:pasteboard];
+    NSMutableArray *types = [[self.body writableTypesForPasteboard:pasteboard] mutableCopy];
+    [types insertObject:XCSnippetUTI atIndex:0];
+    
+    return types;
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type
 {
+    if ([type isEqualToString:XCSnippetUTI]) {
+        return [NSKeyedArchiver archivedDataWithRootObject:self];
+    }
+    
     return [self.body pasteboardPropertyListForType:type];
 }
 
@@ -113,11 +142,18 @@
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard
 {
-    return [NSString readableTypesForPasteboard:pasteboard];
+    NSMutableArray *types = [[NSString readableTypesForPasteboard:pasteboard] mutableCopy];
+    [types insertObject:XCSnippetUTI atIndex:0];
+    
+    return types;
 }
 
 - (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type
 {
+    if ([type isEqualToString:XCSnippetUTI] && [propertyList isKindOfClass:[NSData class]]) {
+        return [NSKeyedUnarchiver unarchiveObjectWithData:propertyList];
+    }
+    
     self = [super init];
     if (self != nil) {
         self.body = [[NSString alloc] initWithPasteboardPropertyList:propertyList ofType:type];
