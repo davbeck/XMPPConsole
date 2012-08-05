@@ -12,6 +12,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "NSXMLElement+AttributedString.h"
+#import "XCSnippetController.h"
 #import "XCSnippet.h"
 #import "XCSnippetRowView.h"
 
@@ -67,6 +68,10 @@
     [self.stanzasTextView setHorizontallyResizable:YES];
     
     [self.XMLEditor setFont:[NSFont fontWithName:@"Menlo" size:14.0]];
+    
+    [self.snippetTableView registerForDraggedTypes:[NSString readableTypesForPasteboard:nil]];
+    [self.snippetTableView setDraggingSourceOperationMask:NSDragOperationCopy | NSDragOperationMove forLocal:NO];
+    
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
@@ -264,6 +269,11 @@
 
 #pragma mark - NSTableViewDelegate
 
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return [tableView makeViewWithIdentifier:@"Snippet" owner:self];
+}
+
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
 {
     return [[XCSnippetRowView alloc] init];
@@ -274,6 +284,51 @@
     XCSnippet *snippet = [[[self.snippetTableView rowViewAtRow:row makeIfNecessary:YES] viewAtColumn:0] objectValue];
     
     return snippet;
+}
+
+- (void)tableView:(NSTableView *)tableView updateDraggingItemsForDrag:(id<NSDraggingInfo>)draggingInfo
+{
+    NSLog(@"info: %@", draggingInfo);
+    
+    NSTableCellView *snippetCell = [tableView makeViewWithIdentifier:@"Snippet" owner:self];
+    NSRect cellFrame = NSMakeRect(0.0, 0.0, [[tableView tableColumns][0] width], tableView.rowHeight);
+    
+    [draggingInfo enumerateDraggingItemsWithOptions:0 forView:tableView classes:@[ [XCSnippet class] ] searchOptions:nil usingBlock:
+     ^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
+         draggingItem.draggingFrame = cellFrame;
+         draggingItem.imageComponentsProvider = ^(void) {
+             snippetCell.objectValue = draggingItem.item;
+             snippetCell.frame = cellFrame;
+             return [snippetCell draggingImageComponents];
+         };
+     }];
+}
+
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
+{
+    info.animatesToDestination = YES;
+    
+    if (info.draggingSource == tableView) {
+        return info.draggingSourceOperationMask;
+    }
+    
+    return NSDragOperationCopy;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation
+{
+    __block NSUInteger insertionIndex = row;
+    [info enumerateDraggingItemsWithOptions:0 forView:tableView classes:@[ [XCSnippet class] ] searchOptions:nil usingBlock:
+     ^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
+         XCSnippet *snippet = draggingItem.item;
+         [[XCSnippetController sharedController] insertObject:snippet inSnippetsAtIndex:insertionIndex];
+         
+         draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];
+         
+         insertionIndex++;
+    }];
+    
+    return YES;
 }
 
 @end

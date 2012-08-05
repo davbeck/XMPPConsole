@@ -14,9 +14,15 @@
 {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] init];
     
-    [string appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:@{ NSFontAttributeName : [NSFont boldSystemFontOfSize:11.0] }]];
-    
-    [string appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" - %@", self.summary] attributes:@{ NSFontAttributeName : [NSFont systemFontOfSize:11.0] }]];
+    if (self.title != nil) {
+        [string appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:@{ NSFontAttributeName : [NSFont boldSystemFontOfSize:11.0] }]];
+    }
+    if (self.title != nil & self.summary != nil) {
+        [string appendAttributedString:[[NSAttributedString alloc] initWithString:@" - " attributes:@{ NSFontAttributeName : [NSFont systemFontOfSize:11.0] }]];
+    }
+    if (self.summary != nil) {
+        [string appendAttributedString:[[NSAttributedString alloc] initWithString:self.summary attributes:@{ NSFontAttributeName : [NSFont systemFontOfSize:11.0] }]];
+    }
     
     return string;
 }
@@ -48,6 +54,24 @@
 - (id)pasteboardPropertyListForType:(NSString *)type
 {
     return [self.body pasteboardPropertyListForType:type];
+}
+
+
+#pragma mark - NSPasteboardReading
+
++ (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard
+{
+    return [NSString readableTypesForPasteboard:pasteboard];
+}
+
+- (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type
+{
+    self = [super init];
+    if (self != nil) {
+        self.body = [[NSString alloc] initWithPasteboardPropertyList:propertyList ofType:type];
+    }
+    
+    return self;
 }
 
 @end

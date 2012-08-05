@@ -13,6 +13,14 @@
 
 @interface XCSnippetController : NSObject
 
++ (XCSnippetController *)sharedController;
+
 @property (strong, readonly) NSArray *snippets;
+- (NSUInteger)countOfSnippets;
+- (XCSnippet *)objectInSnippetsAtIndex:(NSUInteger)index;
+- (void)getSnippets:(XCSnippet * __unsafe_unretained *)buffer range:(NSRange)inRange;
+- (void)insertObject:(XCSnippet *)object inSnippetsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index;
+- (void)replaceObjectInSnippetsAtIndex:(NSUInteger)index withObject:(id)object;
 
 @end
