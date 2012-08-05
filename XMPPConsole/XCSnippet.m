@@ -37,4 +37,17 @@
     return snippet;
 }
 
+
+#pragma mark - NSPasteboardWriting
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard
+{
+    return [self.body writableTypesForPasteboard:pasteboard];
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type
+{
+    return [self.body pasteboardPropertyListForType:type];
+}
+
 @end

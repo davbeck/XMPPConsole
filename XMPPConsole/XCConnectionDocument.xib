@@ -205,7 +205,7 @@
 																				</object>
 																			</object>
 																			<double key="NSRowHeight">52</double>
-																			<int key="NSTvFlags">373325824</int>
+																			<int key="NSTvFlags">306216960</int>
 																			<reference key="NSDelegate"/>
 																			<reference key="NSDataSource"/>
 																			<int key="NSColumnAutoresizingStyle">1</int>
@@ -899,7 +899,7 @@ wGw</bytes>
 																			<string key="NSFrameSize">{590, 142}</string>
 																			<reference key="NSSuperview" ref="580004946"/>
 																			<reference key="NSWindow"/>
-																			<reference key="NSNextKeyView" ref="114015512"/>
+																			<reference key="NSNextKeyView" ref="856656301"/>
 																			<string key="NSReuseIdentifierKey">_NS:13</string>
 																			<object class="NSTextContainer" key="NSTextContainer" id="1009154145">
 																				<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1135,7 +1135,7 @@ wGw</bytes>
 															<string key="NSFrameSize">{590, 142}</string>
 															<reference key="NSSuperview" ref="978526475"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="580004946"/>
+															<reference key="NSNextKeyView" ref="114015512"/>
 															<string key="NSReuseIdentifierKey">_NS:9</string>
 															<int key="NSsFlags">133136</int>
 															<reference key="NSVScroller" ref="856656301"/>
@@ -1184,7 +1184,7 @@ wGw</bytes>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="30456251"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1440}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{94, 108}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -1493,6 +1493,14 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="139090220"/>
+						<reference key="destination" ref="512844837"/>
+					</object>
+					<int key="connectionID">100746</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">textField</string>
 						<object class="NSTableCellView" key="source" id="336303839">
 							<nil key="NSNextResponder"/>
@@ -1560,6 +1568,14 @@ wGw</bytes>
 						<reference key="destination" ref="916280204"/>
 					</object>
 					<int key="connectionID">100652</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">imageView</string>
+						<reference key="source" ref="336303839"/>
+						<reference key="destination" ref="1027515189"/>
+					</object>
+					<int key="connectionID">100747</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3698,7 +3714,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100745</int>
+			<int key="maxID">100747</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

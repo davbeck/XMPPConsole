@@ -10,7 +10,7 @@
 
 @class XMPPStream;
 
-@interface XCConnectionDocument : NSDocument <NSTableViewDelegate>
+@interface XCConnectionDocument : NSDocument <NSTableViewDelegate, NSTableViewDataSource>
 
 @property (strong) XMPPStream *stream;
 

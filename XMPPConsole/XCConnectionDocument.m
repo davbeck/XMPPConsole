@@ -264,4 +264,11 @@
     return [[XCSnippetRowView alloc] init];
 }
 
+- (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row
+{
+    XCSnippet *snippet = [[[self.snippetTableView rowViewAtRow:row makeIfNecessary:YES] viewAtColumn:0] objectValue];
+    
+    return snippet;
+}
+
 @end
