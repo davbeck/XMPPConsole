@@ -26,5 +26,6 @@
 - (IBAction)disconnect:(id)sender;
 - (IBAction)send:(id)sender;
 - (IBAction)insertSelectedSnippet:(id)sender;
+- (IBAction)clear:(id)sender;
 
 @end

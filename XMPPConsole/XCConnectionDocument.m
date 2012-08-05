@@ -245,7 +245,7 @@
     } else {
         [self.stream sendElement:stanza];
         
-        self.XMLEditor.string = @"";
+        [self clear:self];
     }
 }
 
@@ -254,6 +254,11 @@
     XCSnippet *snippet = [[[self.snippetTableView rowViewAtRow:self.snippetTableView.selectedRow makeIfNecessary:YES] viewAtColumn:0] objectValue];
     
     [self.XMLEditor insertText:snippet.body];
+}
+
+- (IBAction)clear:(id)sender
+{
+    self.XMLEditor.string = @"";
 }
 
 
