@@ -14,5 +14,6 @@
 @property (unsafe_unretained) IBOutlet NSTextView *defaultDestination;
 
 - (IBAction)insertSelectedSnippet:(id)sender;
+- (IBAction)addOrRemove:(NSSegmentedControl *)sender;
 
 @end

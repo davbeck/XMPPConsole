@@ -97,6 +97,18 @@
     }
 }
 
+- (IBAction)addOrRemove:(NSSegmentedControl *)sender
+{
+    if (sender.selectedSegment == 0) {//add
+        
+    } else if (sender.selectedSegment == 1) {//remove
+        [self.tableView beginUpdates];
+        NSIndexSet *indexes = [self.tableView selectedRowIndexes];
+        [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObjectsAtIndexes:indexes];
+        [self.tableView endUpdates];
+    }
+}
+
 
 #pragma mark - NSTableViewDelegate
 
