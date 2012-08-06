@@ -24,6 +24,7 @@
 {
     BOOL _animateChanges;
     BOOL _infoShown;
+    BOOL _popoverMoved;
 }
 @synthesize infoPopover = _infoPopover;
 
@@ -33,6 +34,8 @@
     
     [_tableView registerForDraggedTypes:[XCSnippet readableTypesForPasteboard:nil]];
     [_tableView setDraggingSourceOperationMask:NSDragOperationCopy | NSDragOperationGeneric | NSDragOperationMove forLocal:NO];
+    
+    [_tableView setDoubleAction:@selector(showInfo:)];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -148,6 +151,18 @@
 }
 
 
+#pragma mark - NSPopoverDelegate
+
+- (BOOL)popoverShouldClose:(NSPopover *)popover
+{
+    if (_popoverMoved) {
+        _popoverMoved = NO;
+        return NO;
+    }
+    return YES;
+}
+
+
 #pragma mark - NSTableViewDelegate
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
@@ -163,6 +178,21 @@
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
 {
     return [[XCSnippetRowView alloc] init];
+}
+
+- (void)tableViewSelectionIsChanging:(NSNotification *)aNotification
+{
+    if (self.infoPopover.shown) {
+        [self showInfo:self];
+        _popoverMoved = YES;
+    }
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    if (self.tableView.selectedRow == -1) {
+        [self.infoPopover close];
+    }
 }
 
 
