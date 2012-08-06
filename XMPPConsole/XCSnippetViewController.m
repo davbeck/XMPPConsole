@@ -13,6 +13,9 @@
 #import "XCSnippetRowView.h"
 
 
+#define XCSnippetViewMaximumMovement 3.0
+
+
 @interface XCSnippetViewController ()
 
 @end
@@ -20,6 +23,7 @@
 @implementation XCSnippetViewController
 {
     BOOL _animateChanges;
+    BOOL _infoShown;
 }
 
 - (void)setTableView:(NSTableView *)tableView
@@ -27,7 +31,7 @@
     _tableView = tableView;
     
     [_tableView registerForDraggedTypes:[XCSnippet readableTypesForPasteboard:nil]];
-    [_tableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
+    [_tableView setDraggingSourceOperationMask:NSDragOperationCopy | NSDragOperationGeneric | NSDragOperationMove forLocal:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -97,6 +101,11 @@
     }
 }
 
+- (IBAction)showInfo:(id)sender
+{
+    _infoShown = YES;
+}
+
 - (IBAction)addOrRemove:(NSSegmentedControl *)sender
 {
     if (sender.selectedSegment == 0) {//add
@@ -107,6 +116,20 @@
         [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObjectsAtIndexes:indexes];
         [self.tableView endUpdates];
     }
+}
+
+- (IBAction)tableViewClicked:(id)sender
+{
+    _infoShown = NO;
+    NSPoint startLocation = [NSEvent mouseLocation];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+        NSPoint currentLocation = [NSEvent mouseLocation];
+        
+        if (!_infoShown && fabs(startLocation.x - currentLocation.x) < XCSnippetViewMaximumMovement && fabs(startLocation.y - currentLocation.y) < XCSnippetViewMaximumMovement) {
+            [self showInfo:self];
+        }
+    });
 }
 
 

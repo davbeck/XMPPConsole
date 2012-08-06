@@ -19,8 +19,6 @@
     
     if (snippet.body != nil) {
         NSXMLElement *element = [[NSXMLElement alloc] initWithXMLString:snippet.body error:NULL];
-        NSLog(@"body: %@", snippet.body);
-        NSLog(@"element: %@", element);
         
         if ([element.name isEqualToString:@"iq"]) {
             return [NSImage imageNamed:@"Snippet-IQ"];
