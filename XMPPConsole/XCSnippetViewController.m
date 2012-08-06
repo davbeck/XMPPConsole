@@ -19,9 +19,8 @@
 
 @implementation XCSnippetViewController
 {
-    NSUInteger _sourceDraggingIndex;
+    BOOL _animateChanges;
 }
-@synthesize defaultDestination = _defaultDestination;
 
 - (void)setTableView:(NSTableView *)tableView
 {
@@ -31,13 +30,58 @@
     [_tableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqualToString:@"snippets"] && object == [XCSnippetController sharedController]) {
+        if (_animateChanges) {
+            switch ([change[NSKeyValueChangeKindKey] unsignedIntegerValue]) {
+                case NSKeyValueChangeInsertion:;
+                    [self.tableView insertRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationEffectGap];
+                    break;
+                    
+                case NSKeyValueChangeRemoval:;
+                    [self.tableView removeRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationEffectGap];
+                    break;
+                    
+                default:
+                    [self.tableView reloadData];
+                    break;
+            }
+        }
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        _animateChanges = YES;
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
     
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _animateChanges = YES;
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+    }
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _animateChanges = YES;
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+    }
     return self;
 }
 
@@ -56,10 +100,23 @@
 
 #pragma mark - NSTableViewDelegate
 
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return [[XCSnippetController sharedController] countOfSnippets];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return [[XCSnippetController sharedController] objectInSnippetsAtIndex:row];
+}
+
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
 {
     return [[XCSnippetRowView alloc] init];
 }
+
+
+#pragma mark - Dragging
 
 - (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row
 {
@@ -88,16 +145,12 @@
      }];
 }
 
-- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes
-{
-    if (rowIndexes.count == 1) {
-        _sourceDraggingIndex = [rowIndexes lastIndex];
-    }
-}
-
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
 {
-    info.animatesToDestination = YES;
+    info.animatesToDestination = info.draggingSource != tableView;
+    
+    //this disables the "drop on" behavior
+    [tableView setDropRow:row dropOperation:NSTableViewDropAbove];
     
     if (info.draggingSource == tableView) {
         return NSDragOperationMove;
@@ -109,44 +162,39 @@
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation
 {
     __block NSUInteger insertionIndex = row;
-    __block NSUInteger sourceIndex = 0;
+    NSMutableArray *snippets = [[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"];
     
+    _animateChanges = NO;
     [tableView beginUpdates];
     
     [info enumerateDraggingItemsWithOptions:0 forView:tableView classes:@[ [XCSnippet class] ] searchOptions:nil usingBlock:
      ^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
          XCSnippet *snippet = draggingItem.item;
          
-         if (info.draggingSource == tableView && info.draggingSourceOperationMask | NSDragOperationMove) {
-             NSMutableArray *snippets = [[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"];
-             
-             if (_sourceDraggingIndex != NSUIntegerMax) {
-                 [snippets removeObjectAtIndex:_sourceDraggingIndex];
-                 [snippets insertObject:snippet atIndex:insertionIndex];
-                 
-                 [tableView moveRowAtIndex:_sourceDraggingIndex toIndex:insertionIndex];
-             } else {
-                 NSUInteger oldIndex = [snippets indexOfObject:snippet];
-                 [snippets removeObjectAtIndex:oldIndex];
-                 [snippets insertObject:snippet atIndex:insertionIndex];
-                 
-                 [tableView moveRowAtIndex:_sourceDraggingIndex toIndex:insertionIndex];
+         if (info.draggingSource == tableView) {
+             NSUInteger oldIndex = [snippets indexOfObject:snippet];
+             if (oldIndex < insertionIndex) {
+                 insertionIndex--;
              }
              
-             draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];\
-         } else if (info.draggingSourceOperationMask | NSDragOperationCopy) {
-             [[XCSnippetController sharedController] insertObject:snippet inSnippetsAtIndex:insertionIndex];
+             [snippets removeObject:snippet];
+             [snippets insertObject:snippet atIndex:insertionIndex];
+             NSUInteger newIndex = [snippets indexOfObject:snippet];
              
-             draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];
+             [tableView moveRowAtIndex:oldIndex toIndex:newIndex];
+         } else {
+             [snippets insertObject:snippet atIndex:insertionIndex];
+             
+             [tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:insertionIndex] withAnimation:NSTableViewAnimationEffectGap];
          }
          
+         draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];
+         
          insertionIndex++;
-         sourceIndex++;
      }];
     
     [tableView endUpdates];
-    
-    _sourceDraggingIndex = NSUIntegerMax;
+    _animateChanges = YES;
     
     return YES;
 }
