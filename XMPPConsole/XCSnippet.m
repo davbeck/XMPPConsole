@@ -16,6 +16,8 @@
 @implementation XCSnippet
 {
     id __element;
+    BOOL _okToSave;
+    BOOL _needsSave;
 }
 
 @synthesize _element = __element;
@@ -24,14 +26,14 @@
 {
     _title = title;
     
-    [self _save];
+    [self _setNeedsSave];
 }
 
 - (void)setSummary:(NSString *)summary
 {
     _summary = summary;
     
-    [self _save];
+    [self _setNeedsSave];
 }
 
 - (void)setBody:(NSString *)body
@@ -39,7 +41,7 @@
     __element = nil;
     _body = body;
     
-    [self _save];
+    [self _setNeedsSave];
 }
 
 - (NSAttributedString *)attributedSummary
@@ -136,6 +138,8 @@
     snippet.summary = summary;
     snippet.body = body;
     
+    snippet->_okToSave = YES;
+    
     return snippet;
 }
 
@@ -174,6 +178,8 @@
         _body = [aDecoder decodeObjectForKey:XCSnippetBodyKey];
         
         __fileURL = [aDecoder decodeObjectForKey:XCSnippetURLKey];
+        
+        _okToSave = YES;
     }
     
     return self;
@@ -182,24 +188,42 @@
 
 #pragma mark - Saving
 
+- (void)_setNeedsSave
+{
+    if (!_needsSave) {
+        _needsSave = YES;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            if (_okToSave) {
+                [self _save];
+            }
+        });
+    }
+}
+
 - (void)_save
 {
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-    if (_title != nil) {
-        dictionary[XCSnippetTitleKey] = _title;
-    }
-    if (_summary != nil) {
-        dictionary[XCSnippetSummaryKey] = _summary;
-    }
-    if (_body != nil) {
-        dictionary[XCSnippetBodyKey] = _body;
-    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+    if (self._fileURL) {
+        _okToSave = YES;
+        _needsSave = NO;
         
-        [data writeToURL:self._fileURL atomically:YES];
-    });
+        NSMutableDictionary *dictionary = [NSMutableDictionary new];
+        if (_title != nil) {
+            dictionary[XCSnippetTitleKey] = _title;
+        }
+        if (_summary != nil) {
+            dictionary[XCSnippetSummaryKey] = _summary;
+        }
+        if (_body != nil) {
+            dictionary[XCSnippetBodyKey] = _body;
+        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+            
+            [data writeToURL:self._fileURL atomically:YES];
+        });
+    }
 }
 
 - (id)_initWithURL:(NSURL *)URL
@@ -207,6 +231,7 @@
     self = [super init];
     if (self) {
         __fileURL = URL;
+        _okToSave = NO;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSData *data = [NSData dataWithContentsOfURL:__fileURL];
@@ -217,6 +242,8 @@
                 self.summary = dictionary[XCSnippetSummaryKey];
                 self.body = dictionary[XCSnippetBodyKey];
             }
+            
+            [self _save];
         });
     }
     
