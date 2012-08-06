@@ -61,7 +61,10 @@ static XCSnippetController *sharedInstance;
 
 - (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index
 {
+    XCSnippet *snippet = [_snippets objectAtIndex:index];
     [_snippets removeObjectAtIndex:index];
+    
+    [[NSFileManager defaultManager] removeItemAtURL:snippet._fileURL error:NULL];
     
     [self _save];
 }
