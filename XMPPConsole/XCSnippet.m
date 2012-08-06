@@ -71,7 +71,11 @@
         return XMLString;
     }
     
-    return [[NSAttributedString alloc] initWithString:self.body attributes:@{ NSFontAttributeName : [NSFont codeFont] }];
+    if (self.body != nil) {
+        return [[NSAttributedString alloc] initWithString:self.body attributes:@{ NSFontAttributeName : [NSFont codeFont] }];
+    }
+    
+    return nil;
 }
 
 - (void)setAttributedBody:(NSAttributedString *)attributedBody

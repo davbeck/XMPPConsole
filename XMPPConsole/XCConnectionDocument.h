@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class XMPPStream;
+@class XCSnippetLibraryViewController;
 
 @interface XCConnectionDocument : NSDocument
 
@@ -16,6 +17,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *stanzasTextView;
 @property (unsafe_unretained) IBOutlet NSTextView *XMLEditor;
+@property (unsafe_unretained) IBOutlet XCSnippetLibraryViewController *snippetLibraryViewController;
 @property (weak) IBOutlet NSButton *connectButton;
 
 @property (copy) NSString *password;

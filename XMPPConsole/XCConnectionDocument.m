@@ -13,12 +13,14 @@
 #import "DDTTYLogger.h"
 #import "NSXMLElement+AttributedString.h"
 #import "NSFont+CodeFont.h"
+#import "XCSnippetLibraryViewController.h"
 
 
 
 @implementation XCConnectionDocument {
     BOOL _needsToScroll;
 }
+@synthesize snippetLibraryViewController = _snippetLibraryViewController;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -66,7 +68,7 @@
     [self.stanzasTextView setHorizontallyResizable:YES];
     
     [self.XMLEditor setFont:[NSFont codeFont]];
-    
+    self.snippetLibraryViewController.defaultDestination = self.XMLEditor;
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     

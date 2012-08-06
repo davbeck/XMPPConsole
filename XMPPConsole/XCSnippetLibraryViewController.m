@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 DavidBeck. All rights reserved.
 //
 
-#import "XCSnippetViewController.h"
+#import "XCSnippetLibraryViewController.h"
 
 #import "XCSnippetController.h"
 #import "XCSnippet.h"
@@ -16,11 +16,11 @@
 #define XCSnippetViewMaximumMovement 3.0
 
 
-@interface XCSnippetViewController ()
+@interface XCSnippetLibraryViewController ()
 
 @end
 
-@implementation XCSnippetViewController
+@implementation XCSnippetLibraryViewController
 {
     BOOL _animateChanges;
     BOOL _infoShown;
@@ -61,6 +61,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    if (nibNameOrNil == nil) {
+        nibNameOrNil = @"XCSnippetLibraryViewController";
+    }
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _animateChanges = YES;

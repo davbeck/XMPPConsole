@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface XCSnippetViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource>
+@interface XCSnippetLibraryViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *defaultDestination;

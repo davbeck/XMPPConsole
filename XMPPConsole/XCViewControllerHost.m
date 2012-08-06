@@ -26,27 +26,28 @@
     }
     
     //only show if we are being shown
-    if (self.window != nil) {
+    if (self.window != nil && _contentViewController.view != nil) {
         [self _addContentView];
     }
 }
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow
 {
-    [self _addContentView];
+    if (_contentViewController.view != nil) {
+        [self _addContentView];
+    }
 }
 
 - (void)_addContentView
 {
     if (_contentViewController.view.superview != self) {
         _contentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_contentViewController.view];
         
         _contentRestraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:nil views:@{ @"content" : _contentViewController.view }];
         _contentRestraints = [_contentRestraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[content]|" options:0 metrics:nil views:@{ @"content" : _contentViewController.view }]];
         
         [self addConstraints:_contentRestraints];
-        
-        [self addSubview:_contentViewController.view];
     }
 }
 
