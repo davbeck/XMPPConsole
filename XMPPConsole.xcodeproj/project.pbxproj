@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11253C9015D02C7A00973796 /* XCSnippetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11253C8E15D02C7A00973796 /* XCSnippetDetailViewController.m */; };
+		11253C9115D02C7A00973796 /* XCSnippetDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */; };
+		11253C9415D02D4900973796 /* XCViewControllerHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 11253C9315D02D4900973796 /* XCViewControllerHost.m */; };
+		11253C9715D038E100973796 /* XCColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11253C9615D038E100973796 /* XCColorView.m */; };
+		11253C9A15D0403300973796 /* NSFont+CodeFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 11253C9915D0403300973796 /* NSFont+CodeFont.m */; };
 		112B281415CDBBEB00D5E3D0 /* XCSnippetRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */; };
 		11568AAE15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */; };
 		11568AE915CD8A14009BBE6A /* XCSnippetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11568AE815CD8A14009BBE6A /* XCSnippetController.m */; };
@@ -16,7 +21,6 @@
 		1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */; };
 		1185386315CF1DB8007AD384 /* DefaultSnippets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1185386215CF1DB8007AD384 /* DefaultSnippets.plist */; };
 		1185386A15CF4375007AD384 /* XCSnippetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185386915CF4375007AD384 /* XCSnippetViewController.m */; };
-		11B9334315CF5BA4008944EB /* XCSnippetCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B9334215CF5BA4008944EB /* XCSnippetCellView.m */; };
 		11B9334B15CF5F88008944EB /* Snippet-IQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334515CF5F88008944EB /* Snippet-IQ.png */; };
 		11B9334C15CF5F88008944EB /* Snippet-IQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */; };
 		11B9334D15CF5F88008944EB /* Snippet-Message.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334715CF5F88008944EB /* Snippet-Message.png */; };
@@ -122,6 +126,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11253C8D15D02C7A00973796 /* XCSnippetDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetDetailViewController.h; sourceTree = "<group>"; };
+		11253C8E15D02C7A00973796 /* XCSnippetDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetDetailViewController.m; sourceTree = "<group>"; };
+		11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCSnippetDetailViewController.xib; sourceTree = "<group>"; };
+		11253C9215D02D4900973796 /* XCViewControllerHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCViewControllerHost.h; sourceTree = "<group>"; };
+		11253C9315D02D4900973796 /* XCViewControllerHost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCViewControllerHost.m; sourceTree = "<group>"; };
+		11253C9515D038E100973796 /* XCColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCColorView.h; sourceTree = "<group>"; };
+		11253C9615D038E100973796 /* XCColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCColorView.m; sourceTree = "<group>"; };
+		11253C9815D0403300973796 /* NSFont+CodeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFont+CodeFont.h"; sourceTree = "<group>"; };
+		11253C9915D0403300973796 /* NSFont+CodeFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFont+CodeFont.m"; sourceTree = "<group>"; };
 		112B281215CDBBEB00D5E3D0 /* XCSnippetRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetRowView.h; sourceTree = "<group>"; };
 		112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetRowView.m; sourceTree = "<group>"; };
 		11568AAC15CCC4B4009BBE6A /* NSXMLElement+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+AttributedString.h"; sourceTree = "<group>"; };
@@ -138,8 +151,6 @@
 		1185386215CF1DB8007AD384 /* DefaultSnippets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSnippets.plist; sourceTree = "<group>"; };
 		1185386815CF4375007AD384 /* XCSnippetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetViewController.h; sourceTree = "<group>"; };
 		1185386915CF4375007AD384 /* XCSnippetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetViewController.m; sourceTree = "<group>"; };
-		11B9334115CF5BA4008944EB /* XCSnippetCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetCellView.h; sourceTree = "<group>"; };
-		11B9334215CF5BA4008944EB /* XCSnippetCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetCellView.m; sourceTree = "<group>"; };
 		11B9334515CF5F88008944EB /* Snippet-IQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ.png"; sourceTree = "<group>"; };
 		11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ@2x.png"; sourceTree = "<group>"; };
 		11B9334715CF5F88008944EB /* Snippet-Message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-Message.png"; sourceTree = "<group>"; };
@@ -272,17 +283,18 @@
 		112B281615CDBBF200D5E3D0 /* Snippets */ = {
 			isa = PBXGroup;
 			children = (
-				1185386815CF4375007AD384 /* XCSnippetViewController.h */,
-				1185386915CF4375007AD384 /* XCSnippetViewController.m */,
 				11568AE715CD8A14009BBE6A /* XCSnippetController.h */,
 				11568AE815CD8A14009BBE6A /* XCSnippetController.m */,
 				1185386115CE2808007AD384 /* XCSnippet_Private.h */,
 				11568AEA15CD8AD8009BBE6A /* XCSnippet.h */,
 				11568AEB15CD8AD8009BBE6A /* XCSnippet.m */,
+				1185386815CF4375007AD384 /* XCSnippetViewController.h */,
+				1185386915CF4375007AD384 /* XCSnippetViewController.m */,
+				11253C8D15D02C7A00973796 /* XCSnippetDetailViewController.h */,
+				11253C8E15D02C7A00973796 /* XCSnippetDetailViewController.m */,
+				11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */,
 				112B281215CDBBEB00D5E3D0 /* XCSnippetRowView.h */,
 				112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */,
-				11B9334115CF5BA4008944EB /* XCSnippetCellView.h */,
-				11B9334215CF5BA4008944EB /* XCSnippetCellView.m */,
 			);
 			name = Snippets;
 			sourceTree = "<group>";
@@ -294,6 +306,12 @@
 				11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */,
 				1185385D15CE261F007AD384 /* NSFileManager+DirectoryLocations.h */,
 				1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */,
+				11253C9215D02D4900973796 /* XCViewControllerHost.h */,
+				11253C9315D02D4900973796 /* XCViewControllerHost.m */,
+				11253C9515D038E100973796 /* XCColorView.h */,
+				11253C9615D038E100973796 /* XCColorView.m */,
+				11253C9815D0403300973796 /* NSFont+CodeFont.h */,
+				11253C9915D0403300973796 /* NSFont+CodeFont.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -721,6 +739,7 @@
 				11B9334E15CF5F88008944EB /* Snippet-Message@2x.png in Resources */,
 				11B9334F15CF5F88008944EB /* Snippet-Presence.png in Resources */,
 				11B9335015CF5F88008944EB /* Snippet-Presence@2x.png in Resources */,
+				11253C9115D02C7A00973796 /* XCSnippetDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,7 +760,10 @@
 				112B281415CDBBEB00D5E3D0 /* XCSnippetRowView.m in Sources */,
 				1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */,
 				1185386A15CF4375007AD384 /* XCSnippetViewController.m in Sources */,
-				11B9334315CF5BA4008944EB /* XCSnippetCellView.m in Sources */,
+				11253C9015D02C7A00973796 /* XCSnippetDetailViewController.m in Sources */,
+				11253C9415D02D4900973796 /* XCViewControllerHost.m in Sources */,
+				11253C9715D038E100973796 /* XCColorView.m in Sources */,
+				11253C9A15D0403300973796 /* NSFont+CodeFont.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

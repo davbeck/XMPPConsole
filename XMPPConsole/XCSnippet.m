@@ -9,9 +9,38 @@
 #import "XCSnippet.h"
 
 #import "XCSnippet_Private.h"
+#import "NSXMLElement+AttributedString.h"
+#import "NSFont+CodeFont.h"
 
 
 @implementation XCSnippet
+{
+    id __element;
+}
+
+@synthesize _element = __element;
+
+- (void)setTitle:(NSString *)title
+{
+    _title = title;
+    
+    [self _save];
+}
+
+- (void)setSummary:(NSString *)summary
+{
+    _summary = summary;
+    
+    [self _save];
+}
+
+- (void)setBody:(NSString *)body
+{
+    __element = nil;
+    _body = body;
+    
+    [self _save];
+}
 
 - (NSAttributedString *)attributedSummary
 {
@@ -34,6 +63,66 @@
 {
     return [NSSet setWithObjects:@"title", @"summary", nil];
 }
+
+- (NSAttributedString *)attributedBody
+{
+    NSAttributedString *XMLString = [self._element XMLAttributedString];
+    if (XMLString != nil) {
+        return XMLString;
+    }
+    
+    return [[NSAttributedString alloc] initWithString:self.body attributes:@{ NSFontAttributeName : [NSFont codeFont] }];
+}
+
+- (void)setAttributedBody:(NSAttributedString *)attributedBody
+{
+    self.body = attributedBody.string;
+}
+
++ (NSSet *)keyPathsForValuesAffectingAttributedBody
+{
+    return [NSSet setWithObject:@"body"];
+}
+
+- (NSImage *)icon
+{
+    if ([self._element.name isEqualToString:@"iq"]) {
+        return [NSImage imageNamed:@"Snippet-IQ"];
+    }
+    if ([self._element.name isEqualToString:@"message"]) {
+        return [NSImage imageNamed:@"Snippet-Message"];
+    }
+    if ([self._element.name isEqualToString:@"presence"]) {
+        return [NSImage imageNamed:@"Snippet-Presence"];
+    }
+    
+    return [NSImage imageNamed:@"Snippet"];
+}
+
+- (NSXMLElement *)_element
+{
+    if (__element == nil && self.body != nil) {
+        __element = [[NSXMLElement alloc] initWithXMLString:self.body error:NULL];
+        if (__element == nil) {
+            //we don't want to try and generate XML over and over again if it just ain't going to happen
+            __element = [NSNull null];
+        }
+    }
+    
+    if (__element == [NSNull null]) {
+        return nil;
+    }
+    
+    return __element;
+}
+
++ (NSSet *)keyPathsForValuesAffectingIcon
+{
+    return [NSSet setWithObject:@"body"];
+}
+
+
+#pragma mark - Initialization
 
 + (XCSnippet *)snippetWithTitle:(NSString *)title summary:(NSString *)summary body:(NSString *)body
 {
@@ -95,10 +184,10 @@
     if (_title != nil) {
         dictionary[XCSnippetTitleKey] = _title;
     }
-    if (_title != nil) {
+    if (_summary != nil) {
         dictionary[XCSnippetSummaryKey] = _summary;
     }
-    if (_title != nil) {
+    if (_body != nil) {
         dictionary[XCSnippetBodyKey] = _body;
     }
     

@@ -23,6 +23,7 @@ NSURL *XCURLForSnippets();
 @interface XCSnippet ()
 
 @property (nonatomic, strong) NSURL *_fileURL;
+@property (nonatomic, readonly) NSXMLElement *_element;
 
 - (void)_save;
 - (id)_initWithURL:(NSURL *)URL;

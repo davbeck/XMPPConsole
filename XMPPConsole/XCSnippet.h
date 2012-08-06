@@ -14,11 +14,14 @@
 
 @interface XCSnippet : NSObject <NSPasteboardWriting, NSPasteboardReading, NSCoding>
 
-@property (copy) NSString *title;
-@property (copy) NSString *summary;
-@property (copy) NSString *body;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *summary;
+@property (nonatomic, copy) NSString *body;
 
-@property (readonly) NSAttributedString *attributedSummary;
+@property (nonatomic, readonly) NSAttributedString *attributedSummary;
+@property (nonatomic, copy) NSAttributedString *attributedBody;
+
+@property (nonatomic, readonly) NSImage *icon;
 
 + (XCSnippet *)snippetWithTitle:(NSString *)title summary:(NSString *)summary body:(NSString *)body;
 

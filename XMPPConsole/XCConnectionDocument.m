@@ -12,6 +12,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "NSXMLElement+AttributedString.h"
+#import "NSFont+CodeFont.h"
 
 
 
@@ -64,7 +65,7 @@
     [[self.stanzasTextView textContainer] setWidthTracksTextView:NO];
     [self.stanzasTextView setHorizontallyResizable:YES];
     
-    [self.XMLEditor setFont:[NSFont fontWithName:@"Menlo" size:14.0]];
+    [self.XMLEditor setFont:[NSFont codeFont]];
     
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -106,13 +107,9 @@
     
     NSMutableAttributedString *stanza = [string mutableCopy];
     
-    NSMutableDictionary *attributes = [@{
-                                       NSFontAttributeName : [NSFont fontWithName:@"Menlo" size:14.0],
-                                       } mutableCopy];
     if (isServer) {
-        attributes[NSBackgroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
+        [stanza addAttributes:@{ NSBackgroundColorAttributeName : [NSColor colorWithCalibratedWhite:0.9 alpha:1.0] } range:NSMakeRange(0, stanza.length)];
     }
-    [stanza addAttributes:attributes range:NSMakeRange(0, stanza.length)];
     
     [self.stanzasTextView.textStorage appendAttributedString:stanza];
     
@@ -176,7 +173,7 @@
 
 - (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
 {
-    [self _addXMLString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", string]] isServer:NO];
+    [self _addXMLString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", string] attributes:@{ NSFontAttributeName : [NSFont codeFont] }] isServer:NO];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didSendElement:(NSXMLElement *)element

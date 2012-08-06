@@ -8,6 +8,8 @@
 
 #import "NSXMLElement+AttributedString.h"
 
+#import "NSFont+CodeFont.h"
+
 
 #define NSXMLElementMaxSingleLineLenght 30
 
@@ -127,6 +129,8 @@
     }
     
     [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+    
+    [string addAttribute:NSFontAttributeName value:[NSFont codeFont] range:NSMakeRange(0, string.length)];
     
     return string;
 }

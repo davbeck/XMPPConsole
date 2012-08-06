@@ -25,6 +25,7 @@
     BOOL _animateChanges;
     BOOL _infoShown;
 }
+@synthesize infoPopover = _infoPopover;
 
 - (void)setTableView:(NSTableView *)tableView
 {
@@ -104,6 +105,16 @@
 - (IBAction)showInfo:(id)sender
 {
     _infoShown = YES;
+    
+    NSInteger selectedRow = [self.tableView selectedRow];
+    
+    if (selectedRow != -1) {
+        [self.tableView scrollRowToVisible:selectedRow];
+        NSView *rowView = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
+        
+        self.infoPopover.contentViewController.representedObject = [[XCSnippetController sharedController].snippets objectAtIndex:selectedRow];
+        [self.infoPopover showRelativeToRect:rowView.bounds ofView:rowView preferredEdge:NSMaxXEdge];
+    }
 }
 
 - (IBAction)addOrRemove:(NSSegmentedControl *)sender

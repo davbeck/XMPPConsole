@@ -12,6 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *defaultDestination;
+@property (weak) IBOutlet NSPopover *infoPopover;
 
 - (IBAction)insertSelectedSnippet:(id)sender;
 - (IBAction)showInfo:(id)sender;
