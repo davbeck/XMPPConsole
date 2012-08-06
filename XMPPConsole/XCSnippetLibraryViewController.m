@@ -11,6 +11,7 @@
 #import "XCSnippetController.h"
 #import "XCSnippet.h"
 #import "XCSnippetRowView.h"
+#import "XCSnippetDetailViewController.h"
 
 
 #define XCSnippetViewMaximumMovement 3.0
@@ -113,6 +114,10 @@
     NSInteger selectedRow = [self.tableView selectedRow];
     
     if (selectedRow != -1) {
+        if (!self.infoPopover.shown) {
+            [(XCSnippetDetailViewController *)self.infoPopover.contentViewController setEditing:NO];
+        }
+        
         [self.tableView scrollRowToVisible:selectedRow];
         NSView *rowView = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
         
