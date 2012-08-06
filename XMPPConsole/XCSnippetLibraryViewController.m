@@ -23,7 +23,6 @@
 @implementation XCSnippetLibraryViewController
 {
     BOOL _animateChanges;
-    BOOL _infoShown;
     BOOL _popoverMoved;
 }
 @synthesize infoPopover = _infoPopover;
@@ -111,8 +110,6 @@
 
 - (IBAction)showInfo:(id)sender
 {
-    _infoShown = YES;
-    
     NSInteger selectedRow = [self.tableView selectedRow];
     
     if (selectedRow != -1) {
@@ -138,13 +135,12 @@
 
 - (IBAction)tableViewClicked:(id)sender
 {
-    _infoShown = NO;
     NSPoint startLocation = [NSEvent mouseLocation];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         NSPoint currentLocation = [NSEvent mouseLocation];
         
-        if (!_infoShown && fabs(startLocation.x - currentLocation.x) < XCSnippetViewMaximumMovement && fabs(startLocation.y - currentLocation.y) < XCSnippetViewMaximumMovement) {
+        if (!fabs(startLocation.x - currentLocation.x) < XCSnippetViewMaximumMovement && fabs(startLocation.y - currentLocation.y) < XCSnippetViewMaximumMovement) {
             [self showInfo:self];
         }
     });
