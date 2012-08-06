@@ -32,6 +32,7 @@
 			<string>NSTextView</string>
 			<string>NSUserDefaultsController</string>
 			<string>NSView</string>
+			<string>NSViewController</string>
 			<string>NSWindowTemplate</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -1246,6 +1247,7 @@ wGw</bytes>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
 			</object>
+			<object class="NSViewController" id="281514030"/>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -1503,13 +1505,29 @@ wGw</bytes>
 					<int key="connectionID">100727</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="139090220"/>
+						<reference key="destination" ref="281514030"/>
+					</object>
+					<int key="connectionID">100789</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="139090220"/>
+						<reference key="destination" ref="281514030"/>
+					</object>
+					<int key="connectionID">100790</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">doubleClickTarget: self</string>
 						<reference key="source" ref="139090220"/>
-						<reference key="destination" ref="512844837"/>
+						<reference key="destination" ref="281514030"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="139090220"/>
-							<reference key="NSDestination" ref="512844837"/>
+							<reference key="NSDestination" ref="281514030"/>
 							<string key="NSLabel">doubleClickTarget: self</string>
 							<string key="NSBinding">doubleClickTarget</string>
 							<string key="NSKeyPath">self</string>
@@ -1520,23 +1538,7 @@ wGw</bytes>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">100740</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="139090220"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">100745</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="139090220"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">100746</int>
+					<int key="connectionID">100791</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1650,6 +1652,30 @@ wGw</bytes>
 						</object>
 					</object>
 					<int key="connectionID">100724</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">view</string>
+						<reference key="source" ref="281514030"/>
+						<reference key="destination" ref="747183790"/>
+					</object>
+					<int key="connectionID">100787</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">tableView</string>
+						<reference key="source" ref="281514030"/>
+						<reference key="destination" ref="139090220"/>
+					</object>
+					<int key="connectionID">100788</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">defaultDestination</string>
+						<reference key="source" ref="281514030"/>
+						<reference key="destination" ref="453192485"/>
+					</object>
+					<int key="connectionID">100792</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3566,6 +3592,11 @@ wGw</bytes>
 						<reference key="object" ref="891834545"/>
 						<reference key="parent" ref="747183790"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100786</int>
+						<reference key="object" ref="281514030"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3810,6 +3841,8 @@ wGw</bytes>
 				<string key="100762.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100763.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100785.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="100786.CustomClassName">XCSnippetViewController</string>
+				<string key="100786.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBWindowTemplateEditedContentRect">{{133, 170}, {507, 413}}</string>
 				<array key="6.IBNSViewMetadataConstraints">
@@ -3829,7 +3862,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100785</int>
+			<int key="maxID">100792</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3922,7 +3955,6 @@ wGw</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="XMLEditor">NSTextView</string>
 						<string key="connectButton">NSButton</string>
-						<string key="snippetTableView">NSTableView</string>
 						<string key="stanzasTextView">NSTextView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -3933,10 +3965,6 @@ wGw</bytes>
 						<object class="IBToOneOutletInfo" key="connectButton">
 							<string key="name">connectButton</string>
 							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="snippetTableView">
-							<string key="name">snippetTableView</string>
-							<string key="candidateClassName">NSTableView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="stanzasTextView">
 							<string key="name">stanzasTextView</string>
@@ -3962,6 +3990,39 @@ wGw</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/XCSnippetController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">XCSnippetViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">insertSelectedSnippet:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">insertSelectedSnippet:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">insertSelectedSnippet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="defaultDestination">NSTextView</string>
+						<string key="tableView">NSTableView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="defaultDestination">
+							<string key="name">defaultDestination</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tableView">
+							<string key="name">tableView</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/XCSnippetViewController.h</string>
 					</object>
 				</object>
 			</array>

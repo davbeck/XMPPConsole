@@ -18,6 +18,7 @@
 		11568AF015CD8FE0009BBE6A /* Snipit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11568AEE15CD8FE0009BBE6A /* Snipit@2x.png */; };
 		1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */; };
 		1185386315CF1DB8007AD384 /* DefaultSnippets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1185386215CF1DB8007AD384 /* DefaultSnippets.plist */; };
+		1185386A15CF4375007AD384 /* XCSnippetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185386915CF4375007AD384 /* XCSnippetViewController.m */; };
 		11D0794C15CB7D5000639604 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0794B15CB7D5000639604 /* Cocoa.framework */; };
 		11D0795615CB7D5000639604 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11D0795415CB7D5000639604 /* InfoPlist.strings */; };
 		11D0795815CB7D5000639604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D0795715CB7D5000639604 /* main.m */; };
@@ -134,6 +135,8 @@
 		1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		1185386115CE2808007AD384 /* XCSnippet_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCSnippet_Private.h; sourceTree = "<group>"; };
 		1185386215CF1DB8007AD384 /* DefaultSnippets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSnippets.plist; sourceTree = "<group>"; };
+		1185386815CF4375007AD384 /* XCSnippetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetViewController.h; sourceTree = "<group>"; };
+		1185386915CF4375007AD384 /* XCSnippetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetViewController.m; sourceTree = "<group>"; };
 		11D0794715CB7D5000639604 /* XMPPConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPPConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D0794B15CB7D5000639604 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11D0794E15CB7D5000639604 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -260,6 +263,8 @@
 		112B281615CDBBF200D5E3D0 /* Snippets */ = {
 			isa = PBXGroup;
 			children = (
+				1185386815CF4375007AD384 /* XCSnippetViewController.h */,
+				1185386915CF4375007AD384 /* XCSnippetViewController.m */,
 				11568AE715CD8A14009BBE6A /* XCSnippetController.h */,
 				11568AE815CD8A14009BBE6A /* XCSnippetController.m */,
 				1185386115CE2808007AD384 /* XCSnippet_Private.h */,
@@ -718,6 +723,7 @@
 				11568AEC15CD8AD8009BBE6A /* XCSnippet.m in Sources */,
 				112B281415CDBBEB00D5E3D0 /* XCSnippetRowView.m in Sources */,
 				1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */,
+				1185386A15CF4375007AD384 /* XCSnippetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
