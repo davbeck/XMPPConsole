@@ -11,6 +11,10 @@
 			<array>
 				<string>xmppconnection</string>
 			</array>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-xmpp-connection</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>XMPP Connection</string>
 			<key>CFBundleTypeRole</key>

@@ -51,6 +51,15 @@
     return [[self class] snippetWithTitle:_title summary:_summary body:_body];
 }
 
+- (BOOL)isEqual:(XCSnippet *)object
+{
+    if ([object isKindOfClass:[self class]]) {
+        return [self._fileURL isEqual:object._fileURL];
+    }
+    
+    return NO;
+}
+
 
 #pragma mark - NSCoding
 
@@ -59,6 +68,8 @@
     [aCoder encodeObject:_title forKey:XCSnippetTitleKey];
     [aCoder encodeObject:_summary forKey:XCSnippetSummaryKey];
     [aCoder encodeObject:_body forKey:XCSnippetBodyKey];
+    
+    [aCoder encodeObject:self._fileURL forKey:XCSnippetURLKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -68,6 +79,8 @@
         _title = [aDecoder decodeObjectForKey:XCSnippetTitleKey];
         _summary = [aDecoder decodeObjectForKey:XCSnippetSummaryKey];
         _body = [aDecoder decodeObjectForKey:XCSnippetBodyKey];
+        
+        __fileURL = [aDecoder decodeObjectForKey:XCSnippetURLKey];
     }
     
     return self;
@@ -122,8 +135,9 @@
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard
 {
-    NSMutableArray *types = [[self.body writableTypesForPasteboard:pasteboard] mutableCopy];
-    [types insertObject:XCSnippetUTI atIndex:0];
+    NSMutableArray *types = [NSMutableArray arrayWithObject:XCSnippetUTI];
+    
+    [types addObjectsFromArray:[self.body writableTypesForPasteboard:pasteboard]];
     
     return types;
 }
@@ -142,8 +156,9 @@
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard
 {
-    NSMutableArray *types = [[NSString readableTypesForPasteboard:pasteboard] mutableCopy];
-    [types insertObject:XCSnippetUTI atIndex:0];
+    NSMutableArray *types = [NSMutableArray arrayWithObject:XCSnippetUTI];
+    
+    [types addObjectsFromArray:[NSString readableTypesForPasteboard:pasteboard]];
     
     return types;
 }
