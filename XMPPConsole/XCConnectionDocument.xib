@@ -107,7 +107,7 @@
 																<int key="NSButtonFlags">-2038284288</int>
 																<int key="NSButtonFlags2">129</int>
 																<string key="NSAlternateContents"/>
-																<string key="NSKeyEquivalent"/>
+																<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 																<int key="NSPeriodicDelay">200</int>
 																<int key="NSPeriodicInterval">25</int>
 															</object>
@@ -1058,7 +1058,7 @@ wGw</bytes>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="30456251"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1440}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
 				<string key="NSMinSize">{94, 108}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">ConnectionWindow</string>
@@ -2628,20 +2628,6 @@ wGw</bytes>
 						<reference key="parent" ref="176326393"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100251</int>
-						<reference key="object" ref="841459353"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="972898078"/>
-						</array>
-						<reference key="parent" ref="620567160"/>
-						<string key="objectName">Server Field</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100252</int>
-						<reference key="object" ref="972898078"/>
-						<reference key="parent" ref="841459353"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100243</int>
 						<reference key="object" ref="558241457"/>
 						<array class="NSMutableArray" key="children">
@@ -2698,33 +2684,9 @@ wGw</bytes>
 						<reference key="parent" ref="8652618"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100423</int>
-						<reference key="object" ref="769949449"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="762620087"/>
-						</array>
-						<reference key="parent" ref="620567160"/>
-						<string key="objectName">Connect Button</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100424</int>
-						<reference key="object" ref="762620087"/>
-						<reference key="parent" ref="769949449"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100517</int>
 						<reference key="object" ref="24575151"/>
 						<reference key="parent" ref="1040388006"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100527</int>
-						<reference key="object" ref="859018052"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100554</int>
-						<reference key="object" ref="553970175"/>
-						<reference key="parent" ref="620567160"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100567</int>
@@ -2742,33 +2704,8 @@ wGw</bytes>
 						<reference key="parent" ref="620567160"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100572</int>
-						<reference key="object" ref="783694467"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100574</int>
-						<reference key="object" ref="864514888"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100575</int>
-						<reference key="object" ref="479680903"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100579</int>
-						<reference key="object" ref="401947901"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100581</int>
 						<reference key="object" ref="1049124450"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100582</int>
-						<reference key="object" ref="770933016"/>
 						<reference key="parent" ref="620567160"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2802,11 +2739,6 @@ wGw</bytes>
 						<reference key="parent" ref="620567160"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100606</int>
-						<reference key="object" ref="30452434"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100609</int>
 						<reference key="object" ref="1028766692"/>
 						<reference key="parent" ref="620567160"/>
@@ -2814,16 +2746,6 @@ wGw</bytes>
 					<object class="IBObjectRecord">
 						<int key="objectID">100611</int>
 						<reference key="object" ref="954130378"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100535</int>
-						<reference key="object" ref="391091556"/>
-						<reference key="parent" ref="620567160"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100615</int>
-						<reference key="object" ref="1070245079"/>
 						<reference key="parent" ref="620567160"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2900,6 +2822,84 @@ wGw</bytes>
 						<int key="objectID">100786</int>
 						<reference key="object" ref="996897051"/>
 						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100251</int>
+						<reference key="object" ref="841459353"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="972898078"/>
+						</array>
+						<reference key="parent" ref="620567160"/>
+						<string key="objectName">Server Field</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100575</int>
+						<reference key="object" ref="479680903"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100615</int>
+						<reference key="object" ref="1070245079"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100579</int>
+						<reference key="object" ref="401947901"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100574</int>
+						<reference key="object" ref="864514888"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100572</int>
+						<reference key="object" ref="783694467"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100606</int>
+						<reference key="object" ref="30452434"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100582</int>
+						<reference key="object" ref="770933016"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100252</int>
+						<reference key="object" ref="972898078"/>
+						<reference key="parent" ref="841459353"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100423</int>
+						<reference key="object" ref="769949449"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="762620087"/>
+						</array>
+						<reference key="parent" ref="620567160"/>
+						<string key="objectName">Connect Button</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100554</int>
+						<reference key="object" ref="553970175"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100535</int>
+						<reference key="object" ref="391091556"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100527</int>
+						<reference key="object" ref="859018052"/>
+						<reference key="parent" ref="620567160"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100424</int>
+						<reference key="object" ref="762620087"/>
+						<reference key="parent" ref="769949449"/>
 					</object>
 				</array>
 			</object>
@@ -3116,7 +3116,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100899</int>
+			<int key="maxID">100913</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3239,21 +3239,50 @@ wGw</bytes>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">XCSnippetDetailViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">bodyView</string>
+						<string key="NS.object.0">NSTextView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">bodyView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">bodyView</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/XCSnippetDetailViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">XCSnippetLibraryViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addOrRemove:">NSSegmentedControl</string>
+						<string key="addOrRemoveSnippet:">NSSegmentedControl</string>
+						<string key="addSnippet:">id</string>
 						<string key="insertSelectedSnippet:">id</string>
+						<string key="removeSnippet:">id</string>
 						<string key="showInfo:">id</string>
 						<string key="tableViewClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addOrRemove:">
-							<string key="name">addOrRemove:</string>
+						<object class="IBActionInfo" key="addOrRemoveSnippet:">
+							<string key="name">addOrRemoveSnippet:</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
+						</object>
+						<object class="IBActionInfo" key="addSnippet:">
+							<string key="name">addSnippet:</string>
+							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="insertSelectedSnippet:">
 							<string key="name">insertSelectedSnippet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeSnippet:">
+							<string key="name">removeSnippet:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showInfo:">
@@ -3268,6 +3297,7 @@ wGw</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="defaultDestination">NSTextView</string>
 						<string key="infoPopover">NSPopover</string>
+						<string key="infoViewController">XCSnippetDetailViewController</string>
 						<string key="tableView">NSTableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -3278,6 +3308,10 @@ wGw</bytes>
 						<object class="IBToOneOutletInfo" key="infoPopover">
 							<string key="name">infoPopover</string>
 							<string key="candidateClassName">NSPopover</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="infoViewController">
+							<string key="name">infoViewController</string>
+							<string key="candidateClassName">XCSnippetDetailViewController</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>
