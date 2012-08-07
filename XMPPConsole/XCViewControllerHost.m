@@ -26,21 +26,19 @@
     }
     
     //only show if we are being shown
-    if (self.window != nil && _contentViewController.view != nil) {
+    if (self.window != nil) {
         [self _addContentView];
     }
 }
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow
 {
-    if (_contentViewController.view != nil) {
-        [self _addContentView];
-    }
+    [self _addContentView];
 }
 
 - (void)_addContentView
 {
-    if (_contentViewController.view.superview != self) {
+    if (_contentViewController.view != nil && ![_contentViewController.view isDescendantOf:self]) {
         _contentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_contentViewController.view];
         

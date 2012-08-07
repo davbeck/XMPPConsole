@@ -10,6 +10,6 @@
 
 @interface XCViewControllerHost : NSView
 
-@property (nonatomic, unsafe_unretained) IBOutlet NSViewController *contentViewController;
+@property (nonatomic, strong) IBOutlet NSViewController *contentViewController;
 
 @end
