@@ -22,6 +22,10 @@
 		1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */; };
 		1185386315CF1DB8007AD384 /* DefaultSnippets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1185386215CF1DB8007AD384 /* DefaultSnippets.plist */; };
 		1185386A15CF4375007AD384 /* XCSnippetLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */; };
+		11A20D3015D17F0B009B75C7 /* XCLogsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D2F15D17F0B009B75C7 /* XCLogsController.m */; };
+		11A20D3315D17F1D009B75C7 /* XCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3215D17F1D009B75C7 /* XCLog.m */; };
+		11A20D3615D17F29009B75C7 /* XCLogNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3515D17F29009B75C7 /* XCLogNode.m */; };
+		11A20D3915D1835D009B75C7 /* XCMutableLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3815D1835D009B75C7 /* XCMutableLog.m */; };
 		11B9334B15CF5F88008944EB /* Snippet-IQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334515CF5F88008944EB /* Snippet-IQ.png */; };
 		11B9334C15CF5F88008944EB /* Snippet-IQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */; };
 		11B9334D15CF5F88008944EB /* Snippet-Message.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334715CF5F88008944EB /* Snippet-Message.png */; };
@@ -153,6 +157,14 @@
 		1185386215CF1DB8007AD384 /* DefaultSnippets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSnippets.plist; sourceTree = "<group>"; };
 		1185386815CF4375007AD384 /* XCSnippetLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSnippetLibraryViewController.h; sourceTree = "<group>"; };
 		1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippetLibraryViewController.m; sourceTree = "<group>"; };
+		11A20D2E15D17F0B009B75C7 /* XCLogsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCLogsController.h; sourceTree = "<group>"; };
+		11A20D2F15D17F0B009B75C7 /* XCLogsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLogsController.m; sourceTree = "<group>"; };
+		11A20D3115D17F1D009B75C7 /* XCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCLog.h; sourceTree = "<group>"; };
+		11A20D3215D17F1D009B75C7 /* XCLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLog.m; sourceTree = "<group>"; };
+		11A20D3415D17F29009B75C7 /* XCLogNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCLogNode.h; sourceTree = "<group>"; };
+		11A20D3515D17F29009B75C7 /* XCLogNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLogNode.m; sourceTree = "<group>"; };
+		11A20D3715D1835D009B75C7 /* XCMutableLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMutableLog.h; sourceTree = "<group>"; };
+		11A20D3815D1835D009B75C7 /* XCMutableLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMutableLog.m; sourceTree = "<group>"; };
 		11B9334515CF5F88008944EB /* Snippet-IQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ.png"; sourceTree = "<group>"; };
 		11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ@2x.png"; sourceTree = "<group>"; };
 		11B9334715CF5F88008944EB /* Snippet-Message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-Message.png"; sourceTree = "<group>"; };
@@ -306,6 +318,8 @@
 		11568AAA15CCC3B9009BBE6A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				11253C9815D0403300973796 /* NSFont+CodeFont.h */,
+				11253C9915D0403300973796 /* NSFont+CodeFont.m */,
 				11568AAC15CCC4B4009BBE6A /* NSXMLElement+AttributedString.h */,
 				11568AAD15CCC4B4009BBE6A /* NSXMLElement+AttributedString.m */,
 				1185385D15CE261F007AD384 /* NSFileManager+DirectoryLocations.h */,
@@ -314,8 +328,8 @@
 				11253C9315D02D4900973796 /* XCViewControllerHost.m */,
 				11253C9515D038E100973796 /* XCColorView.h */,
 				11253C9615D038E100973796 /* XCColorView.m */,
-				11253C9815D0403300973796 /* NSFont+CodeFont.h */,
-				11253C9915D0403300973796 /* NSFont+CodeFont.m */,
+				11D07A8315CC923E00639604 /* XCJIDFormatter.h */,
+				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -333,6 +347,21 @@
 				11568AEE15CD8FE0009BBE6A /* Snippet@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		11A20D2D15D17EF2009B75C7 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				11A20D2E15D17F0B009B75C7 /* XCLogsController.h */,
+				11A20D2F15D17F0B009B75C7 /* XCLogsController.m */,
+				11A20D3115D17F1D009B75C7 /* XCLog.h */,
+				11A20D3215D17F1D009B75C7 /* XCLog.m */,
+				11A20D3715D1835D009B75C7 /* XCMutableLog.h */,
+				11A20D3815D1835D009B75C7 /* XCMutableLog.m */,
+				11A20D3415D17F29009B75C7 /* XCLogNode.h */,
+				11A20D3515D17F29009B75C7 /* XCLogNode.m */,
+			);
+			name = Logs;
 			sourceTree = "<group>";
 		};
 		11D0793C15CB7D5000639604 = {
@@ -387,8 +416,7 @@
 				11D07A7215CC1A8700639604 /* XCConnectionDocument.h */,
 				11D07A7315CC1A8700639604 /* XCConnectionDocument.m */,
 				11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */,
-				11D07A8315CC923E00639604 /* XCJIDFormatter.h */,
-				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
+				11A20D2D15D17EF2009B75C7 /* Logs */,
 				112B281615CDBBF200D5E3D0 /* Snippets */,
 				11568AAA15CCC3B9009BBE6A /* Categories */,
 				11D0795215CB7D5000639604 /* Supporting Files */,
@@ -770,6 +798,10 @@
 				11253C9415D02D4900973796 /* XCViewControllerHost.m in Sources */,
 				11253C9715D038E100973796 /* XCColorView.m in Sources */,
 				11253C9A15D0403300973796 /* NSFont+CodeFont.m in Sources */,
+				11A20D3015D17F0B009B75C7 /* XCLogsController.m in Sources */,
+				11A20D3315D17F1D009B75C7 /* XCLog.m in Sources */,
+				11A20D3615D17F29009B75C7 /* XCLogNode.m in Sources */,
+				11A20D3915D1835D009B75C7 /* XCMutableLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

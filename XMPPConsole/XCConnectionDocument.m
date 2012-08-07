@@ -15,6 +15,8 @@
 #import "NSFont+CodeFont.h"
 #import "XCSnippetLibraryViewController.h"
 #import "XCDefaultAccount.h"
+#import "XCLogsController.h"
+#import "XCMutableLog.h"
 
 
 
@@ -29,12 +31,14 @@
 
 @implementation XCConnectionDocument {
     BOOL _needsToScroll;
+    XCMutableLog *_currentLog;
 }
-@synthesize snippetLibraryViewController = _snippetLibraryViewController;
+
+@synthesize currentLog = _currentLog;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:@"isConnected"] && object == self.stream) {
+    if ([keyPath isEqualToString:@"isConnected"] && object == self.stream) {
         if (self.stream.isConnected) {
             self.connectButton.title = NSLocalizedString(@"Disconnect", nil);
         } else {
@@ -65,7 +69,11 @@
 //        [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
         
-        _stream = [[XMPPStream alloc] init];
+        _currentLog = [XCMutableLog new];
+        
+        _stream = [XMPPStream new];
+        
+        _canEditLog = NO;
     }
     return self;
 }
@@ -162,30 +170,6 @@
     return YES;
 }
 
-- (void)_addXMLString:(NSAttributedString *)string isServer:(BOOL)isServer
-{
-    BOOL shouldLock = [self _shouldLockStanzasTextViewToBottom];
-    
-    NSMutableAttributedString *stanza = [string mutableCopy];
-    
-    if (isServer) {
-        [stanza addAttributes:@{ NSBackgroundColorAttributeName : [NSColor colorWithCalibratedWhite:0.9 alpha:1.0] } range:NSMakeRange(0, stanza.length)];
-    }
-    
-    [self.stanzasTextView.textStorage appendAttributedString:stanza];
-    
-    if (shouldLock || _needsToScroll) {
-        [self _setNeedsToScroll];
-    }
-}
-
-- (void)_addXMLElement:(NSXMLElement *)element isServer:(BOOL)isServer
-{
-    NSAttributedString *string = [element XMLAttributedString];
-    
-    [self _addXMLString:string isServer:isServer];
-}
-
 - (BOOL)_shouldLockStanzasTextViewToBottom
 {
     NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
@@ -209,25 +193,27 @@
 
 - (void)_scrollToBottom;
 {
-    _needsToScroll = NO;
-    
-    NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
-    NSPoint newScrollOrigin;
-    
-    // assume that the scrollview is an existing variable
-    if ([[scrollView documentView] isFlipped]) {
-        newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, NSMaxY([scrollView.documentView frame]) - NSHeight(scrollView.contentView.bounds));
-    } else {
-        newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, 0.0);
-    }
-    
-    [[scrollView documentView] scrollPoint:newScrollOrigin];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _needsToScroll = NO;
+        
+        NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
+        NSPoint newScrollOrigin;
+        
+        // assume that the scrollview is an existing variable
+        if ([[scrollView documentView] isFlipped]) {
+            newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, NSMaxY([scrollView.documentView frame]) - NSHeight(scrollView.contentView.bounds));
+        } else {
+            newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, 0.0);
+        }
+        
+        [[scrollView documentView] scrollPoint:newScrollOrigin];
+    });
 }
 
 - (void)_showAlertWithTitle:(NSString *)title error:(NSError *)error
 {
 	if (error != nil) {
-		NSLog(@"Error connecting: %@", error);
+		NSLog(@"_showAlertWithTitle: %@ error: %@", title, error);
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setAlertStyle:NSCriticalAlertStyle];
         [alert setMessageText:title];
@@ -276,17 +262,23 @@
 
 - (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
 {
-    [self _addXMLString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", string] attributes:@{ NSFontAttributeName : [NSFont codeFont] }] isServer:NO];
+    [_currentLog addText:string fromServer:NO];
+    
+    [self _scrollToBottom];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didSendElement:(NSXMLElement *)element
 {
-    [self _addXMLElement:element isServer:NO];
+    [_currentLog addXML:element fromServer:NO];
+    
+    [self _scrollToBottom];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveElement:(NSXMLElement *)element
 {
-    [self _addXMLElement:element isServer:YES];
+    [_currentLog addXML:element fromServer:YES];
+    
+    [self _scrollToBottom];
 }
 
 

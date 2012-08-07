@@ -10,6 +10,8 @@
 
 @class XMPPStream;
 @class XCSnippetLibraryViewController;
+@class XCLogsController;
+@class XCLog;
 
 
 #define XCConnectionSavePasswordPreferenceKey @"SavePassword"
@@ -33,6 +35,10 @@
 @property (weak) IBOutlet NSButton *connectButton;
 
 @property (copy) NSString *password;
+@property (strong) IBOutlet XCLogsController *logsController;
+@property (readonly) XCLog *currentLog;
+@property (strong) XCLog *selectedLog;
+@property BOOL canEditLog;
 
 - (IBAction)connectOrDisconnect:(id)sender;
 - (IBAction)connect:(id)sender;
