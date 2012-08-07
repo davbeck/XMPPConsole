@@ -11,6 +11,18 @@
 @class XMPPStream;
 @class XCSnippetLibraryViewController;
 
+
+#define XCConnectionSavePasswordPreferenceKey @"SavePassword"
+
+
+#define XCConnectionInfoFileName @"ConnectionInfo"
+
+#define XCConnectionJIDKey @"JID"
+#define XCConnectionPasswordKey @"Password"
+#define XCConnectionServerKey @"Server"
+#define XCConnectionPortKey @"Port"
+
+
 @interface XCConnectionDocument : NSDocument
 
 @property (strong) XMPPStream *stream;

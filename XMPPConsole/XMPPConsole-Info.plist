@@ -9,11 +9,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>xmppconnection</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/x-xmpp-connection</string>
+				<string>xmpp</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>XMPP Connection</string>
@@ -21,8 +17,10 @@
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>co.DavidBeck.XMPPConnection</string>
+				<string>co.DavidBeck.XMPPConsole.Connection</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<true/>
 			<key>NSDocumentClass</key>
 			<string>XCConnectionDocument</string>
 		</dict>
@@ -55,5 +53,26 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>XMPP Connection</string>
+			<key>UTTypeIdentifier</key>
+			<string>co.DavidBeck.XMPPConsole.Connection</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xmpp</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

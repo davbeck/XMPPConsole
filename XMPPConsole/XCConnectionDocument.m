@@ -18,6 +18,15 @@
 
 
 
+
+@interface XCConnectionDocument ()
+
+@property (strong) NSFileWrapper *_fileWrapper;
+
+@end
+
+
+
 @implementation XCConnectionDocument {
     BOOL _needsToScroll;
 }
@@ -41,11 +50,20 @@
     [self.stream removeObserver:self forKeyPath:@"isConnected"];
 }
 
++ (void)initialize
+{
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+     XCConnectionSavePasswordPreferenceKey : @YES,
+     }];
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+#ifdef DEBUG
+//        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+#endif
         
         _stream = [[XMPPStream alloc] init];
     }
@@ -74,38 +92,74 @@
     
 	
 #ifdef DEBUG
-	self.stream.myJID = [XMPPJID jidWithString:XCDefaultJID];
-	self.password = XCDefaultPassword;
-	self.stream.hostName = XCDefaultServer;
-	self.stream.hostPort = XCDefaultPort;
-    [self connect:nil];
+    if (self._fileWrapper == nil) {
+        self.stream.myJID = [XMPPJID jidWithString:XCDefaultJID];
+        self.password = XCDefaultPassword;
+        self.stream.hostName = XCDefaultServer;
+        self.stream.hostPort = XCDefaultPort;
+        [self connect:nil];
+    }
 #endif
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+
+#pragma mark - Saving
+
+- (BOOL)readFromFileWrapper:(NSFileWrapper *)fileWrapper ofType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+    self._fileWrapper = fileWrapper;
+    
+    NSFileWrapper *connectionInfoWrapper = fileWrapper.fileWrappers[XCConnectionInfoFileName];
+    NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:connectionInfoWrapper.regularFileContents options:0 format:NULL error:NULL];
+    if (connectionInfoWrapper != nil) {
+        self.stream.myJID = [XMPPJID jidWithString:dictionary[XCConnectionJIDKey]];
+        self.password = dictionary[XCConnectionPasswordKey];
+        self.stream.hostName = dictionary[XCConnectionServerKey];
+        self.stream.hostPort = [dictionary[XCConnectionPortKey] shortValue];
     }
-    return nil;
+    
+    
+    
+    return YES;
 }
 
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+- (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+    if (self._fileWrapper == nil) {
+        self._fileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
     }
-    return YES;
+    
+    
+    
+    NSMutableDictionary *connectionInfo = [NSMutableDictionary new];
+    if (self.stream.myJID != nil) {
+        connectionInfo[XCConnectionJIDKey] = self.stream.myJID.full;
+    }
+    if (self.password != nil && [[NSUserDefaults standardUserDefaults] boolForKey:XCConnectionSavePasswordPreferenceKey]) {
+        connectionInfo[XCConnectionPasswordKey] = self.password;
+    }
+    if (self.stream.hostName != nil) {
+        connectionInfo[XCConnectionServerKey] = self.stream.hostName;
+    }
+    connectionInfo[XCConnectionPortKey] = @(self.stream.hostPort);
+    
+    NSData *connectionData = [NSPropertyListSerialization dataWithPropertyList:connectionInfo format:NSPropertyListBinaryFormat_v1_0 options:0 error:outError];
+    if (connectionData == nil) {
+        return nil;
+    }
+    
+    NSFileWrapper *connectionWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:connectionData];
+    [connectionWrapper setPreferredFilename:XCConnectionInfoFileName];
+    [self._fileWrapper addFileWrapper:connectionWrapper];
+    
+    
+    
+    return self._fileWrapper;
 }
 
 + (BOOL)autosavesInPlace
 {
-    return NO;
+    return YES;
 }
 
 - (void)_addXMLString:(NSAttributedString *)string isServer:(BOOL)isServer

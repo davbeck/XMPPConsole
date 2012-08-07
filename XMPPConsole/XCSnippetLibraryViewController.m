@@ -53,7 +53,6 @@
                     break;
                     
                 default:
-                    NSLog(@"going back to basics");
                     [self.tableView reloadData];
                     break;
             }
