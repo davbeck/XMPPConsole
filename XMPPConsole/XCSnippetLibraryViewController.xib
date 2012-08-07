@@ -193,7 +193,6 @@
 								<string key="NSFrame">{{1, 323}, {248, 16}}</string>
 								<reference key="NSSuperview" ref="383213417"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:60</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSsFlags">1</int>
@@ -310,14 +309,6 @@
 			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">addOrRemove:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1018933879"/>
-					</object>
-					<int key="connectionID">72</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">tableViewClicked:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="1042864830"/>
@@ -347,6 +338,22 @@
 						<reference key="destination" ref="187504473"/>
 					</object>
 					<int key="connectionID">81</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addOrRemoveSnippet:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1018933879"/>
+					</object>
+					<int key="connectionID">83</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">infoViewController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="311724519"/>
+					</object>
+					<int key="connectionID">84</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1153,7 +1160,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">82</int>
+			<int key="maxID">84</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1188,18 +1195,28 @@
 					<string key="className">XCSnippetLibraryViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addOrRemove:">NSSegmentedControl</string>
+						<string key="addOrRemoveSnippet:">NSSegmentedControl</string>
+						<string key="addSnippet:">id</string>
 						<string key="insertSelectedSnippet:">id</string>
+						<string key="removeSnippet:">id</string>
 						<string key="showInfo:">id</string>
 						<string key="tableViewClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addOrRemove:">
-							<string key="name">addOrRemove:</string>
+						<object class="IBActionInfo" key="addOrRemoveSnippet:">
+							<string key="name">addOrRemoveSnippet:</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
+						</object>
+						<object class="IBActionInfo" key="addSnippet:">
+							<string key="name">addSnippet:</string>
+							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="insertSelectedSnippet:">
 							<string key="name">insertSelectedSnippet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeSnippet:">
+							<string key="name">removeSnippet:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showInfo:">

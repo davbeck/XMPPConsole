@@ -8,15 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class XCSnippetDetailViewController;
+
+
 @interface XCSnippetLibraryViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource, NSPopoverDelegate>
 
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
 @property (unsafe_unretained) IBOutlet NSTextView *defaultDestination;
 @property (weak) IBOutlet NSPopover *infoPopover;
+@property (unsafe_unretained) IBOutlet XCSnippetDetailViewController *infoViewController;
 
 - (IBAction)insertSelectedSnippet:(id)sender;
+- (IBAction)addSnippet:(id)sender;
 - (IBAction)showInfo:(id)sender;
-- (IBAction)addOrRemove:(NSSegmentedControl *)sender;
+- (IBAction)addOrRemoveSnippet:(NSSegmentedControl *)sender;
+- (IBAction)removeSnippet:(id)sender;
 - (IBAction)tableViewClicked:(id)sender;
 
 @end

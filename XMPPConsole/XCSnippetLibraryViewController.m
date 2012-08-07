@@ -27,6 +27,7 @@
     BOOL _popoverMoved;
 }
 @synthesize infoPopover = _infoPopover;
+@synthesize infoViewController = _infoViewController;
 
 - (void)setTableView:(NSTableView *)tableView
 {
@@ -44,20 +45,19 @@
         if (_animateChanges) {
             switch ([change[NSKeyValueChangeKindKey] unsignedIntegerValue]) {
                 case NSKeyValueChangeInsertion:;
-                    [self.tableView insertRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationEffectGap];
+                    [self.tableView insertRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
                     break;
                     
                 case NSKeyValueChangeRemoval:;
-                    [self.tableView removeRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationEffectGap];
+                    [self.tableView removeRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideLeft | NSTableViewAnimationEffectFade];
                     break;
                     
                 default:
+                    NSLog(@"going back to basics");
                     [self.tableView reloadData];
                     break;
             }
         }
-	} else {
-		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	}
 }
 
@@ -114,10 +114,6 @@
     NSInteger selectedRow = [self.tableView selectedRow];
     
     if (selectedRow != -1) {
-        if (!self.infoPopover.shown) {
-            [(XCSnippetDetailViewController *)self.infoPopover.contentViewController setEditing:NO];
-        }
-        
         [self.tableView scrollRowToVisible:selectedRow];
         NSView *rowView = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
         
@@ -126,16 +122,43 @@
     }
 }
 
-- (IBAction)addOrRemove:(NSSegmentedControl *)sender
+- (IBAction)addOrRemoveSnippet:(NSSegmentedControl *)sender
 {
     if (sender.selectedSegment == 0) {//add
-        
+        [self addSnippet:sender];
     } else if (sender.selectedSegment == 1) {//remove
-        [self.tableView beginUpdates];
-        NSIndexSet *indexes = [self.tableView selectedRowIndexes];
-        [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObjectsAtIndexes:indexes];
-        [self.tableView endUpdates];
+        [self removeSnippet:sender];
     }
+}
+
+- (IBAction)addSnippet:(id)sender
+{
+    _popoverMoved = YES;
+    
+    XCSnippet *oldSnippet = self.infoViewController.representedObject;
+    if (oldSnippet != nil && oldSnippet.title.length == 0 && oldSnippet.summary.length == 0 && oldSnippet.body.length == 0) {
+        return;
+    }
+    
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        
+        XCSnippet *snippet = [XCSnippet snippetWithTitle:nil summary:nil body:nil];
+        NSUInteger newIndex = [XCSnippetController sharedController].countOfSnippets;
+        [[XCSnippetController sharedController] insertObject:snippet inSnippetsAtIndex:newIndex];
+        
+        [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:newIndex] byExtendingSelection:NO];
+    } completionHandler:^{
+        [self showInfo:self];
+        self.infoViewController.editing = YES;
+    }];
+}
+
+- (IBAction)removeSnippet:(id)sender
+{
+    [self.tableView beginUpdates];
+    NSIndexSet *indexes = [self.tableView selectedRowIndexes];
+    [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObjectsAtIndexes:indexes];
+    [self.tableView endUpdates];
 }
 
 - (IBAction)tableViewClicked:(id)sender
@@ -163,6 +186,17 @@
     return YES;
 }
 
+- (void)popoverWillClose:(NSNotification *)notification
+{
+    self.infoViewController.editing = NO;
+    
+    XCSnippet *snippet = self.infoViewController.representedObject;
+    if (snippet.title.length == 0 && snippet.summary.length == 0 && snippet.body.length == 0) {
+        self.infoViewController.representedObject = nil;
+        [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObject:snippet];
+    }
+}
+
 
 #pragma mark - NSTableViewDelegate
 
@@ -183,7 +217,16 @@
 
 - (void)tableViewSelectionIsChanging:(NSNotification *)aNotification
 {
-    if (self.infoPopover.shown) {
+    if (self.tableView.selectedRow == -1) {
+        [self.infoPopover close];
+    } else if (self.infoPopover.shown) {
+        XCSnippet *snippet = self.infoViewController.representedObject;
+        
+        if (snippet.title.length == 0 && snippet.summary.length == 0 && snippet.body.length == 0) {
+            self.infoViewController.representedObject = nil;
+            [[[XCSnippetController sharedController] mutableArrayValueForKey:@"snippets"] removeObject:snippet];
+        }
+        
         [self showInfo:self];
         _popoverMoved = YES;
     }
@@ -266,7 +309,7 @@
          } else {
              [snippets insertObject:snippet atIndex:insertionIndex];
              
-             [tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:insertionIndex] withAnimation:NSTableViewAnimationEffectGap];
+             [tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:insertionIndex] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
          }
          
          draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];
