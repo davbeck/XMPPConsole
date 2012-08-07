@@ -14,6 +14,7 @@
 #import "NSXMLElement+AttributedString.h"
 #import "NSFont+CodeFont.h"
 #import "XCSnippetLibraryViewController.h"
+#import "XCDefaultAccount.h"
 
 
 
@@ -44,12 +45,9 @@
 {
     self = [super init];
     if (self) {
-//        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        [DDLog addLogger:[DDTTYLogger sharedInstance]];
         
         _stream = [[XMPPStream alloc] init];
-        
-        self.stream.myJID = [XMPPJID jidWithString:@"debug@example.com"];
-        self.password = @"secret";
     }
     return self;
 }
@@ -74,7 +72,14 @@
     
     [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
     
+	
+#ifdef DEBUG
+	self.stream.myJID = [XMPPJID jidWithString:XCDefaultJID];
+	self.password = XCDefaultPassword;
+	self.stream.hostName = XCDefaultServer;
+	self.stream.hostPort = XCDefaultPort;
     [self connect:nil];
+#endif
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError

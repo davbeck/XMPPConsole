@@ -252,6 +252,7 @@
 		11D07A7415CC1A8700639604 /* XCConnectionDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCConnectionDocument.xib; sourceTree = "<group>"; };
 		11D07A8315CC923E00639604 /* XCJIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJIDFormatter.h; sourceTree = "<group>"; };
 		11D07A8415CC923E00639604 /* XCJIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJIDFormatter.m; sourceTree = "<group>"; };
+		11EB3D4C15D0ADD300EAFAB2 /* XCDefaultAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCDefaultAccount.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +380,7 @@
 		11D0795115CB7D5000639604 /* XMPPConsole */ = {
 			isa = PBXGroup;
 			children = (
+				11EB3D4C15D0ADD300EAFAB2 /* XCDefaultAccount.h */,
 				11D0795D15CB7D5000639604 /* XCAppDelegate.h */,
 				11D0795E15CB7D5000639604 /* XCAppDelegate.m */,
 				11D0796015CB7D5000639604 /* MainMenu.xib */,
