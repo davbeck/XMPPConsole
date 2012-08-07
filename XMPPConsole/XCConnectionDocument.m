@@ -36,9 +36,19 @@
 
 @synthesize currentLog = _currentLog;
 
+- (BOOL)connecting
+{
+    return !self.stream.connected && !self.stream.disconnected;
+}
+
++ (NSSet *)keyPathsForValuesAffectingConnecting
+{
+    return [NSSet setWithArray:@[ @"stream.connected", @"stream.disconnected" ]];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"isConnected"] && object == self.stream) {
+    if ([keyPath isEqualToString:@"connected"] && object == self.stream) {
         if (self.stream.isConnected) {
             self.connectButton.title = NSLocalizedString(@"Disconnect", nil);
         } else {
@@ -51,7 +61,7 @@
 
 - (void)dealloc
 {
-    [self.stream removeObserver:self forKeyPath:@"isConnected"];
+    [self.stream removeObserver:self forKeyPath:@"connected"];
 }
 
 + (void)initialize
@@ -96,7 +106,7 @@
     
     [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
-    [self.stream addObserver:self forKeyPath:@"isConnected" options:0 context:NULL];
+    [self.stream addObserver:self forKeyPath:@"connected" options:0 context:NULL];
     
 	
 #ifdef DEBUG

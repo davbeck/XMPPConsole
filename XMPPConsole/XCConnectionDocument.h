@@ -34,7 +34,9 @@
 @property (unsafe_unretained) IBOutlet XCSnippetLibraryViewController *snippetLibraryViewController;
 @property (weak) IBOutlet NSButton *connectButton;
 
+@property (readonly) BOOL connecting;
 @property (copy) NSString *password;
+
 @property (strong) IBOutlet XCLogsController *logsController;
 @property (readonly) XCLog *currentLog;
 @property (strong) XCLog *selectedLog;

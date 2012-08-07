@@ -1076,7 +1076,7 @@ wGw</bytes>
 			<object class="NSViewController" id="996897051">
 				<string key="NSNibName">XCSnippetLibraryViewController</string>
 			</object>
-			<object class="NSCustomObject" id="434056917">
+			<object class="NSCustomObject" id="664116381">
 				<string key="NSClassName">XCLogsController</string>
 			</object>
 		</array>
@@ -1150,7 +1150,7 @@ wGw</bytes>
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">logsController</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="434056917"/>
+						<reference key="destination" ref="664116381"/>
 					</object>
 					<int key="connectionID">100915</int>
 				</object>
@@ -1196,26 +1196,6 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: stream.isConnected</string>
-						<reference key="source" ref="360465537"/>
-						<reference key="destination" ref="512844837"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="360465537"/>
-							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: stream.isConnected</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">stream.isConnected</string>
-							<dictionary key="NSOptions">
-								<boolean value="NO" key="NSRaisesForNotApplicableKeys"/>
-								<string key="NSValueTransformerName">NSNegateBoolean</string>
-							</dictionary>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100452</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: password</string>
 						<reference key="source" ref="360465537"/>
 						<reference key="destination" ref="512844837"/>
@@ -1232,23 +1212,23 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: stream.isConnected</string>
-						<reference key="source" ref="9173483"/>
+						<string key="label">enabled: stream.disconnected</string>
+						<reference key="source" ref="360465537"/>
 						<reference key="destination" ref="512844837"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="9173483"/>
+							<reference key="NSSource" ref="360465537"/>
 							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: stream.isConnected</string>
+							<string key="NSLabel">enabled: stream.disconnected</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">stream.isConnected</string>
-							<dictionary key="NSOptions">
-								<boolean value="NO" key="NSRaisesForNotApplicableKeys"/>
-								<string key="NSValueTransformerName">NSNegateBoolean</string>
-							</dictionary>
+							<string key="NSKeyPath">stream.disconnected</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">100451</int>
+					<int key="connectionID">100925</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1265,6 +1245,26 @@ wGw</bytes>
 						</object>
 					</object>
 					<int key="connectionID">100229</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: stream.disconnected</string>
+						<reference key="source" ref="9173483"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="9173483"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">enabled: stream.disconnected</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">stream.disconnected</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100923</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1288,23 +1288,23 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: stream.isConnected</string>
+						<string key="label">enabled: stream.disconnected</string>
 						<reference key="source" ref="384768304"/>
 						<reference key="destination" ref="512844837"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="384768304"/>
 							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: stream.isConnected</string>
+							<string key="NSLabel">enabled: stream.disconnected</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">stream.isConnected</string>
-							<dictionary key="NSOptions">
-								<boolean value="NO" key="NSRaisesForNotApplicableKeys"/>
-								<string key="NSValueTransformerName">NSNegateBoolean</string>
-							</dictionary>
+							<string key="NSKeyPath">stream.disconnected</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">100454</int>
+					<int key="connectionID">100929</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1324,23 +1324,43 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: stream.isConnected</string>
+						<string key="label">enabled: stream.disconnected</string>
 						<reference key="source" ref="841459353"/>
 						<reference key="destination" ref="512844837"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="841459353"/>
 							<reference key="NSDestination" ref="512844837"/>
-							<string key="NSLabel">enabled: stream.isConnected</string>
+							<string key="NSLabel">enabled: stream.disconnected</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">stream.isConnected</string>
-							<dictionary key="NSOptions">
-								<boolean value="NO" key="NSRaisesForNotApplicableKeys"/>
-								<string key="NSValueTransformerName">NSNegateBoolean</string>
-							</dictionary>
+							<string key="NSKeyPath">stream.disconnected</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">100453</int>
+					<int key="connectionID">100927</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: connecting</string>
+						<reference key="source" ref="769949449"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="769949449"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">enabled: connecting</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">connecting</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100938</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2946,7 +2966,7 @@ wGw</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100914</int>
-						<reference key="object" ref="434056917"/>
+						<reference key="object" ref="664116381"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -3165,7 +3185,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100921</int>
+			<int key="maxID">100938</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
