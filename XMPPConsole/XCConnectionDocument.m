@@ -165,12 +165,54 @@
     [[scrollView documentView] scrollPoint:newScrollOrigin];
 }
 
+- (void)_showAlertWithTitle:(NSString *)title error:(NSError *)error
+{
+	if (error != nil) {
+		NSLog(@"Error connecting: %@", error);
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert setMessageText:title];
+        [alert setInformativeText:error.localizedDescription];
+        
+        [alert beginSheetModalForWindow:[self.windowControllers[0] window]
+                          modalDelegate:nil
+                         didEndSelector:NULL
+                            contextInfo:nil];
+        NSBeep();
+	}
+}
+
 
 #pragma mark - XMPPStreamDelegate
 
 - (void)xmppStreamDidConnect:(XMPPStream *)stream
 {
-    [stream authenticateWithPassword:self.password error:NULL];
+	NSError *error = nil;
+    if (![stream authenticateWithPassword:self.password error:&error]) {
+		[self _showAlertWithTitle:NSLocalizedString(@"Error authenticating:", nil) error:error];
+	}
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error
+{
+	NSLog(@"didNotRegister: %@", error);
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
+{
+	NSLog(@"didNotAuthenticate: %@", error);
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveError:(NSXMLElement *)error
+{
+	NSLog(@"didReceiveError: %@", error);
+}
+
+- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
+{
+	if (error != nil) {
+		[self _showAlertWithTitle:NSLocalizedString(@"Stream disconnected with error:", nil) error:error];
+	}
 }
 
 - (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
@@ -204,17 +246,7 @@
 {
     NSError *error = nil;
     if (![self.stream connect:&error]) {
-        NSLog(@"Error connecting: %@", error);
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setAlertStyle:NSCriticalAlertStyle];
-        [alert setMessageText:NSLocalizedString(@"Error parsing XML Element:", nil)];
-        [alert setInformativeText:error.localizedDescription];
-        
-        [alert beginSheetModalForWindow:[self.windowControllers[0] window]
-                          modalDelegate:nil
-                         didEndSelector:NULL
-                            contextInfo:nil];
-        NSBeep();
+		[self _showAlertWithTitle:NSLocalizedString(@"Error connecting:", nil) error:error];
     }
 }
 
