@@ -9,7 +9,7 @@
 #ifndef XMPPConsole_XCDefaultAccount_h
 #define XMPPConsole_XCDefaultAccount_h
 
-#define XCDefaultJID @"user@example.com"
+#define XCDefaultJID @"dbeck.demo@gmail.com"
 #define XCDefaultPassword @"secret"
 #define XCDefaultServer @""
 #define XCDefaultPort 5222
