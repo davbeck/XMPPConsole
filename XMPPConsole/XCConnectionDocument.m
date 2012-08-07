@@ -48,8 +48,8 @@
         
         _stream = [[XMPPStream alloc] init];
         
-        self.stream.myJID = [XMPPJID jidWithString:@"dbeck.demo@gmail.com"];
-        self.password = @"tRe4E3ru";
+        self.stream.myJID = [XMPPJID jidWithString:@"debug@example.com"];
+        self.password = @"secret";
     }
     return self;
 }
