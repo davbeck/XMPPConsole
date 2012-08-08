@@ -99,7 +99,7 @@
 
 - (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
 {
-    [_currentLog addText:string fromServer:NO];
+    [_currentLog addText:[string stringByAppendingString:@"\n"] fromServer:NO];
     
     [self _scrollToBottom];
 }
