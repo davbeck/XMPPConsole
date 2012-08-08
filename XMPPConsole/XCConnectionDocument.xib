@@ -136,7 +136,7 @@
 																			<int key="NSTag">2</int>
 																			<reference key="NSTarget" ref="659149930"/>
 																		</object>
-																		<object class="NSMenuItem" id="115131460">
+																		<object class="NSMenuItem" id="87802519">
 																			<reference key="NSMenu" ref="932219710"/>
 																			<bool key="NSIsDisabled">YES</bool>
 																			<bool key="NSIsSeparator">YES</bool>
@@ -1494,7 +1494,7 @@ wGw</bytes>
 						<string key="label">content: logsController.logInfo</string>
 						<reference key="source" ref="382294592"/>
 						<reference key="destination" ref="1057224158"/>
-						<object class="NSNibBindingConnector" key="connector" id="874096931">
+						<object class="NSNibBindingConnector" key="connector" id="79570113">
 							<reference key="NSSource" ref="382294592"/>
 							<reference key="NSDestination" ref="1057224158"/>
 							<string key="NSLabel">content: logsController.logInfo</string>
@@ -1524,11 +1524,27 @@ wGw</bytes>
 								<string key="NS.key.0">NSContentPlacementTag</string>
 								<integer value="1" key="NS.object.0"/>
 							</object>
-							<reference key="NSPreviousConnector" ref="874096931"/>
+							<reference key="NSPreviousConnector" ref="79570113"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
 					<int key="connectionID">100990</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: stream.connected</string>
+						<reference key="source" ref="696837274"/>
+						<reference key="destination" ref="1057224158"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="696837274"/>
+							<reference key="NSDestination" ref="1057224158"/>
+							<string key="NSLabel">enabled: stream.connected</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">stream.connected</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100999</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3198,7 +3214,7 @@ wGw</bytes>
 						<array class="NSMutableArray" key="children">
 							<reference ref="696837274"/>
 							<reference ref="859134514"/>
-							<reference ref="115131460"/>
+							<reference ref="87802519"/>
 						</array>
 						<reference key="parent" ref="659149930"/>
 					</object>
@@ -3239,7 +3255,7 @@ wGw</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100991</int>
-						<reference key="object" ref="115131460"/>
+						<reference key="object" ref="87802519"/>
 						<reference key="parent" ref="932219710"/>
 					</object>
 				</array>
@@ -3471,7 +3487,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100995</int>
+			<int key="maxID">100999</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3607,17 +3623,20 @@ wGw</bytes>
 							<string key="candidateClassName">NSPopUpButton</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">logView</string>
-						<string key="NS.object.0">NSTextView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">logView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="logPopUp">NSPopUpButton</string>
+						<string key="logView">NSTextView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="logPopUp">
+							<string key="name">logPopUp</string>
+							<string key="candidateClassName">NSPopUpButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="logView">
 							<string key="name">logView</string>
 							<string key="candidateClassName">NSTextView</string>
 						</object>
-					</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/XCLogsViewController.h</string>
