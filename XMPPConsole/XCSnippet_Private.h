@@ -15,6 +15,7 @@
 #define XCSnippetSummaryKey @"Summary"
 #define XCSnippetBodyKey @"Body"
 #define XCSnippetURLKey @"URL"
+#define XCSnippetTagsKey @"Tags"
 
 
 NSURL *XCURLForSnippets();

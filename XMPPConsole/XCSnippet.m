@@ -24,14 +24,14 @@
 
 - (void)setTitle:(NSString *)title
 {
-    _title = title;
+    _title = [title copy];
     
     [self _setNeedsSave];
 }
 
 - (void)setSummary:(NSString *)summary
 {
-    _summary = summary;
+    _summary = [summary copy];
     
     [self _setNeedsSave];
 }
@@ -39,7 +39,15 @@
 - (void)setBody:(NSString *)body
 {
     __element = nil;
-    _body = body;
+    _body = [body copy];
+    
+    [self _setNeedsSave];
+}
+
+- (void)setTags:(NSArray *)tags
+{
+    NSLog(@"tags: %@", tags);
+    _tags = [tags copy];
     
     [self _setNeedsSave];
 }
@@ -217,6 +225,9 @@
         if (_body != nil) {
             dictionary[XCSnippetBodyKey] = _body;
         }
+        if (_tags != nil) {
+            dictionary[XCSnippetTagsKey] = _tags;
+        }
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
@@ -241,6 +252,7 @@
                 self.title = dictionary[XCSnippetTitleKey];
                 self.summary = dictionary[XCSnippetSummaryKey];
                 self.body = dictionary[XCSnippetBodyKey];
+                self.tags = dictionary[XCSnippetTagsKey];
             }
             
             [self _save];

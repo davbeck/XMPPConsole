@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *body;
+@property (nonatomic, copy) NSArray *tags;
 
 @property (nonatomic, readonly) NSAttributedString *attributedSummary;
 @property (nonatomic, copy) NSAttributedString *attributedBody;
