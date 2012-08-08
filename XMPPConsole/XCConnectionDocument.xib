@@ -136,7 +136,7 @@
 																			<int key="NSTag">2</int>
 																			<reference key="NSTarget" ref="659149930"/>
 																		</object>
-																		<object class="NSMenuItem" id="87802519">
+																		<object class="NSMenuItem" id="307888214">
 																			<reference key="NSMenu" ref="932219710"/>
 																			<bool key="NSIsDisabled">YES</bool>
 																			<bool key="NSIsSeparator">YES</bool>
@@ -1267,6 +1267,22 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: stream.connected</string>
+						<reference key="source" ref="675222294"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="675222294"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">enabled: stream.connected</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">stream.connected</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">101002</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">editable: canEditLog</string>
 						<reference key="source" ref="97155445"/>
 						<reference key="destination" ref="1057224158"/>
@@ -1494,7 +1510,7 @@ wGw</bytes>
 						<string key="label">content: logsController.logInfo</string>
 						<reference key="source" ref="382294592"/>
 						<reference key="destination" ref="1057224158"/>
-						<object class="NSNibBindingConnector" key="connector" id="79570113">
+						<object class="NSNibBindingConnector" key="connector" id="157171286">
 							<reference key="NSSource" ref="382294592"/>
 							<reference key="NSDestination" ref="1057224158"/>
 							<string key="NSLabel">content: logsController.logInfo</string>
@@ -1524,7 +1540,7 @@ wGw</bytes>
 								<string key="NS.key.0">NSContentPlacementTag</string>
 								<integer value="1" key="NS.object.0"/>
 							</object>
-							<reference key="NSPreviousConnector" ref="79570113"/>
+							<reference key="NSPreviousConnector" ref="157171286"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
@@ -3214,7 +3230,7 @@ wGw</bytes>
 						<array class="NSMutableArray" key="children">
 							<reference ref="696837274"/>
 							<reference ref="859134514"/>
-							<reference ref="87802519"/>
+							<reference ref="307888214"/>
 						</array>
 						<reference key="parent" ref="659149930"/>
 					</object>
@@ -3255,7 +3271,7 @@ wGw</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100991</int>
-						<reference key="object" ref="87802519"/>
+						<reference key="object" ref="307888214"/>
 						<reference key="parent" ref="932219710"/>
 					</object>
 				</array>
@@ -3487,7 +3503,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100999</int>
+			<int key="maxID">101002</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

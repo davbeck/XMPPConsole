@@ -64,8 +64,10 @@
     if ([keyPath isEqualToString:@"connected"] && object == self.stream) {
         if (self.stream.isConnected) {
             self.connectButton.title = NSLocalizedString(@"Disconnect", nil);
+            self.connectButton.keyEquivalent = @"";
         } else {
             self.connectButton.title = NSLocalizedString(@"Connect", nil);
+            self.connectButton.keyEquivalent = @"\r";
         }
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -202,6 +204,11 @@
 + (BOOL)autosavesInPlace
 {
     return YES;
+}
+
++ (BOOL)preservesVersions
+{
+    return NO;
 }
 
 - (void)_showAlertWithTitle:(NSString *)title error:(NSError *)error
