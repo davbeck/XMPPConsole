@@ -10,37 +10,23 @@
 
 @class XMPPStream;
 @class XCSnippetLibraryViewController;
-@class XCLogsController;
-@class XCLog;
+@class XCLogsViewController;
 
 
 #define XCConnectionSavePasswordPreferenceKey @"SavePassword"
-
-
-#define XCConnectionInfoFileName @"ConnectionInfo"
-
-#define XCConnectionJIDKey @"JID"
-#define XCConnectionPasswordKey @"Password"
-#define XCConnectionServerKey @"Server"
-#define XCConnectionPortKey @"Port"
 
 
 @interface XCConnectionDocument : NSDocument
 
 @property (strong) XMPPStream *stream;
 
-@property (unsafe_unretained) IBOutlet NSTextView *stanzasTextView;
 @property (unsafe_unretained) IBOutlet NSTextView *XMLEditor;
 @property (unsafe_unretained) IBOutlet XCSnippetLibraryViewController *snippetLibraryViewController;
 @property (weak) IBOutlet NSButton *connectButton;
+@property (nonatomic, strong) IBOutlet XCLogsViewController *logsViewController;
 
 @property (readonly) BOOL connecting;
 @property (copy) NSString *password;
-
-@property (strong) IBOutlet XCLogsController *logsController;
-@property (readonly) XCLog *currentLog;
-@property (strong) XCLog *selectedLog;
-@property BOOL canEditLog;
 
 - (IBAction)connectOrDisconnect:(id)sender;
 - (IBAction)connect:(id)sender;

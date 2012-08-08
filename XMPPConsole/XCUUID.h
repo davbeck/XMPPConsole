@@ -1,5 +1,5 @@
 //
-//  XCLog.h
+//  NSObject+XCUUID.h
 //  XMPPConsole
 //
 //  Created by David Beck on 8/7/12.
@@ -8,8 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XCLog : NSObject <NSCoding>
-
-@property (copy, readonly) NSAttributedString *text;
-
-@end
+NSString *XCUUIDString();

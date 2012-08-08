@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XCLogNode : NSObject
+@interface XCLogNode : NSObject <NSCoding>
 
 @property (copy) NSString *body;
 @property BOOL fromServer;

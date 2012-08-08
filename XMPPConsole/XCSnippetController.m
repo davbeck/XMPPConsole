@@ -9,6 +9,7 @@
 #import "XCSnippetController.h"
 
 #import "XCSnippet_Private.h"
+#import "XCUUID.h"
 
 
 NSURL *XCURLForSnippets()
@@ -187,7 +188,7 @@ static XCSnippetController *sharedInstance;
         }
         
         if (directoryExists) {
-            NSString *fileName = [NSString stringWithFormat:@"%@.plist", [[NSUUID UUID] UUIDString]];
+            NSString *fileName = [NSString stringWithFormat:@"%@.plist", XCUUIDString()];
             NSURL *snippetURL = [snippetDirectory URLByAppendingPathComponent:fileName isDirectory:NO];
             snippet._fileURL = snippetURL;
         }

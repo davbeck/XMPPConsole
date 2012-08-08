@@ -1,5 +1,5 @@
 //
-//  XCLogsController.h
+//  XCLogProxy.h
 //  XMPPConsole
 //
 //  Created by David Beck on 8/7/12.
@@ -8,17 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class XCLogInfo;
 @class XCLog;
 
 
-@interface XCLogsController : NSObject
+@interface XCLogInfo : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSFileWrapper *fileWrapper;
+@property (nonatomic, strong) XCLog *log;
+@property (strong) NSDate *date;
+@property (nonatomic, strong) NSString *UUID;
 
-@property (readonly) NSArray *logInfo;
-- (XCLogInfo *)addLog:(XCLog *)log;
-
-- (void)save;
+- (id)initWithLog:(XCLog *)log;
 
 @end

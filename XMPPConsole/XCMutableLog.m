@@ -7,6 +7,7 @@
 //
 
 #import "XCMutableLog.h"
+#import "XCLog_Private.h"
 
 #import "XCLogNode.h"
 #import "NSXMLElement+AttributedString.h"
@@ -15,8 +16,8 @@
 
 @implementation XCMutableLog
 {
-    NSMutableAttributedString *_text;
-    NSMutableArray *_nodes;
+    NSMutableAttributedString *_mutableText;
+    NSMutableArray *__mutableNodes;
 }
 
 
@@ -24,7 +25,22 @@
 
 - (NSAttributedString *)text
 {
-    return [_text copy];
+    return [_mutableText copy];
+}
+
+- (void)_setText:(NSAttributedString *)text
+{
+    _mutableText = [text mutableCopy];
+}
+
+- (NSArray *)_nodes
+{
+    return __mutableNodes;
+}
+
+- (void)_setNodes:(NSArray *)_nodes
+{
+    __mutableNodes = [_nodes mutableCopy];
 }
 
 - (void)_addAttributedText:(NSAttributedString *)string fromServer:(BOOL)fromServer
@@ -33,7 +49,7 @@
     
     
     //we only use this when we save
-    [_nodes addObject:[XCLogNode nodeWithBody:string.string fromServer:fromServer]];
+    [__mutableNodes addObject:[XCLogNode nodeWithBody:string.string fromServer:fromServer]];
     
     
     NSMutableAttributedString *stanza = [string mutableCopy];
@@ -42,7 +58,7 @@
         [stanza addAttributes:@{ NSBackgroundColorAttributeName : [NSColor colorWithCalibratedWhite:0.9 alpha:1.0] } range:NSMakeRange(0, stanza.length)];
     }
     
-    [_text appendAttributedString:stanza];
+    [_mutableText appendAttributedString:stanza];
     
     [self didChangeValueForKey:@"text"];
 }
@@ -68,10 +84,20 @@
 {
     self = [super init];
     if (self) {
-        _text = [NSMutableAttributedString new];
-        _nodes = [NSMutableArray new];
+        _mutableText = [NSMutableAttributedString new];
+        __mutableNodes = [NSMutableArray new];
     }
     return self;
+}
+
+- (id)copy
+{
+    return [[XCLog alloc] _initWithNodes:self._nodes];
+}
+
+- (id)mutableCopy
+{
+    return [[[self class] alloc] _initWithNodes:self._nodes];
 }
 
 @end

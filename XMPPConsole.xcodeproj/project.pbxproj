@@ -26,6 +26,9 @@
 		11A20D3315D17F1D009B75C7 /* XCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3215D17F1D009B75C7 /* XCLog.m */; };
 		11A20D3615D17F29009B75C7 /* XCLogNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3515D17F29009B75C7 /* XCLogNode.m */; };
 		11A20D3915D1835D009B75C7 /* XCMutableLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3815D1835D009B75C7 /* XCMutableLog.m */; };
+		11A20D3D15D1C566009B75C7 /* XCLogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3C15D1C566009B75C7 /* XCLogsViewController.m */; };
+		11A20D4015D1DB10009B75C7 /* XCLogInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D3F15D1DB0F009B75C7 /* XCLogInfo.m */; };
+		11A20D4315D1E2A3009B75C7 /* XCUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A20D4215D1E2A3009B75C7 /* XCUUID.m */; };
 		11B9334B15CF5F88008944EB /* Snippet-IQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334515CF5F88008944EB /* Snippet-IQ.png */; };
 		11B9334C15CF5F88008944EB /* Snippet-IQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */; };
 		11B9334D15CF5F88008944EB /* Snippet-Message.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B9334715CF5F88008944EB /* Snippet-Message.png */; };
@@ -165,6 +168,13 @@
 		11A20D3515D17F29009B75C7 /* XCLogNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLogNode.m; sourceTree = "<group>"; };
 		11A20D3715D1835D009B75C7 /* XCMutableLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMutableLog.h; sourceTree = "<group>"; };
 		11A20D3815D1835D009B75C7 /* XCMutableLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMutableLog.m; sourceTree = "<group>"; };
+		11A20D3A15D197D2009B75C7 /* XCLog_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCLog_Private.h; sourceTree = "<group>"; };
+		11A20D3B15D1C566009B75C7 /* XCLogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCLogsViewController.h; sourceTree = "<group>"; };
+		11A20D3C15D1C566009B75C7 /* XCLogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLogsViewController.m; sourceTree = "<group>"; };
+		11A20D3E15D1DB0F009B75C7 /* XCLogInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCLogInfo.h; sourceTree = "<group>"; };
+		11A20D3F15D1DB0F009B75C7 /* XCLogInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCLogInfo.m; sourceTree = "<group>"; };
+		11A20D4115D1E2A3009B75C7 /* XCUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUUID.h; sourceTree = "<group>"; };
+		11A20D4215D1E2A3009B75C7 /* XCUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUUID.m; sourceTree = "<group>"; };
 		11B9334515CF5F88008944EB /* Snippet-IQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ.png"; sourceTree = "<group>"; };
 		11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-IQ@2x.png"; sourceTree = "<group>"; };
 		11B9334715CF5F88008944EB /* Snippet-Message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet-Message.png"; sourceTree = "<group>"; };
@@ -330,6 +340,8 @@
 				11253C9615D038E100973796 /* XCColorView.m */,
 				11D07A8315CC923E00639604 /* XCJIDFormatter.h */,
 				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
+				11A20D4115D1E2A3009B75C7 /* XCUUID.h */,
+				11A20D4215D1E2A3009B75C7 /* XCUUID.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -352,8 +364,13 @@
 		11A20D2D15D17EF2009B75C7 /* Logs */ = {
 			isa = PBXGroup;
 			children = (
+				11A20D3B15D1C566009B75C7 /* XCLogsViewController.h */,
+				11A20D3C15D1C566009B75C7 /* XCLogsViewController.m */,
 				11A20D2E15D17F0B009B75C7 /* XCLogsController.h */,
 				11A20D2F15D17F0B009B75C7 /* XCLogsController.m */,
+				11A20D3E15D1DB0F009B75C7 /* XCLogInfo.h */,
+				11A20D3F15D1DB0F009B75C7 /* XCLogInfo.m */,
+				11A20D3A15D197D2009B75C7 /* XCLog_Private.h */,
 				11A20D3115D17F1D009B75C7 /* XCLog.h */,
 				11A20D3215D17F1D009B75C7 /* XCLog.m */,
 				11A20D3715D1835D009B75C7 /* XCMutableLog.h */,
@@ -802,6 +819,9 @@
 				11A20D3315D17F1D009B75C7 /* XCLog.m in Sources */,
 				11A20D3615D17F29009B75C7 /* XCLogNode.m in Sources */,
 				11A20D3915D1835D009B75C7 /* XCMutableLog.m in Sources */,
+				11A20D3D15D1C566009B75C7 /* XCLogsViewController.m in Sources */,
+				11A20D4015D1DB10009B75C7 /* XCLogInfo.m in Sources */,
+				11A20D4315D1E2A3009B75C7 /* XCUUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

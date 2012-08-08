@@ -11,13 +11,20 @@
 #import "XMPP.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
-#import "NSXMLElement+AttributedString.h"
 #import "NSFont+CodeFont.h"
 #import "XCSnippetLibraryViewController.h"
 #import "XCDefaultAccount.h"
+#import "XCLogsViewController.h"
 #import "XCLogsController.h"
-#import "XCMutableLog.h"
 
+
+#define XCConnectionInfoFileName @"ConnectionInfo"
+#define XCLogsFolderName @"Logs"
+
+#define XCConnectionJIDKey @"JID"
+#define XCConnectionPasswordKey @"Password"
+#define XCConnectionServerKey @"Server"
+#define XCConnectionPortKey @"Port"
 
 
 
@@ -29,12 +36,18 @@
 
 
 
-@implementation XCConnectionDocument {
-    BOOL _needsToScroll;
-    XCMutableLog *_currentLog;
-}
+@implementation XCConnectionDocument
 
-@synthesize currentLog = _currentLog;
+- (void)setLogsViewController:(XCLogsViewController *)logsViewController
+{
+    _logsViewController = logsViewController;
+    
+    _logsViewController.stream = self.stream;
+    
+    if (self._fileWrapper.fileWrappers[XCLogsFolderName] != nil) {
+        _logsViewController.logsController.fileWrapper = self._fileWrapper.fileWrappers[XCLogsFolderName];
+    }
+}
 
 - (BOOL)connecting
 {
@@ -79,11 +92,7 @@
 //        [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
         
-        _currentLog = [XCMutableLog new];
-        
         _stream = [XMPPStream new];
-        
-        _canEditLog = NO;
     }
     return self;
 }
@@ -96,10 +105,6 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    
-    [[self.stanzasTextView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
-    [[self.stanzasTextView textContainer] setWidthTracksTextView:NO];
-    [self.stanzasTextView setHorizontallyResizable:YES];
     
     [self.XMLEditor setFont:[NSFont codeFont]];
     self.snippetLibraryViewController.defaultDestination = self.XMLEditor;
@@ -137,6 +142,9 @@
     }
     
     
+    if (self._fileWrapper.fileWrappers[XCLogsFolderName] != nil) {
+        _logsViewController.logsController.fileWrapper = self._fileWrapper.fileWrappers[XCLogsFolderName];
+    }
     
     return YES;
 }
@@ -161,6 +169,8 @@
     }
     connectionInfo[XCConnectionPortKey] = @(self.stream.hostPort);
     
+    [self unblockUserInteraction];
+    
     NSData *connectionData = [NSPropertyListSerialization dataWithPropertyList:connectionInfo format:NSPropertyListBinaryFormat_v1_0 options:0 error:outError];
     if (connectionData == nil) {
         return nil;
@@ -172,52 +182,26 @@
     
     
     
+    [_logsViewController.logsController save];
+    if (_logsViewController.logsController.fileWrapper != self._fileWrapper.fileWrappers[XCLogsFolderName]) {
+        [self._fileWrapper removeFileWrapper:self._fileWrapper.fileWrappers[XCLogsFolderName]];
+        _logsViewController.logsController.fileWrapper.preferredFilename = XCLogsFolderName;
+        [self._fileWrapper addFileWrapper:_logsViewController.logsController.fileWrapper];
+    }
+    
+    
+    
     return self._fileWrapper;
+}
+
+- (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation
+{
+    return YES;
 }
 
 + (BOOL)autosavesInPlace
 {
     return YES;
-}
-
-- (BOOL)_shouldLockStanzasTextViewToBottom
-{
-    NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
-    
-    return NSMaxY(scrollView.contentView.bounds) >= NSMaxY([scrollView.documentView frame]);
-}
-
-- (void)_setNeedsToScroll
-{
-    // When you update the text in a NSTextView it doesn't update it's size until the next run loop, so we need to wait to sroll until after that
-    // By using dispatch_async on the main queue it will run after everything that is queued on the run loop thus far
-    // However, if you then update the text again before we get a chance to scroll, we will scroll and then the size will change again
-    // So until we get our chance to scroll, we keep adding on to the end of the run loop
-    
-    _needsToScroll = YES;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self _scrollToBottom];
-    });
-}
-
-- (void)_scrollToBottom;
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _needsToScroll = NO;
-        
-        NSScrollView *scrollView = self.stanzasTextView.enclosingScrollView;
-        NSPoint newScrollOrigin;
-        
-        // assume that the scrollview is an existing variable
-        if ([[scrollView documentView] isFlipped]) {
-            newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, NSMaxY([scrollView.documentView frame]) - NSHeight(scrollView.contentView.bounds));
-        } else {
-            newScrollOrigin = NSMakePoint(scrollView.contentView.bounds.origin.x, 0.0);
-        }
-        
-        [[scrollView documentView] scrollPoint:newScrollOrigin];
-    });
 }
 
 - (void)_showAlertWithTitle:(NSString *)title error:(NSError *)error
@@ -268,27 +252,6 @@
 	if (error != nil) {
 		[self _showAlertWithTitle:NSLocalizedString(@"Stream disconnected with error:", nil) error:error];
 	}
-}
-
-- (void)xmppStream:(XMPPStream *)sender didSendString:(NSString *)string
-{
-    [_currentLog addText:string fromServer:NO];
-    
-    [self _scrollToBottom];
-}
-
-- (void)xmppStream:(XMPPStream *)sender didSendElement:(NSXMLElement *)element
-{
-    [_currentLog addXML:element fromServer:NO];
-    
-    [self _scrollToBottom];
-}
-
-- (void)xmppStream:(XMPPStream *)sender didReceiveElement:(NSXMLElement *)element
-{
-    [_currentLog addXML:element fromServer:YES];
-    
-    [self _scrollToBottom];
 }
 
 
