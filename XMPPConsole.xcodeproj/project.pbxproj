@@ -308,19 +308,8 @@
 		112B281615CDBBF200D5E3D0 /* Snippets */ = {
 			isa = PBXGroup;
 			children = (
-				113A925315D06B0F00E5878D /* XCSnippetLibraryViewController.xib */,
-				11253C8D15D02C7A00973796 /* XCSnippetDetailViewController.h */,
-				11253C8E15D02C7A00973796 /* XCSnippetDetailViewController.m */,
-				11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */,
-				112B281215CDBBEB00D5E3D0 /* XCSnippetRowView.h */,
-				112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */,
-				11568AE715CD8A14009BBE6A /* XCSnippetController.h */,
-				11568AE815CD8A14009BBE6A /* XCSnippetController.m */,
-				1185386115CE2808007AD384 /* XCSnippet_Private.h */,
-				11568AEA15CD8AD8009BBE6A /* XCSnippet.h */,
-				11568AEB15CD8AD8009BBE6A /* XCSnippet.m */,
-				1185386815CF4375007AD384 /* XCSnippetLibraryViewController.h */,
-				1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */,
+				1178F15A15D3100500A7AE65 /* View */,
+				1178F15B15D3100F00A7AE65 /* Model */,
 			);
 			name = Snippets;
 			sourceTree = "<group>";
@@ -359,6 +348,33 @@
 				11568AEE15CD8FE0009BBE6A /* Snippet@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		1178F15A15D3100500A7AE65 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1185386815CF4375007AD384 /* XCSnippetLibraryViewController.h */,
+				1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */,
+				113A925315D06B0F00E5878D /* XCSnippetLibraryViewController.xib */,
+				11253C8D15D02C7A00973796 /* XCSnippetDetailViewController.h */,
+				11253C8E15D02C7A00973796 /* XCSnippetDetailViewController.m */,
+				11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */,
+				112B281215CDBBEB00D5E3D0 /* XCSnippetRowView.h */,
+				112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1178F15B15D3100F00A7AE65 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11568AE715CD8A14009BBE6A /* XCSnippetController.h */,
+				11568AE815CD8A14009BBE6A /* XCSnippetController.m */,
+				1185386115CE2808007AD384 /* XCSnippet_Private.h */,
+				11568AEA15CD8AD8009BBE6A /* XCSnippet.h */,
+				11568AEB15CD8AD8009BBE6A /* XCSnippet.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		11A20D2D15D17EF2009B75C7 /* Logs */ = {

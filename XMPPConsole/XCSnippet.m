@@ -46,7 +46,6 @@
 
 - (void)setTags:(NSArray *)tags
 {
-    NSLog(@"tags: %@", tags);
     _tags = [tags copy];
     
     [self _setNeedsSave];

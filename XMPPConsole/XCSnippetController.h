@@ -22,4 +22,7 @@
 - (void)insertObject:(XCSnippet *)object inSnippetsAtIndex:(NSUInteger)index;
 - (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index;
 
+@property (strong, readonly) NSDictionary *snippetsByTag;
+@property (strong, readonly) NSArray *tags;
+
 @end
