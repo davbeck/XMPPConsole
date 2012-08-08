@@ -11,7 +11,8 @@
 @interface XCSnippetDetailViewController : NSViewController
 
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextView *bodyView;
+@property (weak) IBOutlet NSLayoutConstraint *infoHeight;
 
-@property BOOL editing;
+@property (nonatomic) BOOL editing;
 
 @end
