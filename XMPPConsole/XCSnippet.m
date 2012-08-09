@@ -134,6 +134,11 @@
     return [NSSet setWithObject:@"body"];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %@>", NSStringFromClass([self class]), self.title];
+}
+
 
 #pragma mark - Initialization
 
@@ -245,16 +250,18 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSData *data = [NSData dataWithContentsOfURL:__fileURL];
-            NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
-            
-            if ([dictionary isKindOfClass:[NSDictionary class]]) {
-                self.title = dictionary[XCSnippetTitleKey];
-                self.summary = dictionary[XCSnippetSummaryKey];
-                self.body = dictionary[XCSnippetBodyKey];
-                self.tags = dictionary[XCSnippetTagsKey];
+            if (data != nil) {
+                NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
+                
+                if ([dictionary isKindOfClass:[NSDictionary class]]) {
+                    self.title = dictionary[XCSnippetTitleKey];
+                    self.summary = dictionary[XCSnippetSummaryKey];
+                    self.body = dictionary[XCSnippetBodyKey];
+                    self.tags = dictionary[XCSnippetTagsKey];
+                }
+                
+                [self _save];
             }
-            
-            [self _save];
         });
     }
     

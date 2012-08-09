@@ -19,6 +19,8 @@
 
 @interface XCSnippetLibraryViewController ()
 
+@property (strong, readwrite) NSArray *filteredSnippets;
+
 @end
 
 @implementation XCSnippetLibraryViewController
@@ -26,8 +28,6 @@
     BOOL _animateChanges;
     BOOL _popoverMoved;
 }
-@synthesize infoPopover = _infoPopover;
-@synthesize infoViewController = _infoViewController;
 
 - (void)setTableView:(NSTableView *)tableView
 {
@@ -43,23 +43,85 @@
 {
 	if ([keyPath isEqualToString:@"snippets"] && object == [XCSnippetController sharedController]) {
         if (_animateChanges) {
+            [self.tableView beginUpdates];
+            
+            NSArray *oldFilteredSnippets = self.filteredSnippets;
+            NSArray *newFilteredSnippets = [self _filteredSnippetsFromPopUp];
+            
             switch ([change[NSKeyValueChangeKindKey] unsignedIntegerValue]) {
-                case NSKeyValueChangeInsertion:;
-                    [self.tableView insertRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
-                    break;
+                case NSKeyValueChangeInsertion: {
+                    NSIndexSet *indexes = [newFilteredSnippets indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                        return [change[NSKeyValueChangeNewKey] containsObject:obj];
+                    }];
                     
-                case NSKeyValueChangeRemoval:;
-                    [self.tableView removeRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideLeft | NSTableViewAnimationEffectFade];
-                    break;
+                    [self.tableView insertRowsAtIndexes:indexes withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
                     
-                default:
+                    break;
+                } case NSKeyValueChangeRemoval: {
+                    NSIndexSet *indexes = [oldFilteredSnippets indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                        return [change[NSKeyValueChangeOldKey] containsObject:obj];
+                    }];
+                    
+                    [self.tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationSlideLeft | NSTableViewAnimationEffectFade];
+                    
+                    break;
+                } default: {
                     [self.tableView reloadData];
+                    
                     break;
+                }
             }
+            
+            self.filteredSnippets = newFilteredSnippets;
+            
+            [self.tableView endUpdates];
+        } else {
+            [self _updateFilter];
         }
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	}
 }
 
+- (NSArray *)_filteredSnippetsFromPopUp
+{
+    switch (self.filterPopUp.selectedTag) {
+        case XCSnippetIQTag:
+            NSLog(@"IQ");
+            break;
+            
+        case XCSnippetMessageTag:
+            NSLog(@"Message");
+            break;
+            
+        case XCSnippetPresenceTag:
+            NSLog(@"Presence");
+            break;
+            
+        case XCSnippetOtherTag:
+            NSLog(@"Other");
+            break;
+            
+        case XCSnippetTagTag:
+            return [[XCSnippetController sharedController] snippetsForTag:self.filterPopUp.selectedItem.representedObject];
+            break;
+            
+        case XCSnippetAllTag:
+        default:
+            return [XCSnippetController sharedController].snippets;
+            break;
+    }
+    
+    return nil;
+}
+
+- (void)_updateFilter
+{
+    self.filteredSnippets = [self _filteredSnippetsFromPopUp];
+}
+
+
+#pragma mark - Initialization
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,6 +133,8 @@
     if (self) {
         _animateChanges = YES;
         [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        
+        self.filteredSnippets = [XCSnippetController sharedController].snippets;
     }
     
     return self;
@@ -82,6 +146,8 @@
     if (self) {
         _animateChanges = YES;
         [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        
+        self.filteredSnippets = [XCSnippetController sharedController].snippets;
     }
     return self;
 }
@@ -92,6 +158,8 @@
     if (self) {
         _animateChanges = YES;
         [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        
+        self.filteredSnippets = [XCSnippetController sharedController].snippets;
     }
     return self;
 }
@@ -116,7 +184,7 @@
         [self.tableView scrollRowToVisible:selectedRow];
         NSView *rowView = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
         
-        self.infoPopover.contentViewController.representedObject = [[XCSnippetController sharedController].snippets objectAtIndex:selectedRow];
+        self.infoPopover.contentViewController.representedObject = [XCSnippetController sharedController].snippets[selectedRow];
         [self.infoPopover showRelativeToRect:rowView.bounds ofView:rowView preferredEdge:NSMaxXEdge];
     }
 }
@@ -140,8 +208,12 @@
     }
     
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        
         XCSnippet *snippet = [XCSnippet snippetWithTitle:nil summary:nil body:nil];
+        
+        [self.filterPopUp selectItemWithTag:XCSnippetAllTag];
+        [self _updateFilter];
+        [self.tableView reloadData];
+        
         NSUInteger newIndex = [XCSnippetController sharedController].countOfSnippets;
         [[XCSnippetController sharedController] insertObject:snippet inSnippetsAtIndex:newIndex];
         
@@ -171,6 +243,12 @@
             [self showInfo:self];
         }
     });
+}
+
+- (IBAction)changeScope:(NSPopUpButton *)sender
+{
+    [self _updateFilter];
+    [self.tableView reloadData];
 }
 
 
@@ -205,12 +283,12 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return [[XCSnippetController sharedController] countOfSnippets];
+    return self.filteredSnippets.count;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    return [[XCSnippetController sharedController] objectInSnippetsAtIndex:row];
+    return self.filteredSnippets[row];
 }
 
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row

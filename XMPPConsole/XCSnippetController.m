@@ -44,7 +44,7 @@ static XCSnippetController *sharedInstance;
 
 - (XCSnippet *)objectInSnippetsAtIndex:(NSUInteger)index
 {
-    return [_snippets objectAtIndex:index];
+    return _snippets[index];
 }
 
 - (void)getSnippets:(XCSnippet * __unsafe_unretained *)buffer range:(NSRange)inRange
@@ -63,39 +63,13 @@ static XCSnippetController *sharedInstance;
 
 - (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index
 {
-    XCSnippet *snippet = [_snippets objectAtIndex:index];
+    XCSnippet *snippet = _snippets[index];
     [_snippets removeObjectAtIndex:index];
     
     [snippet removeObserver:self forKeyPath:@"tags"];
     [[NSFileManager defaultManager] removeItemAtURL:snippet._fileURL error:NULL];
     
     [self _save];
-}
-
-- (NSDictionary *)snippetsByTag
-{
-    NSMutableDictionary *snippetsByTag = [NSMutableDictionary new];
-    
-    [[_snippets copy] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(XCSnippet *snippet, NSUInteger idx, BOOL *stop) {
-        [snippet.tags enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *tag, NSUInteger idx, BOOL *stop) {
-            if (snippetsByTag[tag] == nil) {
-                @synchronized(snippetsByTag) {
-                    snippetsByTag[tag] = [NSMutableArray new];
-                }
-            }
-            
-            @synchronized(snippetsByTag[tag]) {
-                [snippetsByTag[tag] addObject:snippet];
-            }
-        }];
-    }];
-    
-    return snippetsByTag;
-}
-
-+ (NSSet *)keyPathsForValuesAffectingSnippetsByTag
-{
-    return [NSSet setWithObject:@"tags"];
 }
 
 - (NSArray *)tags
@@ -106,6 +80,12 @@ static XCSnippetController *sharedInstance;
 + (NSSet *)keyPathsForValuesAffectingTags
 {
     return [NSSet setWithObject:@"snippets"];
+}
+
+- (NSArray *)snippetsForTag:(NSString *)tag
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY tags like %@", tag];
+    return [_snippets filteredArrayUsingPredicate:predicate];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
