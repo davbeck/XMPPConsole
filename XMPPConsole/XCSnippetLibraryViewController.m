@@ -87,19 +87,19 @@
 {
     switch (self.filterPopUp.selectedTag) {
         case XCSnippetIQTag:
-            NSLog(@"IQ");
+            return [[XCSnippetController sharedController] snippetsForElementName:@"iq"];
             break;
             
         case XCSnippetMessageTag:
-            NSLog(@"Message");
+            return [[XCSnippetController sharedController] snippetsForElementName:@"message"];
             break;
             
         case XCSnippetPresenceTag:
-            NSLog(@"Presence");
+            return [[XCSnippetController sharedController] snippetsForElementName:@"presence"];
             break;
             
         case XCSnippetOtherTag:
-            NSLog(@"Other");
+            return [[XCSnippetController sharedController] snippetsForElementNamesNotIn:@[ @"iq", @"message", @"presence" ]];
             break;
             
         case XCSnippetTagTag:

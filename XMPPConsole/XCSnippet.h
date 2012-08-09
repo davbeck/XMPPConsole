@@ -22,6 +22,7 @@
 @property (nonatomic, readonly) NSAttributedString *attributedSummary;
 @property (nonatomic, copy) NSAttributedString *attributedBody;
 
+@property (nonatomic, readonly) NSString *elementName;
 @property (nonatomic, readonly) NSImage *icon;
 
 + (XCSnippet *)snippetWithTitle:(NSString *)title summary:(NSString *)summary body:(NSString *)body;

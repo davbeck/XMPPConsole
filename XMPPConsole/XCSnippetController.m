@@ -84,7 +84,19 @@ static XCSnippetController *sharedInstance;
 
 - (NSArray *)snippetsForTag:(NSString *)tag
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY tags like %@", tag];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY tags LIKE %@", tag];
+    return [_snippets filteredArrayUsingPredicate:predicate];
+}
+
+- (NSArray *)snippetsForElementName:(NSString *)elementName
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"elementName LIKE[c] %@", elementName];
+    return [_snippets filteredArrayUsingPredicate:predicate];
+}
+
+- (NSArray *)snippetsForElementNamesNotIn:(NSArray *)elementNames
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT elementName IN[c] %@", elementNames];
     return [_snippets filteredArrayUsingPredicate:predicate];
 }
 

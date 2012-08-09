@@ -97,16 +97,23 @@
     return [NSSet setWithObject:@"body"];
 }
 
+- (NSString *)elementName
+{
+    return self._element.name;
+}
+
 - (NSImage *)icon
 {
-    if ([self._element.name isEqualToString:@"iq"]) {
-        return [NSImage imageNamed:@"Snippet-IQ"];
-    }
-    if ([self._element.name isEqualToString:@"message"]) {
-        return [NSImage imageNamed:@"Snippet-Message"];
-    }
-    if ([self._element.name isEqualToString:@"presence"]) {
-        return [NSImage imageNamed:@"Snippet-Presence"];
+    if (self.elementName != nil) {
+        if ([self.elementName caseInsensitiveCompare:@"iq"] == NSOrderedSame) {
+            return [NSImage imageNamed:@"Snippet-IQ"];
+        }
+        if ([self.elementName caseInsensitiveCompare:@"message"] == NSOrderedSame) {
+            return [NSImage imageNamed:@"Snippet-Message"];
+        }
+        if ([self.elementName caseInsensitiveCompare:@"presence"] == NSOrderedSame) {
+            return [NSImage imageNamed:@"Snippet-Presence"];
+        }
     }
     
     return [NSImage imageNamed:@"Snippet"];
