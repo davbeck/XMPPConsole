@@ -167,7 +167,7 @@
 
 #pragma mark - Actions
 
-- (IBAction)insertSelectedSnippet:(id)sender;
+- (IBAction)insertSelectedSnippet:(id)sender
 {
     XCSnippet *snippet = [[[self.tableView rowViewAtRow:self.tableView.selectedRow makeIfNecessary:YES] viewAtColumn:0] objectValue];
     
