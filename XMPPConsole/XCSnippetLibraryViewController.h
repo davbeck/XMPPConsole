@@ -27,7 +27,7 @@
 @property (unsafe_unretained) IBOutlet XCSnippetDetailViewController *infoViewController;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *filterPopUp;
 
-@property (strong, readonly) NSArray *filteredSnippets;
+@property (nonatomic, strong) NSString *searchTerm;
 
 - (IBAction)insertSelectedSnippet:(id)sender;
 - (IBAction)addSnippet:(id)sender;

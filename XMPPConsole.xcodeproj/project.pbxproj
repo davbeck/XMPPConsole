@@ -19,6 +19,8 @@
 		11568AEC15CD8AD8009BBE6A /* XCSnippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 11568AEB15CD8AD8009BBE6A /* XCSnippet.m */; };
 		11568AEF15CD8FE0009BBE6A /* Snippet.png in Resources */ = {isa = PBXBuildFile; fileRef = 11568AED15CD8FE0009BBE6A /* Snippet.png */; };
 		11568AF015CD8FE0009BBE6A /* Snippet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11568AEE15CD8FE0009BBE6A /* Snippet@2x.png */; };
+		1178F15E15D443D000A7AE65 /* XCSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1178F15D15D443D000A7AE65 /* XCSearchBackgroundView.m */; };
+		1182952415D444B700DF1EE8 /* SearchBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1182952315D444B700DF1EE8 /* SearchBackground.png */; };
 		1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */; };
 		1185386315CF1DB8007AD384 /* DefaultSnippets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1185386215CF1DB8007AD384 /* DefaultSnippets.plist */; };
 		1185386A15CF4375007AD384 /* XCSnippetLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */; };
@@ -154,6 +156,9 @@
 		11568AEB15CD8AD8009BBE6A /* XCSnippet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSnippet.m; sourceTree = "<group>"; };
 		11568AED15CD8FE0009BBE6A /* Snippet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snippet.png; sourceTree = "<group>"; };
 		11568AEE15CD8FE0009BBE6A /* Snippet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snippet@2x.png"; sourceTree = "<group>"; };
+		1178F15C15D443D000A7AE65 /* XCSearchBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchBackgroundView.h; sourceTree = "<group>"; };
+		1178F15D15D443D000A7AE65 /* XCSearchBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSearchBackgroundView.m; sourceTree = "<group>"; };
+		1182952315D444B700DF1EE8 /* SearchBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SearchBackground.png; sourceTree = "<group>"; };
 		1185385D15CE261F007AD384 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		1185386115CE2808007AD384 /* XCSnippet_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCSnippet_Private.h; sourceTree = "<group>"; };
@@ -338,6 +343,7 @@
 		11568ADE15CD7533009BBE6A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1182952315D444B700DF1EE8 /* SearchBackground.png */,
 				11B9334515CF5F88008944EB /* Snippet-IQ.png */,
 				11B9334615CF5F88008944EB /* Snippet-IQ@2x.png */,
 				11B9334715CF5F88008944EB /* Snippet-Message.png */,
@@ -361,6 +367,8 @@
 				11253C8F15D02C7A00973796 /* XCSnippetDetailViewController.xib */,
 				112B281215CDBBEB00D5E3D0 /* XCSnippetRowView.h */,
 				112B281315CDBBEB00D5E3D0 /* XCSnippetRowView.m */,
+				1178F15C15D443D000A7AE65 /* XCSearchBackgroundView.h */,
+				1178F15D15D443D000A7AE65 /* XCSearchBackgroundView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -807,6 +815,7 @@
 				11B9335015CF5F88008944EB /* Snippet-Presence@2x.png in Resources */,
 				11253C9115D02C7A00973796 /* XCSnippetDetailViewController.xib in Resources */,
 				113A925415D06B0F00E5878D /* XCSnippetLibraryViewController.xib in Resources */,
+				1182952415D444B700DF1EE8 /* SearchBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,6 +847,7 @@
 				11A20D3D15D1C566009B75C7 /* XCLogsViewController.m in Sources */,
 				11A20D4015D1DB10009B75C7 /* XCLogInfo.m in Sources */,
 				11A20D4315D1E2A3009B75C7 /* XCUUID.m in Sources */,
+				1178F15E15D443D000A7AE65 /* XCSearchBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

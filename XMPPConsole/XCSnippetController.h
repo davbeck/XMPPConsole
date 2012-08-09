@@ -23,8 +23,5 @@
 - (void)removeObjectFromSnippetsAtIndex:(NSUInteger)index;
 
 @property (strong, readonly) NSArray *tags;
-- (NSArray *)snippetsForTag:(NSString *)tag;
-- (NSArray *)snippetsForElementName:(NSString *)elementName;
-- (NSArray *)snippetsForElementNamesNotIn:(NSArray *)elementNames;
 
 @end

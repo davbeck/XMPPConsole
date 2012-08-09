@@ -19,14 +19,13 @@
 
 @interface XCSnippetLibraryViewController ()
 
-@property (strong, readwrite) NSArray *filteredSnippets;
-
 @end
 
 @implementation XCSnippetLibraryViewController
 {
     BOOL _animateChanges;
     BOOL _popoverMoved;
+    NSArrayController *_snippetsController;
 }
 
 - (void)setTableView:(NSTableView *)tableView
@@ -41,28 +40,17 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:@"snippets"] && object == [XCSnippetController sharedController]) {
+	if ([keyPath isEqualToString:@"arrangedObjects"] && object == _snippetsController) {
         if (_animateChanges) {
             [self.tableView beginUpdates];
             
-            NSArray *oldFilteredSnippets = self.filteredSnippets;
-            NSArray *newFilteredSnippets = [self _filteredSnippetsFromPopUp];
-            
             switch ([change[NSKeyValueChangeKindKey] unsignedIntegerValue]) {
                 case NSKeyValueChangeInsertion: {
-                    NSIndexSet *indexes = [newFilteredSnippets indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                        return [change[NSKeyValueChangeNewKey] containsObject:obj];
-                    }];
-                    
-                    [self.tableView insertRowsAtIndexes:indexes withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
+                    [self.tableView insertRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
                     
                     break;
                 } case NSKeyValueChangeRemoval: {
-                    NSIndexSet *indexes = [oldFilteredSnippets indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                        return [change[NSKeyValueChangeOldKey] containsObject:obj];
-                    }];
-                    
-                    [self.tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationSlideLeft | NSTableViewAnimationEffectFade];
+                    [self.tableView removeRowsAtIndexes:change[NSKeyValueChangeIndexesKey] withAnimation:NSTableViewAnimationSlideLeft | NSTableViewAnimationEffectFade];
                     
                     break;
                 } default: {
@@ -71,8 +59,6 @@
                     break;
                 }
             }
-            
-            self.filteredSnippets = newFilteredSnippets;
             
             [self.tableView endUpdates];
         } else {
@@ -83,41 +69,49 @@
 	}
 }
 
-- (NSArray *)_filteredSnippetsFromPopUp
+- (void)setSearchTerm:(NSString *)searchTerm
 {
-    switch (self.filterPopUp.selectedTag) {
-        case XCSnippetIQTag:
-            return [[XCSnippetController sharedController] snippetsForElementName:@"iq"];
-            break;
-            
-        case XCSnippetMessageTag:
-            return [[XCSnippetController sharedController] snippetsForElementName:@"message"];
-            break;
-            
-        case XCSnippetPresenceTag:
-            return [[XCSnippetController sharedController] snippetsForElementName:@"presence"];
-            break;
-            
-        case XCSnippetOtherTag:
-            return [[XCSnippetController sharedController] snippetsForElementNamesNotIn:@[ @"iq", @"message", @"presence" ]];
-            break;
-            
-        case XCSnippetTagTag:
-            return [[XCSnippetController sharedController] snippetsForTag:self.filterPopUp.selectedItem.representedObject];
-            break;
-            
-        case XCSnippetAllTag:
-        default:
-            return [XCSnippetController sharedController].snippets;
-            break;
-    }
+    _searchTerm = searchTerm;
     
-    return nil;
+    [self _updateFilter];
 }
 
 - (void)_updateFilter
 {
-    self.filteredSnippets = [self _filteredSnippetsFromPopUp];
+    NSMutableArray *predicates = [NSMutableArray new];
+    
+    if (self.searchTerm.length > 0) {
+        [predicates addObject:[NSPredicate predicateWithFormat:@"title CONTAINS[dc] %@ OR summary CONTAINS[dc] %@ OR body CONTAINS[dc] %@ OR ANY tags CONTAINS[dc] %@", self.searchTerm, self.searchTerm, self.searchTerm, self.searchTerm]];
+    }
+    
+    switch (self.filterPopUp.selectedTag) {
+        case XCSnippetIQTag: {
+            [predicates addObject:[NSPredicate predicateWithFormat:@"elementName LIKE[c] 'iq'"]];
+            
+            break;
+        } case XCSnippetMessageTag: {
+            [predicates addObject:[NSPredicate predicateWithFormat:@"elementName LIKE[c] 'message'"]];
+            
+            break;
+        } case XCSnippetPresenceTag: {
+            [predicates addObject:[NSPredicate predicateWithFormat:@"elementName LIKE[c] 'presence'"]];
+            
+            break;
+        } case XCSnippetOtherTag: {
+            [predicates addObject:[NSPredicate predicateWithFormat:@"NOT elementName IN[c] %@", @[ @"iq", @"message", @"presence" ]]];
+            
+            break;
+        } case XCSnippetTagTag: {
+            [predicates addObject:[NSPredicate predicateWithFormat:@"ANY tags LIKE %@", self.filterPopUp.selectedItem.representedObject]];
+            
+            break;
+        } default: {
+            
+            break;
+        }
+    }
+    
+    _snippetsController.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 }
 
 
@@ -132,9 +126,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _animateChanges = YES;
-        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
-        self.filteredSnippets = [XCSnippetController sharedController].snippets;
+        _snippetsController = [[NSArrayController alloc] init];
+        [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
+        [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
     }
     
     return self;
@@ -145,9 +140,10 @@
     self = [super initWithCoder:coder];
     if (self) {
         _animateChanges = YES;
-        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
-        self.filteredSnippets = [XCSnippetController sharedController].snippets;
+        _snippetsController = [[NSArrayController alloc] init];
+        [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
+        [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
     }
     return self;
 }
@@ -157,9 +153,10 @@
     self = [super init];
     if (self) {
         _animateChanges = YES;
-        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"snippets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
-        self.filteredSnippets = [XCSnippetController sharedController].snippets;
+        _snippetsController = [[NSArrayController alloc] init];
+        [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
+        [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
     }
     return self;
 }
@@ -184,7 +181,7 @@
         [self.tableView scrollRowToVisible:selectedRow];
         NSView *rowView = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
         
-        self.infoPopover.contentViewController.representedObject = self.filteredSnippets[selectedRow];
+        self.infoPopover.contentViewController.representedObject = _snippetsController.arrangedObjects[selectedRow];
         [self.infoPopover showRelativeToRect:rowView.bounds ofView:rowView preferredEdge:NSMaxXEdge];
     }
 }
@@ -283,12 +280,12 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.filteredSnippets.count;
+    return [_snippetsController.arrangedObjects count];
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    return self.filteredSnippets[row];
+    return _snippetsController.arrangedObjects[row];
 }
 
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
