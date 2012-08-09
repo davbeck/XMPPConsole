@@ -187,6 +187,10 @@
 
 - (void)popoverWillClose:(NSNotification *)notification
 {
+    //make sure the text fields commit their edit
+    NSPopover *popover = notification.object;
+    [popover.contentViewController.view.window makeFirstResponder:nil];
+    
     self.infoViewController.editing = NO;
     
     XCSnippet *snippet = self.infoViewController.representedObject;

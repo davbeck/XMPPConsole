@@ -16,7 +16,6 @@
 @end
 
 @implementation XCSnippetDetailViewController
-@synthesize infoHeight;
 
 - (void)setEditing:(BOOL)editing
 {

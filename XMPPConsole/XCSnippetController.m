@@ -25,7 +25,6 @@ NSURL *XCURLForSnippets()
 
 @implementation XCSnippetController {
     NSMutableArray *_snippets;
-    NSMutableDictionary *_snippetsByTag;
 }
 
 static XCSnippetController *sharedInstance;
@@ -58,7 +57,6 @@ static XCSnippetController *sharedInstance;
     [_snippets insertObject:snippet atIndex:index];
     
     [snippet addObserver:self forKeyPath:@"tags" options:0 context:NULL];
-    [self _updateTagsForSnippet:snippet];
     [self _saveSnippet:snippet];
     [self _save];
 }
@@ -69,7 +67,6 @@ static XCSnippetController *sharedInstance;
     [_snippets removeObjectAtIndex:index];
     
     [snippet removeObserver:self forKeyPath:@"tags"];
-    [self _cleanUpTags];
     [[NSFileManager defaultManager] removeItemAtURL:snippet._fileURL error:NULL];
     
     [self _save];
@@ -77,68 +74,48 @@ static XCSnippetController *sharedInstance;
 
 - (NSDictionary *)snippetsByTag
 {
-    return [_snippetsByTag copy];
+    NSMutableDictionary *snippetsByTag = [NSMutableDictionary new];
+    
+    [[_snippets copy] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(XCSnippet *snippet, NSUInteger idx, BOOL *stop) {
+        [snippet.tags enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *tag, NSUInteger idx, BOOL *stop) {
+            if (snippetsByTag[tag] == nil) {
+                @synchronized(snippetsByTag) {
+                    snippetsByTag[tag] = [NSMutableArray new];
+                }
+            }
+            
+            @synchronized(snippetsByTag[tag]) {
+                [snippetsByTag[tag] addObject:snippet];
+            }
+        }];
+    }];
+    
+    return snippetsByTag;
+}
+
++ (NSSet *)keyPathsForValuesAffectingSnippetsByTag
+{
+    return [NSSet setWithObject:@"tags"];
 }
 
 - (NSArray *)tags
 {
-    return [_snippetsByTag allKeys];
+    return [self valueForKeyPath:@"snippets.@distinctUnionOfArrays.tags"];
 }
 
 + (NSSet *)keyPathsForValuesAffectingTags
 {
-    return [NSSet setWithObject:@"snippetsByTag"];
+    return [NSSet setWithObject:@"snippets"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([keyPath isEqualToString:@"tags"] && [object isKindOfClass:[XCSnippet class]]) {
-        XCSnippet *snippet = object;
-        
-        [self willChangeValueForKey:@"snippetsByTag"];
-        
-        [self _updateTagsForSnippet:snippet];
-        [self _cleanUpTags];
-        
-        [self didChangeValueForKey:@"snippetsByTag"];
+        [self willChangeValueForKey:@"tags"];
+        [self didChangeValueForKey:@"tags"];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	}
-}
-
-- (void)_updateTagsForSnippet:(XCSnippet *)snippet
-{
-    for (NSString *tag in snippet.tags) {
-        if (_snippetsByTag[tag] == nil) {
-            _snippetsByTag[tag] = [NSMutableArray new];
-        }
-        
-        if (![_snippetsByTag[tag] containsObject:snippet]) {
-            [_snippetsByTag[tag] addObject:snippet];
-        }
-    }
-}
-
-- (void)_cleanUpTags
-{
-    NSDictionary *snippetsByTag = [_snippetsByTag copy];
-    
-    [self willChangeValueForKey:@"snippetsByTag"];
-    
-    [snippetsByTag enumerateKeysAndObjectsUsingBlock:^(NSString *tag, NSArray *tagSnippets, BOOL *stop) {
-        //remove old snippets from tag array
-        for (XCSnippet *snippet in tagSnippets) {
-            if (![snippet.tags containsObject:tag]) {
-                [_snippetsByTag[tag] removeObject:snippet];
-                
-                if ([_snippetsByTag[tag] count] <= 0) {
-                    [_snippetsByTag removeObjectForKey:tag];
-                }
-            }
-        }
-    }];
-    
-    [self didChangeValueForKey:@"snippetsByTag"];
 }
 
 
@@ -151,7 +128,6 @@ static XCSnippetController *sharedInstance;
 		sharedInstance = [[super alloc] init];
         
         sharedInstance->_snippets = [NSMutableArray new];
-        sharedInstance->_snippetsByTag = [NSMutableDictionary new];
         
         [sharedInstance _load];
 	});
@@ -193,11 +169,9 @@ static XCSnippetController *sharedInstance;
             [self _loadDefaultSnippets];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            for (XCSnippet *snippet in _snippets) {
-                [self _updateTagsForSnippet:snippet];
-            }
-        });
+        for (XCSnippet *snippet in _snippets) {
+            [snippet addObserver:self forKeyPath:@"tags" options:0 context:NULL];
+        }
     });
 }
 
@@ -217,8 +191,6 @@ static XCSnippetController *sharedInstance;
                 XCSnippet *snippet = [[XCSnippet alloc] _initWithURL:[NSURL fileURLWithPath:path]];
                 
                 [_snippets addObject:snippet];
-                
-                [snippet addObserver:self forKeyPath:@"tags" options:0 context:NULL];
             }
             
             [self didChangeValueForKey:@"snippets"];
@@ -240,7 +212,6 @@ static XCSnippetController *sharedInstance;
     
     for (NSDictionary *snippetInfo in snippetsInfo) {
         XCSnippet *snippet = [XCSnippet snippetWithTitle:snippetInfo[XCSnippetTitleKey] summary:snippetInfo[XCSnippetSummaryKey] body:snippetInfo[XCSnippetBodyKey]];
-        [snippet addObserver:self forKeyPath:@"tags" options:0 context:NULL];
         
         [_snippets addObject:snippet];
         [self _saveSnippet:snippet];
