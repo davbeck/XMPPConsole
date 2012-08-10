@@ -26,6 +26,8 @@
 #define XCConnectionServerKey @"Server"
 #define XCConnectionPortKey @"Port"
 
+const UInt8 XCDocumentChangedContext;
+
 
 
 @interface XCConnectionDocument ()
@@ -61,7 +63,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"connected"] && object == self.stream) {
+    if (context == &XCDocumentChangedContext) {
+        [self updateChangeCount:NSChangeDone];
+    } else if ([keyPath isEqualToString:@"connected"] && object == self.stream) {
         if (self.stream.isConnected) {
             self.connectButton.title = NSLocalizedString(@"Disconnect", nil);
             self.connectButton.keyEquivalent = @"";
@@ -95,6 +99,14 @@
 #endif
         
         _stream = [XMPPStream new];
+        
+        [self setHasUndoManager:NO];
+        
+        [self addObserver:self forKeyPath:@"password" options:0 context:(void *)&XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.myJID" options:0 context:(void *)&XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.hostName" options:0 context:(void *)&XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.hostPort" options:0 context:(void *)&XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"logsViewController.logsController.logInfo" options:0 context:(void *)&XCDocumentChangedContext];
     }
     return self;
 }
@@ -125,6 +137,8 @@
         [self connect:nil];
     }
 #endif
+    
+    [self updateChangeCount:NSChangeCleared];
 }
 
 
@@ -147,6 +161,7 @@
     if (self._fileWrapper.fileWrappers[XCLogsFolderName] != nil) {
         _logsViewController.logsController.fileWrapper = self._fileWrapper.fileWrappers[XCLogsFolderName];
     }
+    
     
     return YES;
 }
@@ -190,7 +205,6 @@
         _logsViewController.logsController.fileWrapper.preferredFilename = XCLogsFolderName;
         [self._fileWrapper addFileWrapper:_logsViewController.logsController.fileWrapper];
     }
-    
     
     
     return self._fileWrapper;

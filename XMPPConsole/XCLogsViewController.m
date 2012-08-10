@@ -121,7 +121,6 @@
 - (IBAction)changeLog:(NSPopUpButton *)sender
 {
     XCLogInfo *info = sender.selectedItem.representedObject;
-    NSLog(@"selected: %@", info);
     
     if (sender.selectedItem.representedObject == nil) {
         self.selectedLog = self.currentLog;
