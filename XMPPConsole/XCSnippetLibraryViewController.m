@@ -64,7 +64,9 @@
         } else {
             [self _updateFilter];
         }
-	} else {
+	} else if ([keyPath isEqualToString:@"tags"] && object == [XCSnippetController sharedController]) {
+        [self _updateFilter];
+    } else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	}
 }
@@ -130,6 +132,8 @@
         _snippetsController = [[NSArrayController alloc] init];
         [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
         [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
+        
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"tags" options:0 context:NULL];
     }
     
     return self;
@@ -144,6 +148,8 @@
         _snippetsController = [[NSArrayController alloc] init];
         [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
         [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
+        
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"tags" options:0 context:NULL];
     }
     return self;
 }
@@ -157,6 +163,8 @@
         _snippetsController = [[NSArrayController alloc] init];
         [_snippetsController bind:@"content" toObject:[XCSnippetController sharedController] withKeyPath:@"snippets" options:nil];
         [_snippetsController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:NULL];
+        
+        [[XCSnippetController sharedController] addObserver:self forKeyPath:@"tags" options:0 context:NULL];
     }
     return self;
 }
