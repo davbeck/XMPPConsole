@@ -12,6 +12,8 @@
 
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextView *bodyView;
 @property (weak) IBOutlet NSLayoutConstraint *infoHeight;
+@property (weak) IBOutlet NSView *editingView;
+@property (weak) IBOutlet NSView *infoView;
 
 @property (nonatomic) BOOL editing;
 

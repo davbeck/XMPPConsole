@@ -22,9 +22,25 @@
     _editing = editing;
     
     if (_editing) {
-        [self.infoHeight.animator setConstant:71.0];
+        self.editingView.hidden = NO;
+        
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            [self.infoHeight.animator setConstant:71.0];
+            [self.editingView.animator setAlphaValue:1.0];
+            [self.infoView.animator setAlphaValue:0.0];
+        } completionHandler:^{
+            self.infoView.hidden = YES;
+        }];
     } else {
-        [self.infoHeight.animator setConstant:54.0];
+        self.infoView.hidden = NO;
+        
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            [self.infoHeight.animator setConstant:54.0];
+            [self.editingView.animator setAlphaValue:0.0];
+            [self.infoView.animator setAlphaValue:1.0];
+        } completionHandler:^{
+            self.editingView.hidden = YES;
+        }];
     }
 }
 
