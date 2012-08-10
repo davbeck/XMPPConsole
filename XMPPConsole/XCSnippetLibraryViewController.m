@@ -26,6 +26,7 @@
     BOOL _animateChanges;
     BOOL _popoverMoved;
     NSArrayController *_snippetsController;
+    NSString *_selectedTag;
 }
 
 - (void)setTableView:(NSTableView *)tableView
@@ -65,6 +66,9 @@
             [self _updateFilter];
         }
 	} else if ([keyPath isEqualToString:@"tags"] && object == [XCSnippetController sharedController]) {
+        if (_selectedTag != nil) {
+            [self.filterPopUp selectItemAtIndex:[self.filterPopUp indexOfItemWithRepresentedObject:_selectedTag]];
+        }
         [self _updateFilter];
     } else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -215,6 +219,7 @@
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         XCSnippet *snippet = [XCSnippet snippetWithTitle:nil summary:nil body:nil];
         
+        _selectedTag = nil;
         [self.filterPopUp selectItemWithTag:XCSnippetAllTag];
         [self _updateFilter];
         [self.tableView reloadData];
@@ -252,8 +257,9 @@
 
 - (IBAction)changeScope:(NSPopUpButton *)sender
 {
+    _selectedTag = sender.selectedItem.representedObject;
+    
     [self _updateFilter];
-    [self.tableView reloadData];
 }
 
 
