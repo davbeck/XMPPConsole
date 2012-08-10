@@ -21,6 +21,7 @@
 		11568AF015CD8FE0009BBE6A /* Snippet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11568AEE15CD8FE0009BBE6A /* Snippet@2x.png */; };
 		1178F15E15D443D000A7AE65 /* XCSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1178F15D15D443D000A7AE65 /* XCSearchBackgroundView.m */; };
 		1182952415D444B700DF1EE8 /* SearchBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1182952315D444B700DF1EE8 /* SearchBackground.png */; };
+		1182952815D4C26C00DF1EE8 /* NSPopover+ClosePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 1182952715D4C26C00DF1EE8 /* NSPopover+ClosePopover.m */; };
 		1185385F15CE261F007AD384 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */; };
 		1185386315CF1DB8007AD384 /* DefaultSnippets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1185386215CF1DB8007AD384 /* DefaultSnippets.plist */; };
 		1185386A15CF4375007AD384 /* XCSnippetLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185386915CF4375007AD384 /* XCSnippetLibraryViewController.m */; };
@@ -159,6 +160,8 @@
 		1178F15C15D443D000A7AE65 /* XCSearchBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchBackgroundView.h; sourceTree = "<group>"; };
 		1178F15D15D443D000A7AE65 /* XCSearchBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSearchBackgroundView.m; sourceTree = "<group>"; };
 		1182952315D444B700DF1EE8 /* SearchBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SearchBackground.png; sourceTree = "<group>"; };
+		1182952615D4C26C00DF1EE8 /* NSPopover+ClosePopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPopover+ClosePopover.h"; sourceTree = "<group>"; };
+		1182952715D4C26C00DF1EE8 /* NSPopover+ClosePopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPopover+ClosePopover.m"; sourceTree = "<group>"; };
 		1185385D15CE261F007AD384 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		1185385E15CE261F007AD384 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		1185386115CE2808007AD384 /* XCSnippet_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCSnippet_Private.h; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 				11D07A8415CC923E00639604 /* XCJIDFormatter.m */,
 				11A20D4115D1E2A3009B75C7 /* XCUUID.h */,
 				11A20D4215D1E2A3009B75C7 /* XCUUID.m */,
+				1182952615D4C26C00DF1EE8 /* NSPopover+ClosePopover.h */,
+				1182952715D4C26C00DF1EE8 /* NSPopover+ClosePopover.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -848,6 +853,7 @@
 				11A20D4015D1DB10009B75C7 /* XCLogInfo.m in Sources */,
 				11A20D4315D1E2A3009B75C7 /* XCUUID.m in Sources */,
 				1178F15E15D443D000A7AE65 /* XCSearchBackgroundView.m in Sources */,
+				1182952815D4C26C00DF1EE8 /* NSPopover+ClosePopover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

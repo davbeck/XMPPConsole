@@ -196,6 +196,8 @@
         self.infoPopover.contentViewController.representedObject = _snippetsController.arrangedObjects[selectedRow];
         [self.infoPopover showRelativeToRect:rowView.bounds ofView:rowView preferredEdge:NSMaxXEdge];
     }
+    
+    [self.infoPopover.contentViewController.view.window makeFirstResponder:self.infoPopover];
 }
 
 - (IBAction)addOrRemoveSnippet:(NSSegmentedControl *)sender
@@ -268,6 +270,8 @@
 - (BOOL)popoverShouldClose:(NSPopover *)popover
 {
     if (_popoverMoved) {
+        [popover.contentViewController.view.window makeFirstResponder:popover];
+        
         _popoverMoved = NO;
         return NO;
     }
@@ -278,7 +282,7 @@
 {
     //make sure the text fields commit their edit
     NSPopover *popover = notification.object;
-    [popover.contentViewController.view.window makeFirstResponder:nil];
+    [popover.contentViewController.view.window makeFirstResponder:popover];
     
     self.infoViewController.editing = NO;
     
