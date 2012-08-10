@@ -24,23 +24,37 @@
     if (_editing) {
         self.editingView.hidden = NO;
         
-        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-            [self.infoHeight.animator setConstant:71.0];
-            [self.editingView.animator setAlphaValue:1.0];
-            [self.infoView.animator setAlphaValue:0.0];
-        } completionHandler:^{
+        if (self.view.window == nil) {
+            [self.infoHeight setConstant:71.0];
+            [self.editingView setAlphaValue:1.0];
+            [self.infoView setAlphaValue:0.0];
             self.infoView.hidden = YES;
-        }];
+        } else {
+            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                [self.infoHeight.animator setConstant:71.0];
+                [self.editingView.animator setAlphaValue:1.0];
+                [self.infoView.animator setAlphaValue:0.0];
+            } completionHandler:^{
+                self.infoView.hidden = YES;
+            }];
+        }
     } else {
         self.infoView.hidden = NO;
         
-        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-            [self.infoHeight.animator setConstant:54.0];
-            [self.editingView.animator setAlphaValue:0.0];
-            [self.infoView.animator setAlphaValue:1.0];
-        } completionHandler:^{
+        if (self.view.window == nil) {
+            [self.infoHeight setConstant:54.0];
+            [self.editingView setAlphaValue:0.0];
+            [self.infoView setAlphaValue:1.0];
             self.editingView.hidden = YES;
-        }];
+        } else {
+            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                [self.infoHeight.animator setConstant:54.0];
+                [self.editingView.animator setAlphaValue:0.0];
+                [self.infoView.animator setAlphaValue:1.0];
+            } completionHandler:^{
+                self.editingView.hidden = YES;
+            }];
+        }
     }
 }
 
@@ -79,7 +93,7 @@
 {
     [super loadView];
     
-    self.editing = NO;
+    self.editing = self.editing;
 }
 
 @end

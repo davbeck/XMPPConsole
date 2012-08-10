@@ -349,8 +349,6 @@
 
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
 {
-    info.animatesToDestination = info.draggingSource != tableView;
-    
     //this disables the "drop on" behavior
     [tableView setDropRow:row dropOperation:NSTableViewDropAbove];
     
@@ -374,23 +372,32 @@
          XCSnippet *snippet = draggingItem.item;
          
          if (info.draggingSource == tableView) {
-             NSUInteger oldIndex = [snippets indexOfObject:snippet];
+             NSUInteger oldIndex = [_snippetsController.arrangedObjects indexOfObject:snippet];
              if (oldIndex < insertionIndex) {
                  insertionIndex--;
              }
              
              [snippets removeObject:snippet];
              [snippets insertObject:snippet atIndex:insertionIndex];
-             NSUInteger newIndex = [snippets indexOfObject:snippet];
+             NSUInteger newIndex = [_snippetsController.arrangedObjects indexOfObject:snippet];
              
              [tableView moveRowAtIndex:oldIndex toIndex:newIndex];
          } else {
-             [snippets insertObject:snippet atIndex:insertionIndex];
+             snippet.title = NSLocalizedString(@"My XML Snippet", nil);
              
-             [tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:insertionIndex] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
+             [snippets insertObject:snippet atIndex:insertionIndex];
+             NSUInteger newIndex = [_snippetsController.arrangedObjects indexOfObject:snippet];
+             
+             if (newIndex != NSNotFound) {
+                 [tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:newIndex] withAnimation:NSTableViewAnimationSlideDown | NSTableViewAnimationEffectFade];
+                 
+                 [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:newIndex] byExtendingSelection:NO];
+                 [self showInfo:nil];
+                 self.infoViewController.editing = YES;
+             } else {
+                 [tableView reloadData];
+             }
          }
-         
-         draggingItem.draggingFrame = [tableView frameOfCellAtColumn:0 row:insertionIndex];
          
          insertionIndex++;
      }];
