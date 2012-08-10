@@ -108,7 +108,7 @@
             
             break;
         } case XCSnippetTagTag: {
-            [predicates addObject:[NSPredicate predicateWithFormat:@"ANY tags LIKE %@", self.filterPopUp.selectedItem.representedObject]];
+            [predicates addObject:[NSPredicate predicateWithFormat:@"ANY tags LIKE[cd] %@", self.filterPopUp.selectedItem.representedObject]];
             
             break;
         } default: {

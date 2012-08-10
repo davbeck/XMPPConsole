@@ -74,7 +74,7 @@ static XCSnippetController *sharedInstance;
 
 - (NSArray *)tags
 {
-    return [self valueForKeyPath:@"snippets.@distinctUnionOfArrays.tags"];
+    return [self valueForKeyPath:@"snippets.@distinctUnionOfArrays.tags.lowercaseString"];
 }
 
 + (NSSet *)keyPathsForValuesAffectingTags
