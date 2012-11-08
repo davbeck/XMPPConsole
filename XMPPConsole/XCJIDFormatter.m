@@ -15,7 +15,7 @@
 - (NSString *)stringForObjectValue:(id)obj
 {
     if ([obj isKindOfClass:[XMPPJID class]]) {
-        return [(XMPPJID *)obj bare];
+        return [(XMPPJID *)obj full];
     }
     
     return [obj description];
