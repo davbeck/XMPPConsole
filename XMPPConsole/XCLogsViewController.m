@@ -60,7 +60,7 @@
     
 }
 
-- (void)_scrollToBottom;
+- (void)_scrollToBottom
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSScrollView *scrollView = self.logView.enclosingScrollView;

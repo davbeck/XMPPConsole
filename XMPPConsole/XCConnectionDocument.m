@@ -51,6 +51,16 @@ const UInt8 XCDocumentChangedContext;
     }
 }
 
+- (void)setPort:(NSNumber *)port
+{
+	self.stream.hostPort = [port unsignedShortValue];
+}
+
+- (NSNumber *)port
+{
+	return @(self.stream.hostPort);
+}
+
 - (BOOL)connecting
 {
     return !self.stream.connected && !self.stream.disconnected;
@@ -195,6 +205,7 @@ const UInt8 XCDocumentChangedContext;
     
     NSFileWrapper *connectionWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:connectionData];
     [connectionWrapper setPreferredFilename:XCConnectionInfoFileName];
+	[self._fileWrapper removeFileWrapper:[self._fileWrapper fileWrappers][XCConnectionInfoFileName]];
     [self._fileWrapper addFileWrapper:connectionWrapper];
     
     

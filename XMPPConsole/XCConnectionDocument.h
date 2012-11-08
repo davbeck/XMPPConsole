@@ -27,6 +27,7 @@
 
 @property (readonly) BOOL connecting;
 @property (copy) NSString *password;
+@property (nonatomic, copy) NSNumber *port;
 
 - (IBAction)connectOrDisconnect:(id)sender;
 - (IBAction)connect:(id)sender;
