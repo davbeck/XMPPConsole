@@ -76,7 +76,7 @@
     NSArray *logInfo = self.logInfo;
     
     for (XCLogInfo *info in logInfo) {
-        if (self.fileWrapper.fileWrappers[info.UUID] == nil) {
+        if (self.fileWrapper.fileWrappers[info.UUID] == nil && info.fileWrapper != nil) {
             [self.fileWrapper addFileWrapper:info.fileWrapper];
         }
     }
