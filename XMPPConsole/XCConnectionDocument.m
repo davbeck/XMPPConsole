@@ -58,6 +58,10 @@ void *XCDocumentChangedContext = &XCDocumentChangedContext;
 
 - (NSNumber *)port
 {
+	if (self.stream.hostPort == 0) {
+		return nil;
+	}
+	
 	return @(self.stream.hostPort);
 }
 
