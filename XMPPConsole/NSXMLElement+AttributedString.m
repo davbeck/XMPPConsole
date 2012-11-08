@@ -64,6 +64,13 @@
     return string;
 }
 
+- (NSAttributedString *)_blockTextAttributedString:(NSXMLNode *)blockText
+{
+	NSString *text = [NSString stringWithFormat:@"\t%@\n", [blockText.XMLString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+	
+	return [[NSAttributedString alloc] initWithString:text attributes:@{ NSForegroundColorAttributeName : [self _textColor] }];
+}
+
 - (NSAttributedString *)XMLAttributedString
 {
     NSMutableAttributedString *string = [NSMutableAttributedString new];
@@ -111,9 +118,7 @@
                 
                 [string appendAttributedString:childString];
             } else if ([child kind] == NSXMLTextKind) {
-                [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t"]];
-                [string appendAttributedString:[[NSAttributedString alloc] initWithString:child.XMLString attributes:@{ NSForegroundColorAttributeName : [self _textColor] }]];
-                [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+                [string appendAttributedString:[self _blockTextAttributedString:child]];
             } else if ([child kind] == NSXMLCommentKind) {
                 [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t"]];
                 [string appendAttributedString:[[NSAttributedString alloc] initWithString:child.XMLString attributes:@{ NSForegroundColorAttributeName : [self _commentColor] }]];
