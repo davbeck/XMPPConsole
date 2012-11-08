@@ -26,7 +26,7 @@
 #define XCConnectionServerKey @"Server"
 #define XCConnectionPortKey @"Port"
 
-const UInt8 XCDocumentChangedContext;
+void *XCDocumentChangedContext = &XCDocumentChangedContext;
 
 
 
@@ -91,6 +91,12 @@ const UInt8 XCDocumentChangedContext;
 - (void)dealloc
 {
     [self.stream removeObserver:self forKeyPath:@"connected"];
+	
+	[self removeObserver:self forKeyPath:@"password" context:XCDocumentChangedContext];
+	[self removeObserver:self forKeyPath:@"stream.myJID" context:XCDocumentChangedContext];
+	[self removeObserver:self forKeyPath:@"stream.hostName" context:XCDocumentChangedContext];
+	[self removeObserver:self forKeyPath:@"stream.hostPort" context:XCDocumentChangedContext];
+	[self removeObserver:self forKeyPath:@"logsViewController.logsController.logInfo" context:XCDocumentChangedContext];
 }
 
 + (void)initialize
@@ -112,11 +118,11 @@ const UInt8 XCDocumentChangedContext;
         
         [self setHasUndoManager:NO];
         
-        [self addObserver:self forKeyPath:@"password" options:0 context:(void *)&XCDocumentChangedContext];
-        [self addObserver:self forKeyPath:@"stream.myJID" options:0 context:(void *)&XCDocumentChangedContext];
-        [self addObserver:self forKeyPath:@"stream.hostName" options:0 context:(void *)&XCDocumentChangedContext];
-        [self addObserver:self forKeyPath:@"stream.hostPort" options:0 context:(void *)&XCDocumentChangedContext];
-        [self addObserver:self forKeyPath:@"logsViewController.logsController.logInfo" options:0 context:(void *)&XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"password" options:0 context:XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.myJID" options:0 context:XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.hostName" options:0 context:XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"stream.hostPort" options:0 context:XCDocumentChangedContext];
+        [self addObserver:self forKeyPath:@"logsViewController.logsController.logInfo" options:0 context:XCDocumentChangedContext];
     }
     return self;
 }
